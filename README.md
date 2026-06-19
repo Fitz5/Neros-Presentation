@@ -28,3 +28,7 @@ Keep layout and styling changes in `src/deck/theme.ts` and renderer/exporter cod
 Put screenshots in `public/screenshots/`. Use `npm run import:screenshot -- "C:\path\to\screenshot.png"` to copy and rename the file to `demo-screenshot.png`.
 
 Edit slide copy, captions, speaker notes, and screenshot references in `src/deck/content.ts`.
+
+## Discord Conversation Sources
+
+Use `sources/discord-convo/` to organize the copied Discord Markdown, raw screenshots, renamed screenshots, blackbox logs, and story notes. The full source-to-final mapping is in `sources/discord-convo/notes/asset_manifest.md`.
