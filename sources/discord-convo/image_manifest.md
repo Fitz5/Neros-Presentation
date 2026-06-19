@@ -1,6 +1,6 @@
 # Discord Image Manifest
 
-The full image/log mapping is now tracked in `notes/asset_manifest.md`.
+The full image/log mapping is tracked in `notes/asset_manifest.csv`.
 
 Use this file for deck-level decisions: which images are likely presentation candidates, appendix candidates, or just source evidence.
 

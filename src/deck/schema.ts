@@ -99,6 +99,7 @@ const imageBlockSchema = z.object({
   alt: z.string().min(1),
   title: z.string().optional(),
   caption: z.string().optional(),
+  labels: z.tuple([z.string().min(1), z.string().min(1)]).optional(),
   aspectRatio: z.number().positive().optional(),
   ...buildable,
 });
@@ -134,7 +135,7 @@ export const SlideSchema = z.object({
   layout: z.enum(["title", "content", "comparison", "timeline", "closing"]),
   estimatedMinutes: z.number().positive().optional(),
   steps: z.array(StepSchema).optional(),
-  blocks: z.array(BlockSchema).min(1),
+  blocks: z.array(BlockSchema),
   notes: z.array(z.string()).optional(),
 });
 

@@ -1,6 +1,7 @@
 "Type","Index","FinalPath","Source","Width","Height","Bytes"
 "image","2","images/renamed/2026-04-16-post-filter-pid-roll-pitch-step-response.png","alright i made the changes you guys proposed above\Screenshot_2026-04-16_at_5.27.16_PM.png.url","2288","806","205370"
 "image","3","images/renamed/2026-04-16-post-filter-pid-frequency-spectrum.png","alright i made the changes you guys proposed above\Screenshot_2026-04-16_at_5.34.08_PM.png.url","2170","1654","378920"
+"image","4","images/renamed/04-master-multiplier-wobble-test.png","legacy deck crop","777","313","35649"
 "image","5","images/renamed/2026-04-19-final-pd-mm-balance-step-response.png","alright, final PD + MMbalance\image.png.url","1838","666","93020"
 "image","6","images/renamed/2026-04-15-overdamped-step-response-baseline.png","as hillbilly suffested you are bit over-damped here\PTB_FIGS_2026-04-15-6.png.url","4533","2526","235681"
 "image","7","images/renamed/2026-04-15-overdamped-step-response-with-pid-error.png","as hillbilly suffested you are bit over-damped here\PTB_FIGS_2026-04-15-7.png.url","4533","2526","204349"

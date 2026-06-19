@@ -179,6 +179,40 @@ function drawTitle(slide: PptxSlide, renderedSlide: RenderedSlide) {
 }
 
 function drawBlocks(pptx: Pptx, slide: PptxSlide, renderedSlide: RenderedSlide) {
+  if (renderedSlide.layout === "comparison" && renderedSlide.blocks[0]?.type === "image") {
+    const contentY = 2.08;
+    const contentWidth = page.width - page.marginX * 2;
+    const gap = 0.32;
+    const leftWidth = 6.4;
+    const rightX = page.marginX + leftWidth + gap;
+    const rightWidth = contentWidth - leftWidth - gap;
+
+    drawBlock(
+      pptx,
+      slide,
+      renderedSlide.blocks[0],
+      page.marginX,
+      contentY,
+      leftWidth,
+      renderedSlide.layout,
+    );
+
+    let rightY = contentY;
+    for (const block of renderedSlide.blocks.slice(1)) {
+      const height = drawBlock(
+        pptx,
+        slide,
+        block,
+        rightX,
+        rightY,
+        rightWidth,
+        renderedSlide.layout,
+      );
+      rightY += height + 0.14;
+    }
+    return;
+  }
+
   let cursorY = renderedSlide.layout === "title" ? 2.18 : page.contentY;
   const contentWidth = page.width - page.marginX * 2;
 
@@ -716,6 +750,38 @@ function drawImage(
       margin: 0,
     });
     cursorY += 0.34;
+  }
+
+  if (block.labels) {
+    const gap = 0.08;
+    const labelWidth = (imageWidth - gap) / 2;
+
+    block.labels.forEach((label, index) => {
+      const labelX = x + index * (labelWidth + gap);
+      slide.addShape(pptx.ShapeType.roundRect, {
+        x: labelX,
+        y: cursorY,
+        w: labelWidth,
+        h: 0.24,
+        rectRadius: 0.08,
+        fill: { color: pptColor(theme.colors.accent), transparency: 88 },
+        line: { color: pptColor(theme.colors.accent), transparency: 70 },
+      });
+      slide.addText(label.toUpperCase(), {
+        x: labelX + 0.08,
+        y: cursorY + 0.05,
+        w: labelWidth - 0.16,
+        h: 0.1,
+        align: "center",
+        bold: true,
+        color: pptColor(theme.colors.accent),
+        fit: "shrink",
+        fontFace: "Aptos",
+        fontSize: 7,
+        margin: 0,
+      });
+    });
+    cursorY += 0.32;
   }
 
   slide.addShape(pptx.ShapeType.roundRect, {

@@ -60,7 +60,7 @@ button {
 
 .progressHeader {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: 0.55cqw;
   align-items: center;
 }
@@ -154,6 +154,62 @@ button {
 
 .layout-closing .slideBlocks {
   align-content: center;
+}
+
+.layout-comparison .slideBlocks {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 0.8cqw 1.2cqw;
+  align-content: center;
+}
+
+.layout-comparison .imageBlock {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: start;
+  width: 100%;
+}
+
+.layout-comparison .bulletBlock,
+.layout-comparison .calloutBlock {
+  grid-column: 2;
+}
+
+.layout-comparison .bulletBlock {
+  gap: 0.45cqw;
+  padding: 0.75cqw 0.85cqw;
+  border: 1px solid rgba(29, 37, 40, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.layout-comparison .bulletList,
+.layout-comparison .bulletItem {
+  gap: 0.45cqw;
+}
+
+.layout-comparison .bulletItem strong {
+  font-size: 1.05cqw;
+}
+
+.layout-comparison .bulletItem p {
+  font-size: 0.9cqw;
+}
+
+.layout-comparison .calloutBlock {
+  padding: 0.8cqw 0.95cqw;
+}
+
+.layout-comparison .calloutBlock p {
+  font-size: 1.05cqw;
+}
+
+.layout-comparison .twoColumnBlock,
+.layout-comparison .metricRow,
+.layout-comparison .timelineBlock,
+.layout-comparison .headlineBlock,
+.layout-comparison .quoteBlock {
+  grid-column: 1 / -1;
 }
 
 .headlineBlock {
@@ -384,6 +440,23 @@ button {
   color: #1d2528;
   font-size: 1.25cqw;
   line-height: 1.15;
+}
+
+.imagePanelLabels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45cqw;
+}
+
+.imagePanelLabels span {
+  padding: 0.35cqw 0.55cqw;
+  border-radius: 999px;
+  color: #0e7c7b;
+  background: rgba(14, 124, 123, 0.1);
+  font-size: 0.86cqw;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .imageBlock img {

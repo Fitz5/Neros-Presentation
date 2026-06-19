@@ -4,10 +4,10 @@ import { expandDeck } from "./expand";
 import { validateDeck, type DeckInput } from "./schema";
 
 describe("expandDeck", () => {
-  it("expands authored build steps into rendered slides", () => {
+  it("numbers the authored deck from start to finish", () => {
     const rendered = expandDeck(validateDeck(deck));
 
-    expect(rendered.length).toBeGreaterThan(deck.slides.length);
+    expect(rendered.length).toBeGreaterThanOrEqual(deck.slides.length);
     expect(rendered[0].sequenceNumber).toBe(1);
     expect(rendered.at(-1)?.totalSlides).toBe(rendered.length);
   });

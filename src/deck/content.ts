@@ -1,483 +1,155 @@
 import type { DeckInput } from "./schema";
 
+const deckImage = (name: string) => `/screenshots/deck/${name}`;
+
 export const deck = {
   meta: {
-    title: "Neros Technical Interview",
-    subtitle: "45-minute technical presentation",
+    title: "Diagnosing Jello in an Action-Camera Drone",
+    subtitle: "Working deck",
     presenter: "Dash",
-    dateLabel: "Next week",
+    dateLabel: "Draft",
     durationMinutes: 45,
   },
   sections: [
-    { id: "context", title: "Context and Goals", shortTitle: "Context" },
-    { id: "architecture", title: "Architecture and Design", shortTitle: "Architecture" },
-    { id: "deep-dive", title: "Technical Deep Dive", shortTitle: "Deep Dive" },
-    { id: "execution", title: "Execution and Reliability", shortTitle: "Execution" },
-    { id: "discussion", title: "Tradeoffs and Discussion", shortTitle: "Discussion" },
+    { id: "context", title: "Objective", shortTitle: "Objective" },
+    { id: "architecture", title: "Problem", shortTitle: "Problem" },
+    { id: "discussion", title: "Solution", shortTitle: "Solution" },
   ],
   slides: [
     {
-      id: "title",
+      id: "objective",
       sectionId: "context",
-      title: "Neros Technical Interview",
-      subtitle: "A precise walkthrough of problem framing, architecture, tradeoffs, and execution.",
+      title: "Objective",
+      subtitle: "Build a drone that can carry an action camera without compromising image quality.",
       layout: "title",
       estimatedMinutes: 2,
       blocks: [
         {
           type: "headline",
-          eyebrow: "45 minutes",
-          text: "A technical story built for clarity under interview pressure",
+          eyebrow: "Mission requirement",
+          text: "Stable footage is part of the aircraft's performance",
           subtext:
-            "The deck is generated from typed data so structure, timing, notes, and progress tracking stay synchronized.",
-        },
-        {
-          type: "metricRow",
-          metrics: [
-            { id: "topics", value: "5", label: "Topics" },
-            { id: "duration", value: "45", label: "Minutes", tone: "accent" },
-            { id: "artifact", value: "PPTX", label: "Submission format", tone: "warning" },
-          ],
+            "The platform succeeds only when propulsion, structure, controls, and camera can operate together without visible vibration.",
         },
       ],
       notes: [
-        "Open with the purpose of the talk and the structure.",
-        "Emphasize that the presentation is meant to be technical, concise, and interactive.",
+        "Sketch slide: refine the mission, range, endurance, payload, and image-quality requirements next.",
       ],
     },
     {
-      id: "agenda",
-      sectionId: "context",
-      title: "Talk Map",
-      subtitle: "The header tracks exactly where we are as the conversation moves.",
-      layout: "timeline",
-      estimatedMinutes: 3,
-      steps: [
-        { id: "context-step", label: "Context" },
-        { id: "architecture-step", label: "Architecture" },
-        { id: "deep-dive-step", label: "Deep dive" },
-        { id: "execution-step", label: "Execution" },
-        { id: "discussion-step", label: "Discussion" },
-      ],
-      blocks: [
-        {
-          type: "timeline",
-          items: [
-            {
-              id: "context-item",
-              label: "01",
-              title: "Context",
-              description: "Frame the objective, constraints, and evaluation target.",
-              showAt: "context-step",
-            },
-            {
-              id: "architecture-item",
-              label: "02",
-              title: "Architecture",
-              description: "Explain the system shape and the most important interfaces.",
-              showAt: "architecture-step",
-            },
-            {
-              id: "deep-dive-item",
-              label: "03",
-              title: "Deep Dive",
-              description: "Go one layer lower on the hardest technical decisions.",
-              showAt: "deep-dive-step",
-            },
-            {
-              id: "execution-item",
-              label: "04",
-              title: "Execution",
-              description: "Cover testing, delivery, and operational reliability.",
-              showAt: "execution-step",
-            },
-            {
-              id: "discussion-item",
-              label: "05",
-              title: "Discussion",
-              description: "Make tradeoffs explicit and invite targeted questions.",
-              showAt: "discussion-step",
-            },
-          ],
-        },
-      ],
-      notes: ["Use this slide to set expectations and create a clean mental map for the interviewers."],
-    },
-    {
-      id: "success-criteria",
-      sectionId: "context",
-      title: "What This Talk Should Prove",
-      subtitle: "The goal is not just to show a project; it is to show engineering judgment.",
-      layout: "content",
-      estimatedMinutes: 4,
-      steps: [
-        { id: "judgment", label: "Judgment" },
-        { id: "implementation", label: "Implementation" },
-        { id: "communication", label: "Communication" },
-      ],
-      blocks: [
-        {
-          type: "bullets",
-          tone: "accent",
-          items: [
-            {
-              id: "judgment-point",
-              text: "I can turn an ambiguous technical goal into a clear system boundary.",
-              detail: "That includes naming constraints, risks, and success criteria before building.",
-              showAt: "judgment",
-            },
-            {
-              id: "implementation-point",
-              text: "I can choose boring, durable tools where reliability matters.",
-              detail: "The implementation should be easy to inspect, modify, test, and submit.",
-              showAt: "implementation",
-            },
-            {
-              id: "communication-point",
-              text: "I can make complex work legible to collaborators.",
-              detail: "Progress, tradeoffs, and failure modes are visible instead of hidden in code.",
-              showAt: "communication",
-            },
-          ],
-        },
-      ],
-      notes: ["This slide should connect the presentation style to the qualities Neros is likely evaluating."],
-    },
-    {
-      id: "system-boundary",
+      id: "camera-jello",
       sectionId: "architecture",
-      title: "System Boundary",
-      subtitle: "Separate authoring, rendering, and export so each part stays understandable.",
+      title: "Jello in the camera footage",
+      layout: "content",
+      estimatedMinutes: 1,
+      blocks: [],
+      notes: [
+        "Intentionally blank for now. Add the representative camera frame or short video example in a later pass.",
+      ],
+    },
+    {
+      id: "spectral-evidence",
+      sectionId: "architecture",
+      title: "Power Spectral Density 200Hz Resonance",
       layout: "comparison",
-      estimatedMinutes: 4,
-      steps: [
-        { id: "authoring", label: "Authoring" },
-        { id: "rendering", label: "Rendering" },
-        { id: "export", label: "Export" },
-      ],
-      blocks: [
-        {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "Human and agent inputs",
-              items: [
-                {
-                  id: "typed-deck",
-                  text: "Typed deck data",
-                  detail: "Sections, slides, notes, and build steps live in one data model.",
-                  showAt: "authoring",
-                },
-                {
-                  id: "theme-tokens",
-                  text: "Theme tokens",
-                  detail: "Colors, fonts, and spacing are centralized.",
-                  showAt: "authoring",
-                },
-                {
-                  id: "validation",
-                  text: "Validation",
-                  detail: "Broken references fail before preview or export.",
-                  showAt: "rendering",
-                },
-              ],
-            },
-            {
-              title: "Generated outputs",
-              items: [
-                {
-                  id: "browser-preview",
-                  text: "Browser preview",
-                  detail: "Live viewing, keyboard navigation, and presenter notes.",
-                  showAt: "rendering",
-                },
-                {
-                  id: "pptx-output",
-                  text: "PPTX file",
-                  detail: "Submit-ready deck with progress header and speaker notes.",
-                  showAt: "export",
-                },
-                {
-                  id: "future-pdf",
-                  text: "Optional PDF path",
-                  detail: "Kept separate from the core so local Office tooling is not required.",
-                  showAt: "export",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      notes: ["The important design move is keeping content declarative and rendering deterministic."],
-    },
-    {
-      id: "core-design",
-      sectionId: "architecture",
-      title: "Core Design Choice",
-      subtitle: "Robust builds beat fragile native animation automation.",
-      layout: "content",
-      estimatedMinutes: 4,
-      blocks: [
-        {
-          type: "callout",
-          label: "Default animation model",
-          text:
-            "Every reveal is represented as another rendered slide. It behaves like animation in the room, but exports as ordinary PowerPoint slides.",
-          tone: "accent",
-        },
-        {
-          type: "bullets",
-          title: "Why this is the right default",
-          tone: "success",
-          items: [
-            {
-              id: "compatibility",
-              text: "Compatible with PowerPoint, Keynote, Google Slides import, and PDF export workflows.",
-            },
-            {
-              id: "reviewability",
-              text: "Agents can inspect and modify build steps without editing opaque OOXML animation internals.",
-            },
-            {
-              id: "recoverability",
-              text: "If a viewer strips animations, the story still works because each state is a complete slide.",
-            },
-          ],
-        },
-      ],
-      notes: [
-        "This is the tradeoff to defend if someone asks why not native PowerPoint animations.",
-        "Native animation support can be added later through a template, but should not be the foundation.",
-      ],
-    },
-    {
-      id: "data-flow",
-      sectionId: "architecture",
-      title: "Data Flow",
-      subtitle: "One source of truth generates both visual experiences.",
-      layout: "timeline",
-      estimatedMinutes: 3,
-      blocks: [
-        {
-          type: "timeline",
-          items: [
-            {
-              id: "deck-data",
-              label: "01",
-              title: "Deck data",
-              description: "Sections, slides, blocks, steps, timing, and notes.",
-            },
-            {
-              id: "schema",
-              label: "02",
-              title: "Schema validation",
-              description: "Catch missing sections, invalid step references, and malformed blocks.",
-            },
-            {
-              id: "expansion",
-              label: "03",
-              title: "Step expansion",
-              description: "Turn authored slides into the final rendered slide sequence.",
-            },
-            {
-              id: "outputs",
-              label: "04",
-              title: "Preview and PPTX",
-              description: "Render the same sequence in browser and PowerPoint.",
-            },
-          ],
-        },
-      ],
-      notes: ["This is the simplest way to explain why the deck remains agent-editable."],
-    },
-    {
-      id: "deep-dive-validation",
-      sectionId: "deep-dive",
-      title: "Deep Dive: Validation",
-      subtitle: "The project should fail early when content and structure drift.",
-      layout: "content",
-      estimatedMinutes: 5,
-      steps: [
-        { id: "schema-step", label: "Schema" },
-        { id: "integrity-step", label: "Integrity" },
-        { id: "export-step", label: "Export safety" },
-      ],
-      blocks: [
-        {
-          type: "bullets",
-          tone: "accent",
-          items: [
-            {
-              id: "schema-validation",
-              text: "Zod validates the shape of deck content.",
-              detail: "Block types, required fields, section limits, and layout names are checked.",
-              showAt: "schema-step",
-            },
-            {
-              id: "integrity-validation",
-              text: "Custom integrity checks validate relationships.",
-              detail: "Slide section ids and build-step references must resolve.",
-              showAt: "integrity-step",
-            },
-            {
-              id: "export-validation",
-              text: "Export runs validation before writing the PPTX.",
-              detail: "The generated artifact is never produced from a known-bad deck.",
-              showAt: "export-step",
-            },
-          ],
-        },
-      ],
-      notes: [
-        "This slide is a good place to talk about avoiding silent failure.",
-        "Mention that the same validation path runs before preview/export/test.",
-      ],
-    },
-    {
-      id: "deep-dive-progress",
-      sectionId: "deep-dive",
-      title: "Deep Dive: Progress Header",
-      subtitle: "A small component carries a lot of audience orientation.",
-      layout: "comparison",
-      estimatedMinutes: 4,
-      blocks: [
-        {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "Inputs",
-              items: [
-                {
-                  id: "section-order",
-                  text: "Ordered section list",
-                  detail: "Five topics maximum keeps the header legible.",
-                },
-                {
-                  id: "slide-section",
-                  text: "Current slide section id",
-                  detail: "Each rendered slide knows its active section.",
-                },
-              ],
-            },
-            {
-              title: "Behavior",
-              items: [
-                {
-                  id: "active-topic",
-                  text: "Highlight the active topic",
-                  detail: "The same logic is used in React and PPTX export.",
-                },
-                {
-                  id: "past-future",
-                  text: "De-emphasize completed and upcoming topics",
-                  detail: "Audience members can rejoin the talk quickly after questions.",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      notes: ["Tie this back to the user's original requirement: progress over many slides."],
-    },
-    {
-      id: "screenshot-example",
-      sectionId: "deep-dive",
-      title: "Spectral Analyzer Example",
-      subtitle: "A concrete screen gives the technical deep dive something specific to anchor on.",
-      layout: "content",
-      estimatedMinutes: 3,
+      estimatedMinutes: 2,
       blocks: [
         {
           type: "image",
-          src: "/screenshots/demo-screenshot.png",
-          alt: "Spectral analyzer screenshot showing the master multiplier change.",
-          title: "Master Multiplier Change",
-          caption: "Spectral analyzer: master multiplier change example.",
-          aspectRatio: 2.4824,
+          src: deckImage("btfl001-spectral-200hz-peaks.png"),
+          alt: "Roll and pitch gyro spectral power plots with strong peaks near 200 hertz.",
+          caption: "BTFL_001.01 power spectral density",
+          aspectRatio: 1.2983,
+        },
+        {
+          type: "bullets",
+          title: "200 Hz peak",
+          tone: "accent",
+          items: [
+            {
+              id: "spectral-peak",
+              text: "Roll reaches high amplitude 0 dB at the 200 Hz resonance. ",
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "Roll and Pitch share similar resonance",
+          tone: "warning",
+          items: [
+            {
+              id: "spectral-shared",
+              text: "The same 200 Hz mode appears in both roll and pitch.",
+              detail: "The pitch trace shares the resonance, but not the same peak height.",
+            },
+          ],
         },
       ],
       notes: [
-        "Use this slide as a concrete technical artifact. Replace the title, subtitle, caption, and notes once the final story is locked.",
+        "Keep this slide observational: both axes contain concentrated energy near 200 Hz. The next slide explains why that frequency can become visible camera jello.",
+        "Do not describe both peaks as 0 dB. Roll approaches 0 dB; pitch peaks lower on this relative spectral-density scale.",
       ],
     },
     {
-      id: "failure-modes",
-      sectionId: "deep-dive",
-      title: "Failure Modes and Guardrails",
-      subtitle: "The repo should make bad states obvious.",
-      layout: "content",
+      id: "rolling-shutter-jello",
+      sectionId: "architecture",
+      title: "Why a 200 Hz vibration becomes visible jello",
+      subtitle:
+        "Assume 4K/60: Tframe = 16.67 ms · Tscan ≈ 16 ms · exposure = 1 ms · measured peak fvib = 200 Hz at 0 dB.",
+      layout: "comparison",
       estimatedMinutes: 4,
       blocks: [
+        {
+          type: "image",
+          src: deckImage("rolling-shutter-jello-model.png"),
+          alt: "Hand-drawn diagrams showing a vibration wave during rolling-shutter scan and its sampled alias.",
+          labels: ["Waves per frame", "Aliasing"],
+          caption: "Left: phase accumulated during the sensor scan. Right: motion sampled once per video frame.",
+          aspectRatio: 2.3216,
+        },
         {
           type: "bullets",
-          tone: "danger",
+          title: "1 · Waves per frame",
+          tone: "accent",
           items: [
             {
-              id: "unknown-reference",
-              text: "Unknown section or build step",
-              detail: "Validation fails with a concrete slide id and reference.",
+              id: "waves-equation",
+              text: "n_waves = Tscan × fvib",
+              detail: "(0.016 s)(200 Hz) = 3.2 waves / frame",
             },
-            {
-              id: "tooling-drift",
-              text: "Local tool mismatch",
-              detail: "Dependencies avoid Node requirements beyond the installed runtime.",
-            },
-            {
-              id: "visual-drift",
-              text: "Preview/export divergence",
-              detail: "Both outputs use the same expanded slide sequence and theme tokens.",
-            },
-            {
-              id: "manual-last-mile",
-              text: "PPTX review still matters",
-              detail: "Automated export creates the file; final human review happens in PowerPoint.",
-            },
-          ],
-        },
-      ],
-      notes: ["This is where the deck can show mature engineering taste: name the things that can go wrong."],
-    },
-    {
-      id: "testing-strategy",
-      sectionId: "execution",
-      title: "Testing Strategy",
-      subtitle: "Test the durable contracts, not incidental CSS details.",
-      layout: "content",
-      estimatedMinutes: 4,
-      blocks: [
-        {
-          type: "metricRow",
-          metrics: [
-            { id: "schema-tests", value: "1", label: "Schema test suite", tone: "accent" },
-            { id: "expand-tests", value: "1", label: "Expansion test suite", tone: "success" },
-            { id: "smoke-export", value: "1", label: "PPTX smoke path", tone: "warning" },
           ],
         },
         {
           type: "bullets",
+          title: "2 · Temporal alias",
+          tone: "warning",
           items: [
             {
-              id: "validate",
-              text: "Validate every authored deck before build and export.",
-            },
-            {
-              id: "count",
-              text: "Assert expanded slide counts and sequence numbers.",
-            },
-            {
-              id: "manual-review",
-              text: "Open generated PPTX for final visual review before submission.",
+              id: "alias-equation",
+              text: "falias = |fvib − N × ffps|,  N = round(200 / 60) = 3",
+              detail: "|200 − 3(60)| = 20 Hz",
             },
           ],
         },
+        {
+          type: "callout",
+          label: "Result",
+          text: "The 200 Hz mechanical mode can appear as 3.2 rolling-shutter waves evolving at a 20 Hz alias.",
+          tone: "success",
+        },
       ],
-      notes: ["Do not overclaim automation. PPTX visual review is still a real acceptance step."],
+      notes: [
+        "Tscan = 16 ms is an explicit assumption until the exact action-camera model and 4K60 mode are measured or documented.",
+        "A 1/1000 s exposure spans 0.2 vibration cycles: (0.001 s)(200 Hz) = 0.2. The short exposure helps preserve the distortion instead of averaging it away.",
+        "The 0 dB peak is relative spectral magnitude, not an absolute displacement measurement. This math establishes a frequency-consistent mechanism; it does not by itself prove amplitude or causation.",
+        "Reference checked: Gyroflow's community lens profiles contain camera- and mode-specific readout values, including approximately 16.6 ms for some older GoPro 4K modes, but no authoritative exact 4K60 value was found for the unspecified camera: https://github.com/gyroflow/lens_profiles",
+      ],
     },
     {
-      id: "iteration-loop",
-      sectionId: "execution",
-      title: "Iteration Loop",
-      subtitle: "The fastest path from idea to submission artifact is short and repeatable.",
+      id: "solution-path",
+      sectionId: "discussion",
+      title: "Solution path",
+      subtitle: "Treat the artifact as a coupled mechanical, control, and camera-sampling problem.",
       layout: "timeline",
       estimatedMinutes: 3,
       blocks: [
@@ -485,103 +157,34 @@ export const deck = {
           type: "timeline",
           items: [
             {
-              id: "edit",
-              label: "Edit",
-              title: "Update deck data",
-              description: "Add content, steps, speaker notes, or sections.",
+              id: "diagnose",
+              label: "01",
+              title: "Diagnose",
+              description: "Locate the 200 Hz peak and identify when it appears in flight.",
             },
             {
-              id: "preview",
-              label: "Preview",
-              title: "Run the browser view",
-              description: "Navigate the full rendered sequence and tune pacing.",
+              id: "trace",
+              label: "02",
+              title: "Trace",
+              description: "Separate the source, structural path, controller response, and camera artifact.",
             },
             {
-              id: "validate",
-              label: "Validate",
-              title: "Run schema and integrity checks",
-              description: "Catch broken references before export.",
+              id: "change",
+              label: "03",
+              title: "Change",
+              description: "Modify the highest-leverage mechanical or control parameter.",
             },
             {
-              id: "export",
-              label: "Export",
-              title: "Generate PPTX",
-              description: "Submit the generated file after final review.",
+              id: "verify",
+              label: "04",
+              title: "Verify",
+              description: "Confirm the peak and the visible jello both decrease.",
             },
           ],
-        },
-      ],
-      notes: ["This slide describes how you will use the repo during prep week."],
-    },
-    {
-      id: "tradeoffs",
-      sectionId: "discussion",
-      title: "Tradeoffs",
-      subtitle: "The implementation is intentionally conservative.",
-      layout: "comparison",
-      estimatedMinutes: 4,
-      blocks: [
-        {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "Chosen",
-              items: [
-                {
-                  id: "pptxgenjs",
-                  text: "PptxGenJS for export",
-                  detail: "Mainstream, MIT-licensed, and focused on generating PowerPoint files.",
-                },
-                {
-                  id: "step-slides",
-                  text: "Step slides for builds",
-                  detail: "Predictable across viewers and export/import paths.",
-                },
-              ],
-            },
-            {
-              title: "Deferred",
-              items: [
-                {
-                  id: "native-animation",
-                  text: "Native animation XML",
-                  detail: "Powerful, but not a stable foundation for agent edits.",
-                },
-                {
-                  id: "pdf-automation",
-                  text: "Automated PDF conversion",
-                  detail: "Depends on local PowerPoint or LibreOffice availability.",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      notes: ["This is a good slide for showing you can reason about engineering constraints."],
-    },
-    {
-      id: "closing",
-      sectionId: "discussion",
-      title: "Discussion",
-      subtitle: "The deck is built to make the technical conversation easier to steer.",
-      layout: "closing",
-      estimatedMinutes: 4,
-      blocks: [
-        {
-          type: "headline",
-          text: "Clear structure, reliable output, and room for technical depth",
-          subtext:
-            "From here, the content can be specialized around the exact project, role expectations, and Neros interview prompt.",
-        },
-        {
-          type: "quote",
-          quote: "The best presentation tooling disappears once the conversation starts.",
-          attribution: "Working principle for this repo",
         },
       ],
       notes: [
-        "End by inviting questions on architecture, reliability, testing, or tradeoffs.",
-        "If there is extra time, open the browser preview or generated PPTX and show the workflow.",
+        "Sketch slide: replace this process scaffold with the actual solution once the intervention sequence is finalized.",
       ],
     },
   ],

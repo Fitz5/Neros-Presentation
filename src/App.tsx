@@ -313,6 +313,13 @@ function BlockView({ block }: { block: Block }) {
       return (
         <figure className="imageBlock">
           {block.title ? <h2>{block.title}</h2> : null}
+          {block.labels ? (
+            <div className="imagePanelLabels">
+              {block.labels.map((label) => (
+                <span key={label}>{label}</span>
+              ))}
+            </div>
+          ) : null}
           <img
             alt={block.alt}
             src={block.src}
