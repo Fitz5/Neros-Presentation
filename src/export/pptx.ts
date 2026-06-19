@@ -182,23 +182,36 @@ function drawBlocks(pptx: Pptx, slide: PptxSlide, renderedSlide: RenderedSlide) 
   if (renderedSlide.layout === "comparison" && renderedSlide.blocks[0]?.type === "image") {
     const contentY = 2.08;
     const contentWidth = page.width - page.marginX * 2;
-    const gap = 0.32;
-    const leftWidth = 6.4;
+    const largeReferenceImage = renderedSlide.id === "frame-resonance-expectation";
+    const gap = largeReferenceImage ? 0.22 : 0.32;
+    const leftWidth = largeReferenceImage ? 7.1 : 6.4;
     const rightX = page.marginX + leftWidth + gap;
     const rightWidth = contentWidth - leftWidth - gap;
 
-    drawBlock(
-      pptx,
-      slide,
-      renderedSlide.blocks[0],
-      page.marginX,
-      contentY,
-      leftWidth,
-      renderedSlide.layout,
-    );
+    const flushImage = renderedSlide.id === "frame-resonance-expectation";
+    const imageBlock = renderedSlide.blocks[0];
+    const imageHeight = Math.min(4.0, leftWidth / (imageBlock.aspectRatio ?? 16 / 9));
+    const imageTotalHeight = imageHeight + (imageBlock.caption ? 0.38 : 0);
+    const imageY = flushImage ? contentY + Math.max(0, (4.38 - imageTotalHeight) / 2) : contentY;
 
-    let rightY = contentY;
-    for (const block of renderedSlide.blocks.slice(1)) {
+    drawImage(pptx, slide, imageBlock, page.marginX, imageY, leftWidth, flushImage);
+
+    const rightBlocks = renderedSlide.blocks.slice(1);
+    const centerRight = ["spectral-evidence-rpm", "frame-resonance-expectation"].includes(
+      renderedSlide.id,
+    );
+    const blockGap = centerRight ? 0.1 : 0.14;
+    const rightHeight = rightBlocks.reduce((total, block, index) => {
+      const titleHeight = block.type === "bullets" && block.title ? 0.42 : 0;
+      const itemsHeight =
+        block.type === "bullets"
+          ? block.items.reduce((height, item) => height + 0.28 + (item.detail ? 0.36 : 0.12), 0)
+          : 0;
+      return total + titleHeight + itemsHeight + (index > 0 ? blockGap : 0);
+    }, 0);
+    let rightY = centerRight ? contentY + Math.max(0, (4.38 - rightHeight) / 2) : contentY;
+
+    for (const block of rightBlocks) {
       const height = drawBlock(
         pptx,
         slide,
@@ -208,7 +221,7 @@ function drawBlocks(pptx: Pptx, slide: PptxSlide, renderedSlide: RenderedSlide) 
         rightWidth,
         renderedSlide.layout,
       );
-      rightY += height + 0.14;
+      rightY += height + blockGap;
     }
     return;
   }
@@ -340,39 +353,57 @@ function drawBullets(
   }
 
   for (const item of block.items) {
-    slide.addShape(pptx.ShapeType.ellipse, {
-      x,
-      y: cursorY + 0.08,
-      w: 0.09,
-      h: 0.09,
-      fill: { color: pptColor(color) },
-      line: { color: pptColor(color) },
-    });
+    if (!item.equation) {
+      slide.addShape(pptx.ShapeType.ellipse, {
+        x,
+        y: cursorY + 0.08,
+        w: 0.09,
+        h: 0.09,
+        fill: { color: pptColor(color) },
+        line: { color: pptColor(color) },
+      });
+    }
 
-    slide.addText(item.text, {
-      x: x + 0.2,
+    const equationRuns = item.equation?.map((part) => ({
+      text: part.text,
+      options: {
+        subscript: part.script === "sub",
+        superscript: part.script === "super",
+      },
+    }));
+
+    slide.addText(equationRuns ?? item.text, {
+      x: item.equation ? x : x + 0.2,
       y: cursorY,
-      w: w - 0.2,
+      w: item.equation ? w : w - 0.2,
       h: 0.25,
-      bold: true,
+      bold: !item.equation,
       color: pptColor(theme.colors.ink),
       fit: "shrink",
-      fontFace: "Aptos",
-      fontSize: 12,
+      fontFace: item.equation ? "Cambria Math" : "Aptos",
+      fontSize: item.equation ? 14 : 12,
       margin: 0,
     });
     cursorY += 0.28;
 
     if (item.detail) {
-      slide.addText(item.detail, {
-        x: x + 0.2,
+      const detailRuns = item.detailEquation?.map((part) => ({
+        text: part.text,
+        options: {
+          subscript: part.script === "sub",
+          superscript: part.script === "super",
+        },
+      }));
+
+      slide.addText(detailRuns ?? item.detail, {
+        x: item.equation ? x : x + 0.2,
         y: cursorY,
-        w: w - 0.2,
+        w: item.equation ? w : w - 0.2,
         h: 0.3,
-        color: pptColor(theme.colors.muted),
+        color: pptColor(item.detailEquation ? theme.colors.ink : theme.colors.muted),
         fit: "shrink",
-        fontFace: "Aptos",
-        fontSize: 9,
+        fontFace: item.detailEquation ? "Cambria Math" : "Aptos",
+        fontSize: item.detailEquation ? 12 : 9,
         margin: 0,
       });
       cursorY += 0.36;
@@ -731,10 +762,12 @@ function drawImage(
   x: number,
   y: number,
   w: number,
+  flush = false,
 ) {
   let cursorY = y;
-  const imageWidth = Math.min(w, 10.35);
-  const imageHeight = Math.min(4.0, imageWidth / (block.aspectRatio ?? 16 / 9));
+  const aspectRatio = block.aspectRatio ?? 16 / 9;
+  const imageWidth = Math.min(w, 10.35, 4.0 * aspectRatio);
+  const imageHeight = imageWidth / aspectRatio;
 
   if (block.title) {
     slide.addText(block.title, {
@@ -784,22 +817,24 @@ function drawImage(
     cursorY += 0.32;
   }
 
-  slide.addShape(pptx.ShapeType.roundRect, {
-    x,
-    y: cursorY,
-    w: imageWidth,
-    h: imageHeight,
-    rectRadius: 0.08,
-    fill: { color: pptColor(theme.colors.surface) },
-    line: { color: pptColor(theme.colors.faint) },
-  });
+  if (!flush) {
+    slide.addShape(pptx.ShapeType.roundRect, {
+      x,
+      y: cursorY,
+      w: imageWidth,
+      h: imageHeight,
+      rectRadius: 0.08,
+      fill: { color: pptColor(theme.colors.surface) },
+      line: { color: pptColor(theme.colors.faint) },
+    });
+  }
 
   slide.addImage({
     path: resolvePublicAssetPath(block.src),
-    x: x + 0.06,
-    y: cursorY + 0.06,
-    w: imageWidth - 0.12,
-    h: imageHeight - 0.12,
+    x: flush ? x : x + 0.06,
+    y: flush ? cursorY : cursorY + 0.06,
+    w: flush ? imageWidth : imageWidth - 0.12,
+    h: flush ? imageHeight : imageHeight - 0.12,
   });
 
   if (block.caption) {

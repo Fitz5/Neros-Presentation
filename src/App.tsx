@@ -171,8 +171,16 @@ function SlideCanvas({
   sections: Section[];
   slide: RenderedSlide;
 }) {
+  const compactComparison =
+    slide.layout === "comparison" &&
+    ["spectral-evidence-rpm", "frame-resonance-expectation"].includes(slide.id) &&
+    slide.blocks[0]?.type === "image";
+
   return (
-    <section className={`slideCanvas layout-${slide.layout}`} aria-label={`Slide ${slide.sequenceNumber}`}>
+    <section
+      className={`slideCanvas layout-${slide.layout} slide-${slide.id}`}
+      aria-label={`Slide ${slide.sequenceNumber}`}
+    >
       <ProgressHeader activeSectionId={activeSectionId} sections={sections} />
 
       <div className="slideTitle">
@@ -182,9 +190,20 @@ function SlideCanvas({
       </div>
 
       <div className="slideBlocks">
-        {slide.blocks.map((block, index) => (
-          <BlockView block={block} key={`${block.type}-${index}`} />
-        ))}
+        {compactComparison ? (
+          <>
+            <BlockView block={slide.blocks[0]} />
+            <div className="comparisonRight">
+              {slide.blocks.slice(1).map((block, index) => (
+                <BlockView block={block} key={`${block.type}-${index + 1}`} />
+              ))}
+            </div>
+          </>
+        ) : (
+          slide.blocks.map((block, index) => (
+            <BlockView block={block} key={`${block.type}-${index}`} />
+          ))
+        )}
       </div>
 
       <footer className="slideFooter">
@@ -235,11 +254,39 @@ function BlockView({ block }: { block: Block }) {
           {block.title ? <h2>{block.title}</h2> : null}
           <div className="bulletList">
             {block.items.map((item) => (
-              <div className="bulletItem" key={item.id}>
-                <span className="bulletMark" />
+              <div className={`bulletItem${item.equation ? " equationItem" : ""}`} key={item.id}>
+                {item.equation ? null : <span className="bulletMark" />}
                 <div>
-                  <strong>{item.text}</strong>
-                  {item.detail ? <p>{item.detail}</p> : null}
+                  {item.equation ? (
+                    <strong className="equationText" aria-label={item.text}>
+                      {item.equation.map((part, index) =>
+                        part.script === "sub" ? (
+                          <sub key={`${part.text}-${index}`}>{part.text}</sub>
+                        ) : part.script === "super" ? (
+                          <sup key={`${part.text}-${index}`}>{part.text}</sup>
+                        ) : (
+                          <span key={`${part.text}-${index}`}>{part.text}</span>
+                        ),
+                      )}
+                    </strong>
+                  ) : (
+                    <strong>{item.text}</strong>
+                  )}
+                  {item.detailEquation ? (
+                    <p className="equationDetail" aria-label={item.detail}>
+                      {item.detailEquation.map((part, index) =>
+                        part.script === "sub" ? (
+                          <sub key={`${part.text}-${index}`}>{part.text}</sub>
+                        ) : part.script === "super" ? (
+                          <sup key={`${part.text}-${index}`}>{part.text}</sup>
+                        ) : (
+                          <span key={`${part.text}-${index}`}>{part.text}</span>
+                        ),
+                      )}
+                    </p>
+                  ) : item.detail ? (
+                    <p>{item.detail}</p>
+                  ) : null}
                 </div>
               </div>
             ))}

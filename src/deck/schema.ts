@@ -11,10 +11,17 @@ const buildable = {
 
 const toneSchema = z.enum(["neutral", "accent", "success", "warning", "danger"]);
 
+const equationPartSchema = z.object({
+  text: z.string().min(1),
+  script: z.enum(["sub", "super"]).optional(),
+});
+
 const bulletItemSchema = z.object({
   id: idSchema,
   text: z.string().min(1),
   detail: z.string().optional(),
+  equation: z.array(equationPartSchema).min(1).optional(),
+  detailEquation: z.array(equationPartSchema).min(1).optional(),
   ...buildable,
 });
 

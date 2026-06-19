@@ -63,24 +63,31 @@ export const deck = {
         },
         {
           type: "bullets",
-          title: "200 Hz peak",
+          title: "Amplitude",
           tone: "accent",
           items: [
             {
               id: "spectral-peak",
-              text: "Roll reaches high amplitude 0 dB at the 200 Hz resonance. ",
+              text: "Roll reaches 0 dB at 200 Hz",
+            },
+            {
+              id: "spectral-pitch-transition",
+              text: "Pitch reaches -5 dB at 189 Hz",
             },
           ],
         },
         {
           type: "bullets",
-          title: "Roll and Pitch share similar resonance",
+          title: "Frequency Bandwidth > (-20dB)",
           tone: "warning",
           items: [
             {
-              id: "spectral-shared",
-              text: "The same 200 Hz mode appears in both roll and pitch.",
-              detail: "The pitch trace shares the resonance, but not the same peak height.",
+              id: "spectral-roll-bandwidth",
+              text: "Roll: 134 Hz to 224 Hz - 90 Hz bandwidth",
+            },
+            {
+              id: "spectral-pitch-bandwidth",
+              text: "Pitch: 147 Hz to 219 Hz - 72 Hz bandwidth",
             },
           ],
         },
@@ -91,9 +98,123 @@ export const deck = {
       ],
     },
     {
+      id: "spectral-evidence-rpm",
+      sectionId: "architecture",
+      title: "Power Spectral Density 200Hz Resonance",
+      layout: "comparison",
+      estimatedMinutes: 2,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("btfl001-spectral-200hz-peaks-rpm.png"),
+          alt: "Roll and pitch gyro spectral power plots near 200 hertz with motor RPM data.",
+          caption: "BTFL_001.01 power spectral density with RPM data",
+          aspectRatio: 1.2967,
+        },
+        {
+          type: "bullets",
+          title: "Amplitude",
+          tone: "accent",
+          items: [
+            {
+              id: "spectral-rpm-roll-amplitude",
+              text: "Roll reaches 0 dB at 200 Hz",
+            },
+            {
+              id: "spectral-rpm-pitch-amplitude",
+              text: "Pitch reaches -5 dB at 189 Hz",
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "Frequency Bandwidth > (-20dB)",
+          tone: "warning",
+          items: [
+            {
+              id: "spectral-rpm-roll-bandwidth",
+              text: "Roll: 134 Hz to 224 Hz - 90 Hz bandwidth",
+            },
+            {
+              id: "spectral-rpm-pitch-bandwidth",
+              text: "Pitch: 147 Hz to 219 Hz - 72 Hz bandwidth",
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "RPM Filters",
+          tone: "success",
+          items: [
+            {
+              id: "spectral-rpm-filtering",
+              text: "RPM filters get rid of motor noise but still show signal peak post filtering",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "The RPM overlay separates motor harmonics from the persistent structural signal near 200 Hz.",
+        "RPM filtering removes the motor-correlated noise, while the 200 Hz peak remains visible after filtering.",
+      ],
+    },
+    {
+      id: "frame-resonance-expectation",
+      sectionId: "architecture",
+      title: "200 Hz Frame Resonance Was Expected by Design",
+      layout: "comparison",
+      estimatedMinutes: 2,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("chris-rosser-aos-ul7-labeled.png"),
+          alt: "Chris Rosser reference screenshot discussing frame resonance and mechanical vibration.",
+          caption: "Chirs Rosser Youtube video screenshot: https://www.youtube.com/watch?v=YJYtmcCaSn4&t=11s",
+          aspectRatio: 1.7549,
+        },
+        {
+          type: "bullets",
+          title: "Expected",
+          tone: "accent",
+          items: [
+            {
+              id: "frame-resonance-expected",
+              text: "Screenshot from Chis Rosser's video (designer) showing frame resonance at 200 Hz",
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "Design Intent",
+          tone: "success",
+          items: [
+            {
+              id: "frame-resonance-design",
+              text: "The frame was designed to mechanically minimize vibration using modal analysis",
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "Unexpected Magnitude",
+          tone: "warning",
+          items: [
+            {
+              id: "frame-resonance-magnitude",
+              text: "His frame resonance is lower amplitude than the motor harmonics",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "The frequency itself is plausible for a frame mode; the surprising result is how strongly it dominates the measured spectrum.",
+        "The 0 dB value is relative to this plot's reference, not an absolute vibration displacement.",
+      ],
+    },
+    {
       id: "rolling-shutter-jello",
       sectionId: "architecture",
-      title: "Why a 200 Hz vibration becomes visible jello",
+      title: "Why this is a problem",
       subtitle:
         "Assume 4K/60: Tframe = 16.67 ms · Tscan ≈ 16 ms · exposure = 1 ms · measured peak fvib = 200 Hz at 0 dB.",
       layout: "comparison",
@@ -114,20 +235,39 @@ export const deck = {
           items: [
             {
               id: "waves-equation",
-              text: "n_waves = Tscan × fvib",
+              text: "n waves equals scan time multiplied by vibration frequency",
+              equation: [
+                { text: "n" },
+                { text: "waves", script: "sub" },
+                { text: " = T" },
+                { text: "scan", script: "sub" },
+                { text: " × f" },
+                { text: "vib", script: "sub" },
+              ],
               detail: "(0.016 s)(200 Hz) = 3.2 waves / frame",
+              detailEquation: [{ text: "(0.016 s)(200 Hz) = 3.2 waves / frame" }],
             },
           ],
         },
         {
           type: "bullets",
-          title: "2 · Temporal alias",
+          title: "2 · Aliasing",
           tone: "warning",
           items: [
             {
               id: "alias-equation",
-              text: "falias = |fvib − N × ffps|,  N = round(200 / 60) = 3",
-              detail: "|200 − 3(60)| = 20 Hz",
+              text: "alias frequency equals the absolute difference between vibration frequency and the nearest frame-rate harmonic",
+              equation: [
+                { text: "f" },
+                { text: "alias", script: "sub" },
+                { text: " = |f" },
+                { text: "vib", script: "sub" },
+                { text: " − Nf" },
+                { text: "fps", script: "sub" },
+                { text: "|" },
+              ],
+              detail: "N = round(200 / 60) = 3  →  |200 − 3(60)| = 20 Hz",
+              detailEquation: [{ text: "N = round(200 / 60) = 3  →  |200 − 3(60)| = 20 Hz" }],
             },
           ],
         },

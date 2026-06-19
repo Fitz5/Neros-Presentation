@@ -170,9 +170,53 @@ button {
   width: 100%;
 }
 
+.slide-frame-resonance-expectation .imageBlock {
+  align-self: center;
+  gap: 0.3cqw;
+}
+
+.slide-frame-resonance-expectation .slideBlocks {
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  column-gap: 0.85cqw;
+}
+
+.slide-frame-resonance-expectation .imageBlock img {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
 .layout-comparison .bulletBlock,
 .layout-comparison .calloutBlock {
   grid-column: 2;
+}
+
+.layout-comparison .comparisonRight {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+  display: grid;
+  gap: 0.55cqw;
+}
+
+.layout-comparison .comparisonRight .bulletBlock {
+  padding: 0.52cqw 0.68cqw;
+  gap: 0.28cqw;
+}
+
+.layout-comparison .comparisonRight .bulletList,
+.layout-comparison .comparisonRight .bulletItem {
+  gap: 0.28cqw;
+}
+
+.layout-comparison .comparisonRight .bulletItem {
+  grid-template-columns: 0.5cqw minmax(0, 1fr);
+}
+
+.layout-comparison .comparisonRight .bulletMark {
+  width: 0.48cqw;
+  height: 0.48cqw;
+  margin-top: 0.32cqw;
 }
 
 .layout-comparison .bulletBlock {
@@ -283,6 +327,35 @@ button {
   color: #1d2528;
   font-size: 1.18cqw;
   line-height: 1.28;
+}
+
+.equationText {
+  font-family: "Cambria Math", Cambria, "Times New Roman", serif;
+  font-size: 1.28cqw !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em;
+}
+
+.equationText sub,
+.equationText sup,
+.equationDetail sub,
+.equationDetail sup {
+  font-size: 0.68em;
+  line-height: 0;
+}
+
+.bulletItem.equationItem {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.equationDetail {
+  margin-top: 0.5cqw !important;
+  color: #1d2528 !important;
+  font-family: "Cambria Math", Cambria, "Times New Roman", serif;
+  font-size: 1.16cqw !important;
+  font-weight: 500;
+  line-height: 1.25 !important;
 }
 
 .bulletItem p,
