@@ -10,6 +10,7 @@ export const theme = {
     muted: "#5F6F73",
     faint: "#DCE3DE",
     accent: "#0E7C7B",
+    nerosOrange: "#ED5718",
     coral: "#D95F43",
     gold: "#B8872B",
     indigo: "#4357A6",

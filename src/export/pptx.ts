@@ -60,6 +60,14 @@ function drawSlide(
   const slide = pptx.addSlide();
   slide.background = { color: pptColor(theme.colors.paper) };
 
+  if (renderedSlide.id === "cover") {
+    drawCover(pptx, slide, renderedSlide);
+    if (renderedSlide.notes.length > 0) {
+      slide.addNotes(renderedSlide.notes.join("\n\n"));
+    }
+    return;
+  }
+
   drawProgressHeader(pptx, slide, sections, renderedSlide.sectionId);
   drawTitle(slide, renderedSlide);
   drawBlocks(pptx, slide, renderedSlide);
@@ -67,6 +75,85 @@ function drawSlide(
 
   if (renderedSlide.notes.length > 0) {
     slide.addNotes(renderedSlide.notes.join("\n\n"));
+  }
+}
+
+function drawCover(pptx: Pptx, slide: PptxSlide, renderedSlide: RenderedSlide) {
+  const identity = renderedSlide.blocks.find(
+    (block): block is Extract<Block, { type: "headline" }> => block.type === "headline",
+  );
+
+  slide.addImage({
+    path: resolvePublicAssetPath("/graphics/neros-title-background.png"),
+    x: 0,
+    y: 0,
+    w: page.width,
+    h: page.height,
+  });
+
+  slide.addShape(pptx.ShapeType.rect, {
+    x: 0.72,
+    y: 1.25,
+    w: 0.07,
+    h: 4.85,
+    fill: { color: pptColor(theme.colors.nerosOrange) },
+    line: { color: pptColor(theme.colors.nerosOrange) },
+  });
+
+  slide.addText(renderedSlide.title, {
+    x: 1.12,
+    y: 2.05,
+    w: 9.4,
+    h: 1.35,
+    bold: true,
+    breakLine: false,
+    color: pptColor(theme.colors.ink),
+    fit: "shrink",
+    fontFace: "Aptos Display",
+    fontSize: 43,
+    margin: 0,
+  });
+
+  if (renderedSlide.subtitle) {
+    slide.addText(renderedSlide.subtitle, {
+      x: 1.14,
+      y: 3.48,
+      w: 8.5,
+      h: 0.42,
+      color: pptColor(theme.colors.muted),
+      fit: "shrink",
+      fontFace: "Aptos",
+      fontSize: 17,
+      margin: 0,
+    });
+  }
+
+  if (identity) {
+    slide.addText(identity.text, {
+      x: 1.14,
+      y: 5.68,
+      w: 4.4,
+      h: 0.3,
+      bold: true,
+      color: pptColor(theme.colors.ink),
+      fontFace: "Aptos",
+      fontSize: 13,
+      margin: 0,
+    });
+
+    if (identity.subtext) {
+      slide.addText(identity.subtext, {
+        x: 8.7,
+        y: 5.68,
+        w: 3.45,
+        h: 0.3,
+        align: "right",
+        color: pptColor(theme.colors.muted),
+        fontFace: "Aptos",
+        fontSize: 12,
+        margin: 0,
+      });
+    }
   }
 }
 

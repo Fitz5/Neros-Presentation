@@ -152,6 +152,65 @@ button {
   grid-template-columns: 1fr;
 }
 
+.slide-cover {
+  grid-template-rows: minmax(0, 1fr) auto;
+  padding: 5.2cqw 6.2cqw 4.5cqw;
+  background: #f8f6f0 url("/graphics/neros-title-background.png") center / cover no-repeat;
+}
+
+.slide-cover::before {
+  position: absolute;
+  top: 16.67%;
+  bottom: 18.67%;
+  left: 5.4cqw;
+  width: 0.18cqw;
+  border-radius: 999px;
+  background: #ed5718;
+  content: "";
+}
+
+.slide-cover .progressHeader,
+.slide-cover .slideFooter,
+.slide-cover .slideKicker {
+  display: none;
+}
+
+.slide-cover .slideTitle {
+  align-self: center;
+  max-width: 82%;
+  padding: 0;
+}
+
+.slide-cover .slideTitle h1 {
+  max-width: 12ch;
+  font-size: 5.4cqw;
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+}
+
+.slide-cover .slideSubtitle {
+  margin-top: 1.15cqw;
+  color: #435257;
+  font-size: 1.5cqw;
+}
+
+.slide-cover .slideBlocks {
+  align-content: end;
+  padding: 0;
+}
+
+.slide-cover .headlineBlock h2 {
+  margin: 0 0 0.28cqw;
+  font-family: Aptos, "Segoe UI", sans-serif;
+  font-size: 1.25cqw;
+  line-height: 1.1;
+}
+
+.slide-cover .headlineBlock span {
+  color: #5f6f73;
+  font-size: 1.05cqw;
+}
+
 .layout-closing .slideBlocks {
   align-content: center;
 }

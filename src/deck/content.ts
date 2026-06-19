@@ -4,10 +4,10 @@ const deckImage = (name: string) => `/screenshots/deck/${name}`;
 
 export const deck = {
   meta: {
-    title: "Diagnosing Jello in an Action-Camera Drone",
-    subtitle: "Working deck",
-    presenter: "Dash",
-    dateLabel: "Draft",
+    title: "Engineering Stable Flight",
+    subtitle: "An algorithmic approach to drone performance",
+    presenter: "David Fitzgerald",
+    dateLabel: "June 24th",
     durationMinutes: 45,
   },
   sections: [
@@ -16,6 +16,22 @@ export const deck = {
     { id: "discussion", title: "Solution", shortTitle: "Solution" },
   ],
   slides: [
+    {
+      id: "cover",
+      sectionId: "context",
+      title: "Engineering Stable Flight",
+      subtitle: "An algorithmic approach to drone performance",
+      layout: "title",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "headline",
+          text: "David Fitzgerald",
+          subtext: "June 24th",
+        },
+      ],
+      notes: ["Opening title slide."],
+    },
     {
       id: "objective",
       sectionId: "context",
@@ -159,6 +175,72 @@ export const deck = {
       ],
     },
     {
+      id: "rolling-shutter-jello",
+      sectionId: "architecture",
+      title: "Why this is a problem",
+      subtitle:
+        "Assume 4K/60: Tframe = 16.67 ms · Tscan ≈ 16 ms · exposure = 1 ms · measured peak fvib = 200 Hz at 0 dB.",
+      layout: "comparison",
+      estimatedMinutes: 4,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("rolling-shutter-jello-model.png"),
+          alt: "Hand-drawn diagrams showing a vibration wave during rolling-shutter scan and its sampled alias.",
+          labels: ["Waves per frame", "Aliasing · 120° per frame"],
+          caption: "Left: phase accumulated during the sensor scan. Right: motion sampled once per video frame.",
+          aspectRatio: 2.3216,
+        },
+        {
+          type: "bullets",
+          title: "1 · Waves per frame",
+          tone: "accent",
+          items: [
+            {
+              id: "waves-equation",
+              text: "n waves equals scan time multiplied by vibration frequency",
+              equation: [
+                { text: "n" },
+                { text: "waves", script: "sub" },
+                { text: " = T" },
+                { text: "scan", script: "sub" },
+                { text: " × f" },
+                { text: "vib", script: "sub" },
+              ],
+              detail: "(0.016 s)(200 Hz) = 3.2 waves / frame",
+              detailEquation: [{ text: "(0.016 s)(200 Hz) = 3.2 waves / frame" }],
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "2 · Phase aliasing",
+          tone: "warning",
+          items: [
+            {
+              id: "alias-equation",
+              text: "vibration cycles captured between frames",
+              equation: [{ text: "200 Hz / 60 fps = 3⅓ cycles / frame" }],
+              detail: "Ignore 3 complete cycles  →  ⅓ cycle × 360° = 120° / frame",
+              detailEquation: [{ text: "⅓ cycle × 360° = 120° / frame" }],
+            },
+          ],
+        },
+        {
+          type: "callout",
+          label: "Result",
+          text: "The 200 Hz mechanical mode can appear as 3.2 rolling-shutter waves that advance 120° between frames.",
+          tone: "success",
+        },
+      ],
+      notes: [
+        "Tscan = 16 ms is an explicit assumption until the exact action-camera model and 4K60 mode are measured or documented.",
+        "A 1/1000 s exposure spans 0.2 vibration cycles: (0.001 s)(200 Hz) = 0.2. The short exposure helps preserve the distortion instead of averaging it away.",
+        "The 0 dB peak is relative spectral magnitude, not an absolute displacement measurement. This math establishes a frequency-consistent mechanism; it does not by itself prove amplitude or causation.",
+        "Reference checked: Gyroflow's community lens profiles contain camera- and mode-specific readout values, including approximately 16.6 ms for some older GoPro 4K modes, but no authoritative exact 4K60 value was found for the unspecified camera: https://github.com/gyroflow/lens_profiles",
+      ],
+    },
+    {
       id: "frame-resonance-expectation",
       sectionId: "architecture",
       title: "200 Hz Frame Resonance Was Expected by Design",
@@ -209,80 +291,6 @@ export const deck = {
       notes: [
         "The frequency itself is plausible for a frame mode; the surprising result is how strongly it dominates the measured spectrum.",
         "The 0 dB value is relative to this plot's reference, not an absolute vibration displacement.",
-      ],
-    },
-    {
-      id: "rolling-shutter-jello",
-      sectionId: "architecture",
-      title: "Why this is a problem",
-      subtitle:
-        "Assume 4K/60: Tframe = 16.67 ms · Tscan ≈ 16 ms · exposure = 1 ms · measured peak fvib = 200 Hz at 0 dB.",
-      layout: "comparison",
-      estimatedMinutes: 4,
-      blocks: [
-        {
-          type: "image",
-          src: deckImage("rolling-shutter-jello-model.png"),
-          alt: "Hand-drawn diagrams showing a vibration wave during rolling-shutter scan and its sampled alias.",
-          labels: ["Waves per frame", "Aliasing"],
-          caption: "Left: phase accumulated during the sensor scan. Right: motion sampled once per video frame.",
-          aspectRatio: 2.3216,
-        },
-        {
-          type: "bullets",
-          title: "1 · Waves per frame",
-          tone: "accent",
-          items: [
-            {
-              id: "waves-equation",
-              text: "n waves equals scan time multiplied by vibration frequency",
-              equation: [
-                { text: "n" },
-                { text: "waves", script: "sub" },
-                { text: " = T" },
-                { text: "scan", script: "sub" },
-                { text: " × f" },
-                { text: "vib", script: "sub" },
-              ],
-              detail: "(0.016 s)(200 Hz) = 3.2 waves / frame",
-              detailEquation: [{ text: "(0.016 s)(200 Hz) = 3.2 waves / frame" }],
-            },
-          ],
-        },
-        {
-          type: "bullets",
-          title: "2 · Aliasing",
-          tone: "warning",
-          items: [
-            {
-              id: "alias-equation",
-              text: "alias frequency equals the absolute difference between vibration frequency and the nearest frame-rate harmonic",
-              equation: [
-                { text: "f" },
-                { text: "alias", script: "sub" },
-                { text: " = |f" },
-                { text: "vib", script: "sub" },
-                { text: " − Nf" },
-                { text: "fps", script: "sub" },
-                { text: "|" },
-              ],
-              detail: "N = round(200 / 60) = 3  →  |200 − 3(60)| = 20 Hz",
-              detailEquation: [{ text: "N = round(200 / 60) = 3  →  |200 − 3(60)| = 20 Hz" }],
-            },
-          ],
-        },
-        {
-          type: "callout",
-          label: "Result",
-          text: "The 200 Hz mechanical mode can appear as 3.2 rolling-shutter waves evolving at a 20 Hz alias.",
-          tone: "success",
-        },
-      ],
-      notes: [
-        "Tscan = 16 ms is an explicit assumption until the exact action-camera model and 4K60 mode are measured or documented.",
-        "A 1/1000 s exposure spans 0.2 vibration cycles: (0.001 s)(200 Hz) = 0.2. The short exposure helps preserve the distortion instead of averaging it away.",
-        "The 0 dB peak is relative spectral magnitude, not an absolute displacement measurement. This math establishes a frequency-consistent mechanism; it does not by itself prove amplitude or causation.",
-        "Reference checked: Gyroflow's community lens profiles contain camera- and mode-specific readout values, including approximately 16.6 ms for some older GoPro 4K modes, but no authoritative exact 4K60 value was found for the unspecified camera: https://github.com/gyroflow/lens_profiles",
       ],
     },
     {
