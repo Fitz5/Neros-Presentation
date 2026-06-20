@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { deck } from "./content";
-import { getProgressMarker, getProgressState } from "./progress";
+import { getProgressColor, getProgressMarker, getProgressState } from "./progress";
 import { validateDeck } from "./schema";
+import { theme } from "./theme";
 
 describe("presentation progress", () => {
   it("supports the six-stage technical sequence", () => {
@@ -29,6 +30,14 @@ describe("presentation progress", () => {
       "04",
       "05",
       "06",
+    ]);
+    expect(states.map(getProgressColor)).toEqual([
+      theme.colors.green,
+      theme.colors.green,
+      theme.colors.green,
+      theme.colors.nerosOrange,
+      theme.colors.faint,
+      theme.colors.faint,
     ]);
   });
 });

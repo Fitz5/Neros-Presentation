@@ -9,7 +9,7 @@ import {
 import { type CSSProperties, useCallback, useEffect, useMemo, useState } from "react";
 import { deck } from "./deck/content";
 import { expandDeck, type RenderedSlide } from "./deck/expand";
-import { getProgressMarker, getProgressState, getSectionColor } from "./deck/progress";
+import { getProgressColor, getProgressMarker, getProgressState } from "./deck/progress";
 import { validateDeck, type Block, type Section } from "./deck/schema";
 import { toneColor } from "./deck/theme";
 
@@ -220,7 +220,7 @@ function ProgressHeader({ activeSectionId, sections }: { activeSectionId: string
     <div className="progressHeader" aria-label="Talk progress">
       {sections.map((section, index) => {
         const state = getProgressState(sections, activeSectionId, index);
-        const color = getSectionColor(section.id);
+        const color = getProgressColor(state);
 
         return (
           <div

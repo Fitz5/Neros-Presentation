@@ -17,21 +17,13 @@ export function getProgressMarker(index: number, state: ProgressState) {
   return state === "complete" ? "✓" : String(index + 1).padStart(2, "0");
 }
 
-export function getSectionColor(sectionId: string) {
-  switch (sectionId) {
-    case "objective":
-      return theme.sections.objective;
-    case "baseline":
-      return theme.sections.baseline;
-    case "mechanical":
-      return theme.sections.mechanical;
-    case "filtering":
-      return theme.sections.filtering;
-    case "pid":
-      return theme.sections.pid;
-    case "validation":
-      return theme.sections.validation;
-    default:
-      return theme.colors.accent;
+export function getProgressColor(state: ProgressState) {
+  switch (state) {
+    case "complete":
+      return theme.colors.green;
+    case "active":
+      return theme.colors.nerosOrange;
+    case "pending":
+      return theme.colors.faint;
   }
 }

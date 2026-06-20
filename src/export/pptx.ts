@@ -3,7 +3,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import type PptxGenJS from "pptxgenjs";
 import { expandDeck, type RenderedSlide } from "../deck/expand";
-import { getProgressMarker, getProgressState, getSectionColor } from "../deck/progress";
+import { getProgressColor, getProgressMarker, getProgressState } from "../deck/progress";
 import { validateDeck, type Block, type DeckInput, type Section } from "../deck/schema";
 import { theme, toneColor } from "../deck/theme";
 
@@ -168,8 +168,8 @@ function drawProgressHeader(
   const width = (page.width - page.marginX * 2 - gap * (sections.length - 1)) / sections.length;
   sections.forEach((section, index) => {
     const x = page.marginX + index * (width + gap);
-    const color = getSectionColor(section.id);
     const state = getProgressState(sections, activeSectionId, index);
+    const color = getProgressColor(state);
     const isActive = state === "active";
     const isComplete = state === "complete";
     const lineColor = isActive || isComplete ? color : theme.colors.faint;
