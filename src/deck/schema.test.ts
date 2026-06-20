@@ -28,6 +28,22 @@ describe("validateDeck", () => {
     expect(validateDeck(validDeck).slides).toHaveLength(1);
   });
 
+  it("accepts the six stages used by the technical progress rail", () => {
+    const sections = Array.from({ length: 6 }, (_, index) => ({
+      id: `section-${index + 1}`,
+      title: `Section ${index + 1}`,
+      shortTitle: `Section ${index + 1}`,
+    }));
+
+    expect(
+      validateDeck({
+        ...validDeck,
+        sections,
+        slides: [{ ...validDeck.slides[0], sectionId: sections[0].id }],
+      }).sections,
+    ).toHaveLength(6);
+  });
+
   it("rejects unknown section references", () => {
     expect(() =>
       validateDeck({

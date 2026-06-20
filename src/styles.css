@@ -80,6 +80,11 @@ button {
   border-color: color-mix(in srgb, var(--section-color) 48%, #dce3de);
 }
 
+.progressTopic.is-complete .progressNumber {
+  color: #ffffff;
+  background: var(--section-color);
+}
+
 .progressTopic.is-active {
   border-color: var(--section-color);
   color: #1d2528;
@@ -152,13 +157,15 @@ button {
   grid-template-columns: 1fr;
 }
 
-.slide-cover {
+.slide-cover,
+.slide-deck-title {
   grid-template-rows: minmax(0, 1fr) auto;
   padding: 5.2cqw 6.2cqw 4.5cqw;
   background: #f8f6f0 url("/graphics/neros-title-background.png") center / cover no-repeat;
 }
 
-.slide-cover::before {
+.slide-cover::before,
+.slide-deck-title::before {
   position: absolute;
   top: 16.67%;
   bottom: 18.67%;
@@ -171,42 +178,51 @@ button {
 
 .slide-cover .progressHeader,
 .slide-cover .slideFooter,
-.slide-cover .slideKicker {
+.slide-cover .slideKicker,
+.slide-deck-title .progressHeader,
+.slide-deck-title .slideFooter,
+.slide-deck-title .slideKicker {
   display: none;
 }
 
-.slide-cover .slideTitle {
+.slide-cover .slideTitle,
+.slide-deck-title .slideTitle {
   align-self: center;
   max-width: 82%;
   padding: 0;
 }
 
-.slide-cover .slideTitle h1 {
+.slide-cover .slideTitle h1,
+.slide-deck-title .slideTitle h1 {
   max-width: 12ch;
   font-size: 5.4cqw;
   line-height: 0.94;
   letter-spacing: -0.025em;
 }
 
-.slide-cover .slideSubtitle {
+.slide-cover .slideSubtitle,
+.slide-deck-title .slideSubtitle {
   margin-top: 1.15cqw;
   color: #435257;
   font-size: 1.5cqw;
 }
 
-.slide-cover .slideBlocks {
+.slide-cover .slideBlocks,
+.slide-deck-title .slideBlocks {
   align-content: end;
   padding: 0;
 }
 
-.slide-cover .headlineBlock h2 {
+.slide-cover .headlineBlock h2,
+.slide-deck-title .headlineBlock h2 {
   margin: 0 0 0.28cqw;
   font-family: Aptos, "Segoe UI", sans-serif;
   font-size: 1.25cqw;
   line-height: 1.1;
 }
 
-.slide-cover .headlineBlock span {
+.slide-cover .headlineBlock span,
+.slide-deck-title .headlineBlock span {
   color: #5f6f73;
   font-size: 1.05cqw;
 }

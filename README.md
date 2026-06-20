@@ -1,8 +1,8 @@
 # Neros Presentation
 
-A typed presentation workspace for developing and exporting a 45-minute technical interview deck.
+A typed presentation workspace for developing and exporting a 45-minute technical interview deck about diagnosing and tuning a 7-inch chase drone.
 
-The rendered deck is intentionally reset to one placeholder slide. Research notes, original images, and blackbox logs remain under `sources/discord-convo/`.
+The current build contains a 26-slide timed narrative plus a technical and preserved-source appendix. Research notes, original images, and blackbox logs remain under `sources/discord-convo/`.
 
 ## Commands
 

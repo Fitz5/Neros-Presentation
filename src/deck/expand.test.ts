@@ -12,6 +12,14 @@ describe("expandDeck", () => {
     expect(rendered.at(-1)?.totalSlides).toBe(rendered.length);
   });
 
+  it("keeps the timed main narrative at 26 slides before the appendix", () => {
+    const rendered = expandDeck(validateDeck(deck));
+    const qaIndex = rendered.findIndex((slide) => slide.id === "qa");
+
+    expect(qaIndex).toBe(25);
+    expect(rendered[qaIndex + 1]?.id).toBe("appendix-divider");
+  });
+
   it("reveals step content cumulatively", () => {
     const stepDeck = {
       meta: {

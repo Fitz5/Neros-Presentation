@@ -3,6 +3,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import type PptxGenJS from "pptxgenjs";
 import { expandDeck, type RenderedSlide } from "../deck/expand";
+import { getProgressMarker, getProgressState, getSectionColor } from "../deck/progress";
 import { validateDeck, type Block, type DeckInput, type Section } from "../deck/schema";
 import { theme, toneColor } from "../deck/theme";
 
@@ -60,7 +61,7 @@ function drawSlide(
   const slide = pptx.addSlide();
   slide.background = { color: pptColor(theme.colors.paper) };
 
-  if (renderedSlide.id === "cover") {
+  if (["cover", "deck-title"].includes(renderedSlide.id)) {
     drawCover(pptx, slide, renderedSlide);
     if (renderedSlide.notes.length > 0) {
       slide.addNotes(renderedSlide.notes.join("\n\n"));
@@ -165,13 +166,12 @@ function drawProgressHeader(
 ) {
   const gap = 0.08;
   const width = (page.width - page.marginX * 2 - gap * (sections.length - 1)) / sections.length;
-  const activeIndex = sections.findIndex((section) => section.id === activeSectionId);
-
   sections.forEach((section, index) => {
     const x = page.marginX + index * (width + gap);
     const color = getSectionColor(section.id);
-    const isActive = section.id === activeSectionId;
-    const isComplete = index < activeIndex;
+    const state = getProgressState(sections, activeSectionId, index);
+    const isActive = state === "active";
+    const isComplete = state === "complete";
     const lineColor = isActive || isComplete ? color : theme.colors.faint;
 
     slide.addShape(pptx.ShapeType.rect, {
@@ -188,18 +188,18 @@ function drawProgressHeader(
       y: page.headerY,
       w: 0.3,
       h: 0.3,
-      fill: { color: pptColor(isActive ? color : "#ECEFEB") },
-      line: { color: pptColor(isActive ? color : "#ECEFEB") },
+      fill: { color: pptColor(isActive || isComplete ? color : "#ECEFEB") },
+      line: { color: pptColor(isActive || isComplete ? color : "#ECEFEB") },
     });
 
-    slide.addText(String(index + 1).padStart(2, "0"), {
+    slide.addText(getProgressMarker(index, state), {
       x: x + 0.02,
       y: page.headerY + 0.06,
       w: 0.26,
       h: 0.1,
       align: "center",
       bold: true,
-      color: pptColor(isActive ? "#FFFFFF" : theme.colors.muted),
+      color: pptColor(isActive || isComplete ? "#FFFFFF" : theme.colors.muted),
       fontFace: "Aptos",
       fontSize: 5.5,
       margin: 0,
@@ -970,23 +970,6 @@ function drawFooter(slide: PptxSlide, renderedSlide: RenderedSlide, durationMinu
     fontSize: 7,
     margin: 0,
   });
-}
-
-function getSectionColor(sectionId: string) {
-  switch (sectionId) {
-    case "context":
-      return theme.sections.context;
-    case "architecture":
-      return theme.sections.architecture;
-    case "deep-dive":
-      return theme.sections.deepDive;
-    case "execution":
-      return theme.sections.execution;
-    case "discussion":
-      return theme.sections.discussion;
-    default:
-      return theme.colors.accent;
-  }
 }
 
 function pptColor(color: string) {

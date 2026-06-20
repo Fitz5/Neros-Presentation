@@ -18,11 +18,12 @@ export const theme = {
     red: "#B9433A",
   },
   sections: {
-    context: "#0E7C7B",
-    architecture: "#4357A6",
-    deepDive: "#D95F43",
-    execution: "#2F855A",
-    discussion: "#B8872B",
+    objective: "#0E7C7B",
+    baseline: "#4357A6",
+    mechanical: "#D95F43",
+    filtering: "#B8872B",
+    pid: "#2F855A",
+    validation: "#6B4C9A",
   },
   ppt: {
     width: 13.333,

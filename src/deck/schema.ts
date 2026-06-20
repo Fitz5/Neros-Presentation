@@ -154,7 +154,7 @@ export const DeckSchema = z.object({
     dateLabel: z.string().optional(),
     durationMinutes: z.number().positive(),
   }),
-  sections: z.array(SectionSchema).min(1).max(5),
+  sections: z.array(SectionSchema).min(1).max(6),
   slides: z.array(SlideSchema).min(1),
 });
 

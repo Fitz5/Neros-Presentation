@@ -9,8 +9,9 @@ import {
 import { type CSSProperties, useCallback, useEffect, useMemo, useState } from "react";
 import { deck } from "./deck/content";
 import { expandDeck, type RenderedSlide } from "./deck/expand";
+import { getProgressMarker, getProgressState, getSectionColor } from "./deck/progress";
 import { validateDeck, type Block, type Section } from "./deck/schema";
-import { theme, toneColor } from "./deck/theme";
+import { toneColor } from "./deck/theme";
 
 const validatedDeck = validateDeck(deck);
 const renderedSlides = expandDeck(validatedDeck);
@@ -215,12 +216,10 @@ function SlideCanvas({
 }
 
 function ProgressHeader({ activeSectionId, sections }: { activeSectionId: string; sections: Section[] }) {
-  const activeIndex = sections.findIndex((section) => section.id === activeSectionId);
-
   return (
     <div className="progressHeader" aria-label="Talk progress">
       {sections.map((section, index) => {
-        const state = index === activeIndex ? "active" : index < activeIndex ? "complete" : "pending";
+        const state = getProgressState(sections, activeSectionId, index);
         const color = getSectionColor(section.id);
 
         return (
@@ -229,7 +228,7 @@ function ProgressHeader({ activeSectionId, sections }: { activeSectionId: string
             key={section.id}
             style={{ "--section-color": color } as CSSProperties}
           >
-            <span className="progressNumber">{String(index + 1).padStart(2, "0")}</span>
+            <span className="progressNumber">{getProgressMarker(index, state)}</span>
             <span className="progressLabel">{section.shortTitle}</span>
           </div>
         );
@@ -386,21 +385,4 @@ function getInitialSlideIndex(totalSlides: number) {
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
-}
-
-function getSectionColor(sectionId: string) {
-  switch (sectionId) {
-    case "context":
-      return theme.sections.context;
-    case "architecture":
-      return theme.sections.architecture;
-    case "deep-dive":
-      return theme.sections.deepDive;
-    case "execution":
-      return theme.sections.execution;
-    case "discussion":
-      return theme.sections.discussion;
-    default:
-      return theme.colors.accent;
-  }
 }
