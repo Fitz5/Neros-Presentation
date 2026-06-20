@@ -27,7 +27,7 @@ So 01: Mechanical - Plant
 03: PID / Feedfoward - Controller
 
 slide 7:
-Make this slide more elegant and stylistically better given the context of a checkpoint slide
+Make this slide more elegant and stylistically better given the context of a checkpoint slide. we should reference plant, sensor and controller in each. maybe as subtext. we should probably keep compelte current and (pending)
 
 Title should read - Mechanical Plant Vibration
 
@@ -67,6 +67,13 @@ Slide 15:
 Same as slide 7. Sylistically needs to be improved. carry over your changes header
 
 
+slide 15.5
+title:Why do motors get hot.
+image: gyro and d term pre filtering v2.
+
+This image may need to be centered with text below.
+we can put a single line of copy below that says. Any noise that isnt fitlered will be ampliefied by d term
+Make sure this text is readable and makes sense stylistically
 
 
 Slide 16.1 and slide 16.2
@@ -74,7 +81,154 @@ We should add two slides on the two types of filters that are used by betaflight
 
 the first slide should be on the low pass filters.
 Include this image: low pass filters.png - ensure this is formatted correctly on the slide
+include this image directly below: low pass filters affect on noise.png ensure they are both the same width:
+
+
+second slide should be on notch filters
+Include this image: notch filters.png
+
+slide 16.3 
+title: Nobs to turn 
+image: nobs to turn.png
+credit: Oscar Liang
+
+
+slide 16.7
+title: Post Filter Changes
+img: post filtered screenshot.png
+
+
+Slide 17.
+
+We should probably keep this slide, find a logical place to put it, probably after 16.3. so 16.4
+Title: Dynamic notch incorrectly acting on motor RPM
+subtitle: dynamic notch targets left over motor noise
+
+Observed configuration - incorrect preset configuration
+
+bullet 2 subtext: dynamic notch 1 unable to go low enough to properly filter harmonics.
+
+Correction: <- title
+1) RPM weight set (insert the final weights)
+ acount for second motor harmonic
+
+
+Slide 18: this slide probably needs to be deleted. I think that you will replace some of the content when you are adding to the other slides. the picture isnt helpful and i dont have screenshots to usefully distinguish when we are making only low pass changes just final
+
+
+slide 16.5
+
+Title: Changes made
+Subtitle: Filter setting adjustments. the image shows sketches with what i changed, if we include words/ there is space we should mention rpm ramp up if we havnt already
+img: final filter settings with sketch.png
+
+
+You can probably do a better job referencing the conversation on what i changed, include a textbox that address each cleanly and with minimal text.
+
+Ie turned lp1 off, kept lp2 on (aliasing and sits below noise floor) - slider values were adjusted
+the rpm filters were allowed to go lower. the ramp up rate was decreased
+dynamic notch lowered. 
+Rpm weights decreased. 
+
+You can do a better job, reference the conversation log
+
+slide 19
+title: Effect of ESC settings on filtering
+This should be organized as the last of the changes made to the filters, before betalfight screenshot slide 16.5 and final filter screenshot slide.
+switch image for: esc changes and effect on filtering.png
+
+Delete "why pwm belongs in the investigation" - need better title
+bullet points 1 and 2 are good.
+split into two different blocks 24khz steady and the other 24-48khz variable. 24khz should mention that filtering is slightly cleaner based on plot. efficiency tradeoff
+then do two bullets for variable and include in the subtext why there is efficiecny gain. 
+
+
+Slide 20: This slide is being replaced can get rid of it
+
+Slide 21: format as the other checkpoint slides
+Title: Checkpoint: Controller tuning
+
+
+Slide 21.1: This will be about the method of tuning
+
+img: pid tuning method
+
+Include boxes with arrows to the next pointing down on the right side.
+Step 1) P to D Ratio
+Step 2) Pitch to Roll balance
+Step 3) Master Multiplier
+Step 4) Feedforward
+
+
+Include a couple words in each box subtext relevant to what hillbilly included in the coversation - make sure to reference. here is the start for easy searching
+First step -> 
+P to D ratio
+Start first step at D1.0, then
+D1.2
+D1.4
+
+
+21.2 Wobble tuning
+A consistant sinusoidal input is applied to setpoint with a frequency of 2.6hz for consistant results
+img: wobble test
+note: custom script setup in radio. low motor noise post filtering. used to create N values for step response plot
+
+21.3
+Title: Pitch tuning
+P to D balance
+Img: ptich PT-PD balance
+
+and secondly P to D gain
+img: pitch P-D coef
+
+include a note on how we want latency of pitch to match roll. higher moment of inertia so need higher gains.
+
+
+21.4
+title: Tuning master multiplier
+img: master multiplier test.png
+
+Note: Increase the master multiplier slightly increases damping. The ratio of dampening changes as we move up
+(Could include appendix slide with math calculations on the relationship of dampening coef and master multiplier. If i remember correctly it is not directly proportional. would be good to justify with math)
+
+
+21.5
+Title: Feedforward tuning
+include img: ff 0.6 latency.png, ff 0.8 latency.png, ff 1.0 .png organized top to bottom
+Add a label for each.
+
+Note that 0.8 has lower delay than 0.6. ff of 1.0 is presenting overshoot and possibly slightly overtuned
+
+21.6
+Title: Final Tune
+Include img: final tutune setpoint.png
+
+Mention that black is gyro, and nearly invisible behind the red setpoint line. motors are not as noisy before
+
+
+-- Add apendix page with img inital setpoint tune.png
+shows motor noise
+
+Incorporate slides 22, 24-26 content where applicable but edit copy. For each relevant slide like master multiplier use my images. Basically delete these slides but using copy if you like it
+
+
+delete slide 23, 28 and 29
+
+Slide 27: Use same style as checkpoint slides. We should now have three green completed boxes. 
+
+Slide 30: Center and make thank you larger. Title: Thank you! *enter* Questions? then subtext on questions should say: Appendix with additional calculations and data available
+
+Slide 31. I like the title and subtext, but remove "preserved" before source slides.
+
+For technical QandA is good. also keep evidnece behind decisions but delte the subtext.
+
+Organize the text on this page so it makes more sense, easier to read and more cohesive
 
 
 
 
+We will come back to appendix slides later. for now remove random title slide 38.
+
+slide 39 add jello footage demo.png
+
+Delete slide 40
