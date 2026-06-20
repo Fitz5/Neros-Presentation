@@ -1,0 +1,80 @@
+We should have the slide subheader that is still found on slide 5 and 6 that says diagnostic order read "Neros" on each slide
+
+45 min tehcnical interview should be changed to David Fitzgerald
+
+The slide bar on the top with obhjective baseline failure mech etc. font needs to be increased. along with david fitzgerald and slide numbers. 
+"Baseline Failure" Should be changed to "Problems"
+
+Title slide: Change title to Nothing Works the First Time
+
+Slide 2: top speed flight time action-cam etc sub header should be above the bolded main text. that way it reads Top speed - 70mph not the other way around.
+reliable + repeatable should have an & instead of +
+
+
+Slide 3: This slide needs some work. We should have a neatly organized information box on the left. It should read, Frame: AOS UL7 -enter - Motor: EMAX 2807 1300 KV etc.
+
+This should be an easy list to read top to bottom. order should make sense in context. Ensure that text size and formatting make sense given the image
+ON the right side of the slide we will reserve for a photo of the drone. get rid of the place holder image and the text. i know what needs to go there
+
+Slide 4:
+Reformat "The challenge" so it makes more sense and fits in with the elegant and minimal style of the slide. The copy also needs to be changed.
+Copy: Diagnose why a fresh build with frame specific presets fails initial requirements
+
+Slide 6: we should equate to the top bar and how we will be solving
+
+So 01: Mechanical - Plant
+02: Filtering / ESC - Sensor
+03: PID / Feedfoward - Controller
+
+slide 7:
+Make this slide more elegant and stylistically better given the context of a checkpoint slide
+
+Title should read - Mechanical Plant Vibration
+
+Slide 8 & 9. These slides need to be redone, plan to condense into one slide. I will describe how they should be done below:
+Two pictures side by side.
+Left: rolling-shutter-example.png
+Right: rolling-shutter-jello-model.png
+
+Underneath that we should have the textboxes.
+On the left we should have physical mechanism & assumptions. - both of these needed to be reformated to both fit and read better.
+Assumptions needs FPS: 60 - Tscan= 16ms etc. Label with the variable names we use in calculation 
+
+On the right, we should wave haves per frame on the top and phase aliasing below.
+It looks like we can fit the math on one line. we need to increase the text size of the math so it is readable. ensure we dont get any formatting issues when doing this. Text size should still make sense in the context of the slide
+
+
+Slide 10: get rid of "observations" Bullet points should be centered right not top right. Fix formatting so it makes sense. Also ensure it is identical in style to slide 11 so when i click the text spot stays but copy changes
+
+
+slide 11: use suggestions from slide 10 in that copy needs to be moved down. get rid of "observation" 
+
+Slide 12: 
+bullet 1: fine
+bullet 2: Chris' build shows a smaller frame harmonic than motor noise
+bullet 3: 200hz appears as first harmonic
+
+
+Slide 13: Left text box to right text box should align better. Ie battery motion should be in line with torque as it is. but check for wires and tighten motor and frame screws are not bc there is empty subtext. may just want to add empty subtext for formatting
+
+
+
+Slide 14: Picture on the right is too small and pushed too far to the right. Make subheader larger. the g in changes is cutoff on the bottom.
+Overall this slide is lacking visual appeal. "Changes made" text box is too far on on the left and overal it just seems like this slide is lacking copy. not saying we need to add more but it does need to be presented better
+
+
+Slide 15:
+Same as slide 7. Sylistically needs to be improved. carry over your changes header
+
+
+
+
+Slide 16.1 and slide 16.2
+We should add two slides on the two types of filters that are used by betaflight. both slides should have overlapping content, so that when i transition content doesnt move. Only copy and image change
+
+the first slide should be on the low pass filters.
+Include this image: low pass filters.png - ensure this is formatted correctly on the slide
+
+
+
+
