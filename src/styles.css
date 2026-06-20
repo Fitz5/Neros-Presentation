@@ -263,57 +263,25 @@ button {
   width: 100%;
 }
 
-.slide-frame-resonance-expectation .imageBlock {
+.slideCanvas.slide-frame-resonance-expectation .imageBlock {
   align-self: center;
   gap: 0.3cqw;
 }
 
-.slide-frame-resonance-expectation .slideBlocks {
+.slideCanvas.slide-frame-resonance-expectation .slideBlocks {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   column-gap: 0.85cqw;
 }
 
-.slide-frame-resonance-expectation .imageBlock img {
+.slideCanvas.slide-frame-resonance-expectation .imageBlock img {
   border: 0;
   border-radius: 0;
   background: transparent;
 }
 
-.slide-frame-resonance-expectation .comparisonRight .bulletItem strong {
-  font-size: 1.15cqw;
-}
-
 .layout-comparison .bulletBlock,
 .layout-comparison .calloutBlock {
   grid-column: 2;
-}
-
-.layout-comparison .comparisonRight {
-  grid-column: 2;
-  grid-row: 1 / span 3;
-  align-self: center;
-  display: grid;
-  gap: 0.55cqw;
-}
-
-.layout-comparison .comparisonRight .bulletBlock {
-  padding: 0.52cqw 0.68cqw;
-  gap: 0.28cqw;
-}
-
-.layout-comparison .comparisonRight .bulletList,
-.layout-comparison .comparisonRight .bulletItem {
-  gap: 0.28cqw;
-}
-
-.layout-comparison .comparisonRight .bulletItem {
-  grid-template-columns: 0.5cqw minmax(0, 1fr);
-}
-
-.layout-comparison .comparisonRight .bulletMark {
-  width: 0.48cqw;
-  height: 0.48cqw;
-  margin-top: 0.32cqw;
 }
 
 .layout-comparison .bulletBlock {
@@ -574,32 +542,32 @@ button {
   text-align: center;
 }
 
-.slide-drone .slideBlocks {
+.slideCanvas.slide-drone .slideBlocks {
   grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
   grid-template-rows: auto auto;
   gap: 0.65cqw;
   align-content: center;
 }
 
-.slide-drone .imageBlock,
-.slide-drone .bulletBlock {
+.slideCanvas.slide-drone .imageBlock,
+.slideCanvas.slide-drone .bulletBlock {
   grid-column: 2;
 }
 
-.slide-drone .imageBlock {
+.slideCanvas.slide-drone .imageBlock {
   width: 100%;
   justify-self: end;
 }
 
-.slide-drone .imageBlock img {
+.slideCanvas.slide-drone .imageBlock img {
   max-height: 16.5cqw;
 }
 
-.slide-drone .imageBlock figcaption {
+.slideCanvas.slide-drone .imageBlock figcaption {
   text-align: right;
 }
 
-.slide-drone .bulletBlock {
+.slideCanvas.slide-drone .bulletBlock {
   gap: 0.38cqw;
   padding: 0.75cqw 0.9cqw;
   border: 1px solid rgba(29, 37, 40, 0.12);
@@ -607,23 +575,23 @@ button {
   background: rgba(255, 255, 255, 0.74);
 }
 
-.slide-drone .bulletList {
+.slideCanvas.slide-drone .bulletList {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.34cqw 0.8cqw;
 }
 
-.slide-drone .bulletItem {
+.slideCanvas.slide-drone .bulletItem {
   grid-template-columns: 0.42cqw minmax(0, 1fr);
   gap: 0.42cqw;
 }
 
-.slide-drone .bulletMark {
+.slideCanvas.slide-drone .bulletMark {
   width: 0.4cqw;
   height: 0.4cqw;
   margin-top: 0.28cqw;
 }
 
-.slide-drone .bulletItem strong {
+.slideCanvas.slide-drone .bulletItem strong {
   font-size: 0.95cqw;
 }
 
@@ -678,119 +646,91 @@ button {
   font-size: 1.04cqw;
 }
 
-.slide-mechanical-checkpoint .slideBlocks,
-.slide-filtering-checkpoint .slideBlocks {
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  align-content: center;
-}
-
-.slide-mechanical-checkpoint .bulletBlock,
-.slide-filtering-checkpoint .bulletBlock {
-  grid-column: 2;
-  min-height: 23cqw;
-  align-content: center;
-  gap: 1.3cqw;
-  padding: 2cqw 2.4cqw;
-  border-radius: 12px;
-  background: #e9ebe5;
-}
-
-.slide-mechanical-checkpoint .bulletBlock h2,
-.slide-filtering-checkpoint .bulletBlock h2 {
-  font-size: 1.8cqw;
-}
-
-.slide-mechanical-checkpoint .bulletList,
-.slide-filtering-checkpoint .bulletList {
-  gap: 1.35cqw;
-}
-
-.slide-mechanical-checkpoint .bulletItem strong,
-.slide-filtering-checkpoint .bulletItem strong {
-  font-size: 1.8cqw;
-}
-
-.slide-jello-mechanism .slideTitle h1 {
+.slideCanvas.slide-jello-mechanism .slideTitle h1 {
   font-size: 2.55cqw;
 }
 
-.slide-jello-mechanism .slideBlocks {
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+/* Two reference images across the top, mechanism + math in the rows below. */
+.slideCanvas.slide-jello-mechanism .slideBlocks {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: auto auto auto;
-  gap: 0.5cqw 0.8cqw;
+  gap: 0.6cqw 0.9cqw;
   align-content: center;
-  padding-top: 0.45cqw;
+  padding-top: 0.4cqw;
 }
 
-.slide-jello-mechanism .imageBlock {
-  width: 100%;
-}
-
-.slide-jello-mechanism .imageBlock:nth-child(1) {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  align-self: center;
-}
-
-.slide-jello-mechanism .bulletBlock:nth-child(2) {
-  grid-column: 2;
+.slideCanvas.slide-jello-mechanism .slideBlocks > .imageBlock {
   grid-row: 1;
-  padding: 0.45cqw 0.6cqw;
+  width: min(100%, 30cqw);
+  justify-self: center;
 }
 
-.slide-jello-mechanism .bulletBlock:nth-child(2) .bulletList {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.18cqw 0.55cqw;
+.slideCanvas.slide-jello-mechanism .slideBlocks > .imageBlock:nth-child(1) {
+  grid-column: 1;
 }
 
-.slide-jello-mechanism .bulletBlock:nth-child(2) .bulletItem strong {
-  font-size: 0.78cqw;
+.slideCanvas.slide-jello-mechanism .slideBlocks > .imageBlock:nth-child(2) {
+  grid-column: 2;
 }
 
-.slide-jello-mechanism .imageBlock:nth-child(3) {
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(3) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(4) {
   grid-column: 2;
   grid-row: 2;
 }
 
-.slide-jello-mechanism .bulletBlock:nth-child(4) {
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(5) {
   grid-column: 1;
   grid-row: 3;
 }
 
-.slide-jello-mechanism .bulletBlock:nth-child(5) {
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(6) {
   grid-column: 2;
   grid-row: 3;
 }
 
-.slide-jello-mechanism .bulletBlock:nth-child(n + 4) {
-  gap: 0.32cqw;
+/* Compact every text box so all four fit cleanly under the images. */
+.slideCanvas.slide-jello-mechanism .bulletBlock {
+  gap: 0.3cqw;
   padding: 0.55cqw 0.7cqw;
+  border: 1px solid rgba(29, 37, 40, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
 }
 
-.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .bulletList {
-  gap: 0.26cqw;
+.slideCanvas.slide-jello-mechanism .bulletList {
+  gap: 0.28cqw;
 }
 
-.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .bulletItem strong,
-.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .equationText,
-.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .equationDetail {
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(4) .bulletList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.2cqw 0.6cqw;
+}
+
+.slideCanvas.slide-jello-mechanism .bulletItem strong,
+.slideCanvas.slide-jello-mechanism .equationText,
+.slideCanvas.slide-jello-mechanism .equationDetail {
   font-size: 0.92cqw !important;
 }
 
-.slide-mechanical-change-result .imageBlock {
+.slideCanvas.slide-mechanical-change-result .imageBlock {
   grid-column: 2;
   grid-row: 1 / span 3;
   max-width: 39cqw;
   justify-self: end;
 }
 
-.slide-mechanical-change-result .bulletBlock {
+.slideCanvas.slide-mechanical-change-result .bulletBlock {
   grid-column: 1;
   grid-row: 1 / span 3;
   align-self: center;
 }
 
-.slide-mechanical-change-result .bulletItem strong {
+.slideCanvas.slide-mechanical-change-result .bulletItem strong {
   font-size: 1.58cqw;
 }
 
@@ -1432,11 +1372,3 @@ button {
   font-size: var(--type-support);
 }
 
-/* Retire opening-slide-specific positioning in favor of compositions. */
-.slide-frame-resonance-expectation .slideBlocks,
-.slide-drone .slideBlocks,
-.slide-jello-mechanism .slideBlocks,
-.slide-mechanical-checkpoint .slideBlocks,
-.slide-filtering-checkpoint .slideBlocks {
-  column-gap: inherit;
-}

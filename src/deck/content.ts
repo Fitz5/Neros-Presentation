@@ -4,7 +4,7 @@ const deckImage = (name: string) => `/screenshots/deck/${name}`;
 
 export const deck = {
   meta: {
-    title: "Fixing a 'perfect' drone",
+    title: "Fixing a new drone",
     subtitle: "An algorithmic approach to drone performance",
     presenter: "David Fitzgerald",
     dateLabel: "June 24th",
@@ -34,7 +34,7 @@ export const deck = {
     {
       id: "deck-title",
       sectionId: "objective",
-      title: "Fixing a 'perfect' drone",
+      title: "Fixing a new drone",
       subtitle: "An algorithmic approach to drone performance",
       layout: "title",
       composition: "cover",
@@ -181,13 +181,13 @@ export const deck = {
             },
             {
               id: "filters",
-              label: "03",
+              label: "02",
               title: "Filtering / ESC",
               description: "Reduce noise and minimize delay",
             },
             {
               id: "controller",
-              label: "04",
+              label: "03",
               title: "PID / Feedforward",
               description:
                 "Critically damped with minimal-error setpoint tracking",
@@ -256,9 +256,55 @@ export const deck = {
             },
           ],
         },
+        {
+          type: "bullets",
+          title: "Assumptions",
+          items: [
+            { id: "jm-assume-mode", text: "4K / 60 fps capture" },
+            { id: "jm-assume-frame", text: "16.67 ms frame time" },
+            { id: "jm-assume-scan", text: "≈16 ms sensor scan (assumed)" },
+            { id: "jm-assume-peak", text: "200 Hz measured vibration peak" },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "Waves per frame",
+          tone: "accent",
+          items: [
+            {
+              id: "jm-waves-equation",
+              text: "waves per frame",
+              equation: [
+                { text: "n" },
+                { text: "waves", script: "sub" },
+                { text: " = T" },
+                { text: "scan", script: "sub" },
+                { text: " × f" },
+                { text: "vib", script: "sub" },
+              ],
+              detail: "(0.016 s)(200 Hz) = 3.2 waves / frame",
+              detailEquation: [{ text: "(0.016 s)(200 Hz) = 3.2 waves / frame" }],
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "Phase aliasing",
+          tone: "warning",
+          items: [
+            {
+              id: "jm-alias-equation",
+              text: "200 Hz / 60 fps = 3⅓ cycles / frame",
+              equation: [{ text: "200 Hz / 60 fps = 3⅓ cycles / frame" }],
+              detail: "⅓ cycle × 360° = 120° / frame",
+              detailEquation: [{ text: "⅓ cycle × 360° = 120° / frame" }],
+            },
+          ],
+        },
       ],
       notes: [
         "The camera scans rows at different times, so high-frequency motion becomes spatial distortion instead of ordinary blur.",
+        "The equation box previews the frequency math; the next slide works it through in full.",
       ],
     },
     {
