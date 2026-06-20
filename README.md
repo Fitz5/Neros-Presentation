@@ -2,7 +2,16 @@
 
 A typed presentation workspace for developing and exporting a 45-minute technical interview deck about diagnosing and tuning a 7-inch chase drone.
 
-The current build contains a 26-slide timed narrative plus a technical and preserved-source appendix. Research notes, original images, and blackbox logs remain under `sources/discord-convo/`.
+The current build contains a 38-slide timed narrative plus a technical and preserved-source appendix. Research notes, original images, and blackbox logs remain under `sources/discord-convo/`.
+
+## Repository Layout
+
+- `src/` - typed deck content, browser rendering, styles, and PPTX export logic
+- `public/` - presentation-ready images used by the deck
+- `sources/` - working diagrams, original research material, and flight logs
+- `docs/` - planning documents and the slide outline
+- `scripts/` - asset validation, screenshot import, and export commands
+- `Changes Notes.md` - pending presentation changes that have not been implemented yet
 
 ## Commands
 
@@ -37,7 +46,7 @@ Track the rough sequence in `docs/slide-outline.md` while editing `src/deck/cont
 
 ## Screenshots
 
-Keep original Discord material in `sources/discord-convo/images/`. Put only screenshots that are ready for a slide in `public/screenshots/deck/`:
+Keep original Discord material in `sources/discord-convo/images/` and working diagrams in `sources/slide-sketches/`. Put only screenshots that are ready for a slide in `public/screenshots/deck/`:
 
 ```powershell
 npm run import:screenshot -- "C:\path\to\capture.png" "03-filter-response"
