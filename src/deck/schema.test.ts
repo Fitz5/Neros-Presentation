@@ -72,4 +72,41 @@ describe("validateDeck", () => {
       }),
     ).toThrow('Slide "intro" references unknown step "missing".');
   });
+
+  it("accepts requirement and failure metric variants with optional labels", () => {
+    const parsed = validateDeck({
+      ...validDeck,
+      slides: [
+        {
+          ...validDeck.slides[0],
+          blocks: [
+            {
+              type: "metricRow",
+              variant: "requirements",
+              metrics: [
+                { id: "speed", value: "70 mph", label: "Top speed" },
+                { id: "reliable", value: "Reliable", emphasis: true },
+              ],
+            },
+            {
+              type: "metricRow",
+              variant: "failures",
+              metrics: [
+                { id: "jello", value: "Camera Jello" },
+                { id: "motors", value: "Hot Motors" },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    const requirementBlock = parsed.slides[0]?.blocks[0];
+    expect(requirementBlock?.type).toBe("metricRow");
+    if (requirementBlock?.type === "metricRow") {
+      expect(requirementBlock.variant).toBe("requirements");
+      expect(requirementBlock.metrics[1]?.label).toBeUndefined();
+      expect(requirementBlock.metrics[1]?.emphasis).toBe(true);
+    }
+  });
 });

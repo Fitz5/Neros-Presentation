@@ -12,12 +12,66 @@ describe("expandDeck", () => {
     expect(rendered.at(-1)?.totalSlides).toBe(rendered.length);
   });
 
-  it("keeps the timed main narrative at 26 slides before the appendix", () => {
+  it("keeps the timed main narrative at 30 rendered slides before the appendix", () => {
     const rendered = expandDeck(validateDeck(deck));
     const qaIndex = rendered.findIndex((slide) => slide.id === "qa");
 
-    expect(qaIndex).toBe(25);
+    expect(qaIndex).toBe(29);
     expect(rendered[qaIndex + 1]?.id).toBe("appendix-divider");
+    expect(rendered).toHaveLength(40);
+  });
+
+  it("orders Objective before The Drone", () => {
+    const rendered = expandDeck(validateDeck(deck));
+
+    expect(rendered[1]?.id).toBe("objective");
+    expect(rendered[2]?.id).toBe("drone");
+  });
+
+  it("renders the diagnostic diagram as two consecutive build states", () => {
+    const rendered = expandDeck(validateDeck(deck));
+    const diagnosticSlides = rendered.filter(
+      (slide) => slide.sourceSlideId === "diagnostic-method",
+    );
+
+    expect(diagnosticSlides.map((slide) => slide.id)).toEqual([
+      "diagnostic-method--system",
+      "diagnostic-method--order",
+    ]);
+    expect(diagnosticSlides[0]?.blocks.map((block) => block.type)).toEqual([
+      "image",
+    ]);
+    expect(diagnosticSlides[1]?.blocks.map((block) => block.type)).toEqual([
+      "image",
+      "timeline",
+    ]);
+  });
+
+  it("moves the RPM overlay into the main mechanical narrative", () => {
+    const rendered = expandDeck(validateDeck(deck));
+    const spectrumIndex = rendered.findIndex(
+      (slide) => slide.id === "spectral-evidence",
+    );
+    const rpmIndex = rendered.findIndex(
+      (slide) => slide.id === "spectral-evidence-rpm",
+    );
+    const appendixIndex = rendered.findIndex(
+      (slide) => slide.id === "appendix-divider",
+    );
+
+    expect(rpmIndex).toBe(spectrumIndex + 1);
+    expect(rpmIndex).toBeLessThan(appendixIndex);
+    expect(
+      rendered.filter((slide) => slide.id === "spectral-evidence-rpm"),
+    ).toHaveLength(1);
+  });
+
+  it("removes the duplicated rolling-shutter appendix slide", () => {
+    const rendered = expandDeck(validateDeck(deck));
+
+    expect(
+      rendered.some((slide) => slide.sourceSlideId === "rolling-shutter-jello"),
+    ).toBe(false);
   });
 
   it("reveals step content cumulatively", () => {
@@ -51,8 +105,14 @@ describe("expandDeck", () => {
     } satisfies DeckInput;
 
     const rendered = expandDeck(validateDeck(stepDeck));
-    const firstItems = rendered[0].blocks[0]?.type === "bullets" ? rendered[0].blocks[0].items : [];
-    const secondItems = rendered[1].blocks[0]?.type === "bullets" ? rendered[1].blocks[0].items : [];
+    const firstItems =
+      rendered[0].blocks[0]?.type === "bullets"
+        ? rendered[0].blocks[0].items
+        : [];
+    const secondItems =
+      rendered[1].blocks[0]?.type === "bullets"
+        ? rendered[1].blocks[0].items
+        : [];
 
     expect(firstItems.map((item) => item.id)).toEqual(["a"]);
     expect(secondItems.map((item) => item.id)).toEqual(["a", "b"]);

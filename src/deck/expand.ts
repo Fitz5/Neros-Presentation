@@ -9,6 +9,7 @@ export interface RenderedSlide {
   title: string;
   subtitle?: string;
   layout: Slide["layout"];
+  composition: NonNullable<Slide["composition"]>;
   step?: Step;
   stepIndex: number;
   stepCount: number;
@@ -39,6 +40,7 @@ function expandSlide(slide: Slide): Omit<RenderedSlide, "sequenceNumber" | "tota
         title: slide.title,
         subtitle: slide.subtitle,
         layout: slide.layout,
+        composition: slide.composition ?? defaultComposition(slide.layout),
         stepIndex: 0,
         stepCount: 1,
         estimatedMinutes: slide.estimatedMinutes,
@@ -55,6 +57,7 @@ function expandSlide(slide: Slide): Omit<RenderedSlide, "sequenceNumber" | "tota
     title: slide.title,
     subtitle: slide.subtitle,
     layout: slide.layout,
+    composition: step.composition ?? slide.composition ?? defaultComposition(slide.layout),
     step,
     stepIndex: index,
     stepCount: steps.length,
@@ -99,7 +102,23 @@ function filterBlock(block: Block, steps: Step[], activeStepIndex: number): Bloc
     case "callout":
     case "quote":
     case "image":
+    case "checkpoint":
       return block;
+  }
+}
+
+function defaultComposition(layout: Slide["layout"]): NonNullable<Slide["composition"]> {
+  switch (layout) {
+    case "comparison":
+      return "mediaAnalysis";
+    case "timeline":
+      return "timeline";
+    case "title":
+    case "closing":
+      return "centered";
+    case "content":
+    default:
+      return "default";
   }
 }
 

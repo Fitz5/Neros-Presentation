@@ -2,7 +2,7 @@ My changes:
 
 Slide 1: Get rid of the background png image.
 The tittle should extend furthur right
-Title: "Fixing a 'perfect' drone"
+Title: "Fixing a new drone"
 Subtitle: "An algorithmic approach to drone performance"
 
 Increase the size of my name and the date

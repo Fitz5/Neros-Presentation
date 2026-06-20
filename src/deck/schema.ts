@@ -5,11 +5,36 @@ const idSchema = z
   .min(1)
   .regex(/^[a-z0-9][a-z0-9-]*$/, "Use lowercase ids with hyphens.");
 
+const textSizeSchema = z.enum(["support", "medium", "large"]);
+const compositionSchema = z.enum([
+  "default",
+  "cover",
+  "metricGrid",
+  "mediaStackRight",
+  "diagram",
+  "diagramCards",
+  "checkpoint",
+  "dualMedia",
+  "equationGrid",
+  "mediaAnalysis",
+  "twoColumn",
+  "mediaRight",
+  "timeline",
+  "centered",
+]);
+
 const buildable = {
   showAt: idSchema.optional(),
+  textSize: textSizeSchema.optional(),
 };
 
-const toneSchema = z.enum(["neutral", "accent", "success", "warning", "danger"]);
+const toneSchema = z.enum([
+  "neutral",
+  "accent",
+  "success",
+  "warning",
+  "danger",
+]);
 
 const equationPartSchema = z.object({
   text: z.string().min(1),
@@ -58,14 +83,16 @@ const twoColumnBlockSchema = z.object({
 const metricSchema = z.object({
   id: idSchema,
   value: z.string().min(1),
-  label: z.string().min(1),
+  label: z.string().min(1).optional(),
   note: z.string().optional(),
   tone: toneSchema.optional(),
+  emphasis: z.boolean().optional(),
   ...buildable,
 });
 
 const metricRowBlockSchema = z.object({
   type: z.literal("metricRow"),
+  variant: z.enum(["default", "requirements", "failures"]).optional(),
   metrics: z.array(metricSchema).min(2).max(4),
   ...buildable,
 });
@@ -111,6 +138,22 @@ const imageBlockSchema = z.object({
   ...buildable,
 });
 
+const checkpointBlockSchema = z.object({
+  type: z.literal("checkpoint"),
+  title: z.string().optional(),
+  items: z
+    .array(
+      z.object({
+        id: idSchema,
+        text: z.string().min(1),
+        state: z.enum(["complete", "current", "pending"]),
+        ...buildable,
+      }),
+    )
+    .length(3),
+  ...buildable,
+});
+
 export const BlockSchema = z.discriminatedUnion("type", [
   headlineBlockSchema,
   bulletsBlockSchema,
@@ -120,6 +163,7 @@ export const BlockSchema = z.discriminatedUnion("type", [
   calloutBlockSchema,
   quoteBlockSchema,
   imageBlockSchema,
+  checkpointBlockSchema,
 ]);
 
 export const SectionSchema = z.object({
@@ -131,6 +175,7 @@ export const SectionSchema = z.object({
 export const StepSchema = z.object({
   id: idSchema,
   label: z.string().min(1),
+  composition: compositionSchema.optional(),
   notes: z.array(z.string()).optional(),
 });
 
@@ -140,6 +185,7 @@ export const SlideSchema = z.object({
   title: z.string().min(1),
   subtitle: z.string().optional(),
   layout: z.enum(["title", "content", "comparison", "timeline", "closing"]),
+  composition: compositionSchema.optional(),
   estimatedMinutes: z.number().positive().optional(),
   steps: z.array(StepSchema).optional(),
   blocks: z.array(BlockSchema),
@@ -203,7 +249,9 @@ function getIntegrityErrors(deck: Deck) {
     slideIds.add(slide.id);
 
     if (!sectionIds.has(slide.sectionId)) {
-      errors.push(`Slide "${slide.id}" references unknown section "${slide.sectionId}".`);
+      errors.push(
+        `Slide "${slide.id}" references unknown section "${slide.sectionId}".`,
+      );
     }
 
     const stepIds = new Set((slide.steps ?? []).map((step) => step.id));
@@ -213,7 +261,9 @@ function getIntegrityErrors(deck: Deck) {
 
     for (const showAt of collectShowAtRefs(slide.blocks)) {
       if (stepIds.size === 0) {
-        errors.push(`Slide "${slide.id}" uses showAt "${showAt}" but has no steps.`);
+        errors.push(
+          `Slide "${slide.id}" uses showAt "${showAt}" but has no steps.`,
+        );
       } else if (!stepIds.has(showAt)) {
         errors.push(`Slide "${slide.id}" references unknown step "${showAt}".`);
       }
@@ -233,7 +283,9 @@ function collectShowAtRefs(blocks: Block[]) {
 
     switch (block.type) {
       case "bullets":
-        refs.push(...block.items.flatMap((item) => (item.showAt ? [item.showAt] : [])));
+        refs.push(
+          ...block.items.flatMap((item) => (item.showAt ? [item.showAt] : [])),
+        );
         break;
       case "twoColumn":
         refs.push(
@@ -243,15 +295,22 @@ function collectShowAtRefs(blocks: Block[]) {
         );
         break;
       case "metricRow":
-        refs.push(...block.metrics.flatMap((metric) => (metric.showAt ? [metric.showAt] : [])));
+        refs.push(
+          ...block.metrics.flatMap((metric) =>
+            metric.showAt ? [metric.showAt] : [],
+          ),
+        );
         break;
       case "timeline":
-        refs.push(...block.items.flatMap((item) => (item.showAt ? [item.showAt] : [])));
+        refs.push(
+          ...block.items.flatMap((item) => (item.showAt ? [item.showAt] : [])),
+        );
         break;
       case "headline":
       case "callout":
       case "quote":
       case "image":
+      case "checkpoint":
         break;
     }
   }
