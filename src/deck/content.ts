@@ -4,7 +4,7 @@ const deckImage = (name: string) => `/screenshots/deck/${name}`;
 
 export const deck = {
   meta: {
-    title: "Fixing a new drone",
+    title: "Nothing Works the First Time",
     subtitle: "An algorithmic approach to drone performance",
     presenter: "David Fitzgerald",
     dateLabel: "June 24th",
@@ -14,16 +14,16 @@ export const deck = {
     { id: "objective", title: "Objective", shortTitle: "Objective" },
     {
       id: "baseline",
-      title: "Baseline Failure",
-      shortTitle: "Baseline Failure",
+      title: "Problems",
+      shortTitle: "Problems",
     },
-    { id: "mechanical", title: "Mechanical", shortTitle: "Mechanical" },
+    { id: "mechanical", title: "Mechanical", shortTitle: "Plant" },
     {
       id: "filtering",
       title: "Filtering / ESC",
-      shortTitle: "Filtering / ESC",
+      shortTitle: "Sensor",
     },
-    { id: "pid", title: "PID Tracking", shortTitle: "PID Tracking" },
+    { id: "pid", title: "PID Tracking", shortTitle: "Controller" },
     {
       id: "validation",
       title: "Final Validation",
@@ -34,7 +34,7 @@ export const deck = {
     {
       id: "deck-title",
       sectionId: "objective",
-      title: "Fixing a new drone",
+      title: "Nothing Works the First Time",
       subtitle: "An algorithmic approach to drone performance",
       layout: "title",
       composition: "cover",
@@ -73,7 +73,7 @@ export const deck = {
             },
             {
               id: "reliability",
-              value: "Reliable + repeatable",
+              value: "Reliable & repeatable",
               label: "Performance",
               emphasis: true,
             },
@@ -89,32 +89,26 @@ export const deck = {
       sectionId: "objective",
       title: "The Drone",
       layout: "content",
-      composition: "mediaStackRight",
+      composition: "default",
       estimatedMinutes: 1,
       blocks: [
-        {
-          type: "image",
-          src: "/graphics/drone-placeholder.svg",
-          alt: "Replaceable placeholder for a photograph of the AOS UL7 chase drone.",
-          caption: "Replace with final aircraft photograph",
-          aspectRatio: 1.7778,
-        },
         {
           type: "bullets",
           title: "Specifications",
           tone: "accent",
           items: [
-            { id: "frame", text: "AOS UL7" },
-            { id: "camera", text: "DJI Osmo Action 6" },
-            { id: "battery", text: "6S1P RS50 Li-ion" },
-            { id: "motors", text: "EMAX 2807 1300 KV" },
-            { id: "props", text: "HQProp DP 7×3.5×3 PC" },
-            { id: "fc", text: "Hobbywing F7" },
+            { id: "frame", text: "Frame", detail: "AOS UL7" },
+            { id: "motors", text: "Motors", detail: "EMAX 2807 1300 KV" },
+            { id: "props", text: "Props", detail: "HQProp DP 7×3.5×3 PC" },
+            { id: "battery", text: "Battery", detail: "6S1P RS50 Li-ion" },
+            { id: "camera", text: "Camera", detail: "DJI Osmo Action 6" },
+            { id: "fc", text: "FC", detail: "Hobbywing F7" },
             {
               id: "esc",
-              text: "Hobbywing XRotor Micro 65A 4-in-1 ESC, BLHeli32",
+              text: "ESC",
+              detail: "Hobbywing XRotor Micro 65A, BLHeli32",
             },
-            { id: "capacitor", text: "1×680 µF capacitor" },
+            { id: "capacitor", text: "Capacitor", detail: "1×680 µF" },
           ],
         },
       ],
@@ -142,8 +136,8 @@ export const deck = {
         {
           type: "callout",
           label: "The Challenge",
-          text: "A fresh build with frame-specific presets applied.",
-          tone: "warning",
+          text: "Diagnose why a fresh build with frame-specific presets fails initial requirements.",
+          tone: "accent",
         },
       ],
       notes: [
@@ -159,8 +153,8 @@ export const deck = {
       layout: "timeline",
       estimatedMinutes: 1.5,
       steps: [
-        { id: "system", label: "Diagnostic order", composition: "diagram" },
-        { id: "order", label: "Diagnostic order", composition: "diagramCards" },
+        { id: "system", label: "Neros", composition: "diagram" },
+        { id: "order", label: "Neros", composition: "diagramCards" },
       ],
       blocks: [
         {
@@ -176,21 +170,20 @@ export const deck = {
             {
               id: "vehicle",
               label: "01",
-              title: "Physical drone",
-              description: "Mass, stiffness, mounts, and relative motion",
+              title: "Mechanical",
+              description: "Plant",
             },
             {
               id: "filters",
               label: "02",
               title: "Filtering / ESC",
-              description: "Reduce noise and minimize delay",
+              description: "Sensor",
             },
             {
               id: "controller",
               label: "03",
               title: "PID / Feedforward",
-              description:
-                "Critically damped with minimal-error setpoint tracking",
+              description: "Controller",
             },
           ],
         },
@@ -202,7 +195,7 @@ export const deck = {
     {
       id: "mechanical-checkpoint",
       sectionId: "mechanical",
-      title: "Checkpoint: Addressing Mechanical Plant Vibration",
+      title: "Mechanical Plant Vibration",
       layout: "content",
       composition: "checkpoint",
       estimatedMinutes: 0.5,
@@ -211,9 +204,24 @@ export const deck = {
           type: "checkpoint",
           title: "Progress",
           items: [
-            { id: "mechanical-current", text: "Camera Jello", state: "current" },
-            { id: "mechanical-open-motors", text: "Hot Motors", state: "pending" },
-            { id: "mechanical-open-tracking", text: "Poor Tracking", state: "pending" },
+            {
+              id: "mechanical-current",
+              text: "Camera Jello",
+              detail: "Plant",
+              state: "current",
+            },
+            {
+              id: "mechanical-open-motors",
+              text: "Hot Motors",
+              detail: "Sensor",
+              state: "pending",
+            },
+            {
+              id: "mechanical-open-tracking",
+              text: "Poor Tracking",
+              detail: "Controller",
+              state: "pending",
+            },
           ],
         },
       ],
@@ -237,9 +245,9 @@ export const deck = {
         },
         {
           type: "image",
-          src: deckImage("jello-vs-frequency-sketch.png"),
-          alt: "Sketch relating vibration frequency, scan timing, and waves visible in one frame.",
-          aspectRatio: 2.3216,
+          src: deckImage("rolling-shutter-jello-model.png"),
+          alt: "Model relating vibration frequency, scan timing, and the jello waves visible in one frame.",
+          aspectRatio: 1.7778,
         },
         {
           type: "bullets",
@@ -260,10 +268,10 @@ export const deck = {
           type: "bullets",
           title: "Assumptions",
           items: [
-            { id: "jm-assume-mode", text: "4K / 60 fps capture" },
-            { id: "jm-assume-frame", text: "16.67 ms frame time" },
-            { id: "jm-assume-scan", text: "≈16 ms sensor scan (assumed)" },
-            { id: "jm-assume-peak", text: "200 Hz measured vibration peak" },
+            { id: "jm-assume-fps", text: "FPS = 60" },
+            { id: "jm-assume-frame", text: "Frame time = 16.67 ms" },
+            { id: "jm-assume-tscan", text: "Tscan = 16 ms" },
+            { id: "jm-assume-fvib", text: "fvib = 200 Hz" },
           ],
         },
         {
@@ -304,69 +312,7 @@ export const deck = {
       ],
       notes: [
         "The camera scans rows at different times, so high-frequency motion becomes spatial distortion instead of ordinary blur.",
-        "The equation box previews the frequency math; the next slide works it through in full.",
-      ],
-    },
-    {
-      id: "jello-math",
-      sectionId: "mechanical",
-      title: "Why 200 Hz Produces Visible Jello",
-      layout: "content",
-      composition: "equationGrid",
-      estimatedMinutes: 1.25,
-      blocks: [
-        {
-          type: "metricRow",
-          variant: "requirements",
-          textSize: "support",
-          metrics: [
-            { id: "video-mode", value: "4K / 60", label: "Video mode" },
-            { id: "frame-time", value: "16.67 ms", label: "Frame time" },
-            { id: "scan-time", value: "≈16 ms", label: "Scan time" },
-            { id: "vibration-peak", value: "200 Hz", label: "Measured peak" },
-          ],
-        },
-        {
-          type: "bullets",
-          title: "Waves per frame",
-          tone: "accent",
-          textSize: "large",
-          items: [
-            {
-              id: "waves-equation",
-              text: "waves per frame",
-              equation: [
-                { text: "n" },
-                { text: "waves", script: "sub" },
-                { text: " = T" },
-                { text: "scan", script: "sub" },
-                { text: " × f" },
-                { text: "vib", script: "sub" },
-              ],
-              detail: "(0.016 s)(200 Hz) = 3.2 waves / frame",
-              detailEquation: [{ text: "(0.016 s)(200 Hz) = 3.2 waves / frame" }],
-            },
-          ],
-        },
-        {
-          type: "bullets",
-          title: "Phase aliasing",
-          tone: "warning",
-          textSize: "large",
-          items: [
-            {
-              id: "alias-equation",
-              text: "200 Hz / 60 fps = 3⅓ cycles / frame",
-              equation: [{ text: "200 Hz / 60 fps = 3⅓ cycles / frame" }],
-              detail: "⅓ cycle × 360° = 120° / frame",
-              detailEquation: [{ text: "⅓ cycle × 360° = 120° / frame" }],
-            },
-          ],
-        },
-      ],
-      notes: [
-        "The 16 ms sensor scan time remains an explicit assumption until the camera mode is measured or documented.",
-        "This calculation establishes a frequency-consistent mechanism; it does not prove amplitude or causation by itself.",
+        "The frequency math shows why a 200 Hz structural peak lands as a few visible waves per frame.",
       ],
     },
     {
@@ -386,7 +332,6 @@ export const deck = {
         },
         {
           type: "bullets",
-          title: "Observations",
           tone: "accent",
           items: [
             {
@@ -421,7 +366,6 @@ export const deck = {
         },
         {
           type: "bullets",
-          title: "Observations",
           tone: "accent",
           items: [
             {
@@ -465,11 +409,11 @@ export const deck = {
             },
             {
               id: "frame-resonance-magnitude",
-              text: "The 200 Hz resonance in Chris's build is smaller than the motor harmonics",
+              text: "Chris' build shows a smaller frame harmonic than motor noise",
             },
             {
               id: "frame-resonance-order",
-              text: "It should be the first harmonic spike we see in the spectrum",
+              text: "200 Hz appears as the first harmonic",
             },
           ],
         },

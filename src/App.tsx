@@ -26,6 +26,12 @@ import { theme, toneColor, typographyCqw } from "./deck/theme";
 const validatedDeck = validateDeck(deck);
 const renderedSlides = expandDeck(validatedDeck);
 
+// The technical appendix begins at this slide; main content slides carry the
+// "Neros" subheader, appendix slides do not.
+const appendixStartIndex = renderedSlides.findIndex(
+  (renderedSlide) => renderedSlide.sourceSlideId === "appendix-divider",
+);
+
 export function App() {
   const [slideIndex, setSlideIndex] = useState(() =>
     getInitialSlideIndex(renderedSlides.length),
@@ -201,6 +207,10 @@ function SlideCanvas({
   sections: Section[];
   slide: RenderedSlide;
 }) {
+  const isAppendix =
+    appendixStartIndex >= 0 && slide.sequenceNumber - 1 >= appendixStartIndex;
+  const kicker = isAppendix ? undefined : (slide.step?.label ?? "Neros");
+
   return (
     <section
       className={`slideCanvas layout-${slide.layout} composition-${slide.composition} slide-${slide.sourceSlideId} rendered-${slide.id}`}
@@ -210,7 +220,7 @@ function SlideCanvas({
       <ProgressHeader activeSectionId={activeSectionId} sections={sections} />
 
       <div className="slideTitle">
-        {slide.step?.label ? <p className="slideKicker">{slide.step.label}</p> : null}
+        {kicker ? <p className="slideKicker">{kicker}</p> : null}
         <h1>{slide.title}</h1>
         {slide.subtitle ? (
           <p className="slideSubtitle">{slide.subtitle}</p>
@@ -224,9 +234,7 @@ function SlideCanvas({
       </div>
 
       <footer className="slideFooter">
-        <span>
-          {validatedDeck.meta.durationMinutes} min technical interview
-        </span>
+        <span>{validatedDeck.meta.presenter}</span>
         <span>{`${slide.sequenceNumber}/${slide.totalSlides}`}</span>
       </footer>
     </section>
@@ -430,6 +438,7 @@ function BlockView({ block }: { block: Block }) {
                       : "Pending"}
                 </span>
                 <strong>{item.text}</strong>
+                {item.detail ? <p>{item.detail}</p> : null}
               </div>
             ))}
           </div>

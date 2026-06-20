@@ -35,7 +35,7 @@ export const theme = {
     large: 22,
     medium: 13,
     support: 10,
-    chrome: 8.5,
+    chrome: 11,
   },
 } as const;
 

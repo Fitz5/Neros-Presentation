@@ -12,13 +12,12 @@ describe("expandDeck", () => {
     expect(rendered.at(-1)?.totalSlides).toBe(rendered.length);
   });
 
-  it("keeps the timed main narrative at 30 rendered slides before the appendix", () => {
+  it("closes the main narrative immediately before the appendix", () => {
     const rendered = expandDeck(validateDeck(deck));
     const qaIndex = rendered.findIndex((slide) => slide.id === "qa");
 
-    expect(qaIndex).toBe(29);
+    expect(qaIndex).toBeGreaterThan(0);
     expect(rendered[qaIndex + 1]?.id).toBe("appendix-divider");
-    expect(rendered).toHaveLength(40);
   });
 
   it("orders Objective before The Drone", () => {

@@ -92,8 +92,8 @@ button {
 .progressNumber {
   display: inline-grid;
   place-items: center;
-  width: 1.65cqw;
-  height: 1.65cqw;
+  width: 1.95cqw;
+  height: 1.95cqw;
   border-radius: 999px;
   background: rgba(29, 37, 40, 0.08);
   font-size: 0.82cqw;
@@ -121,7 +121,7 @@ button {
 
 .slideKicker {
   margin: 0 0 0.35cqw;
-  color: #0e7c7b;
+  color: #ed5718;
   font-size: 0.92cqw;
   font-weight: 800;
   text-transform: uppercase;
@@ -518,6 +518,20 @@ button {
   text-align: center;
 }
 
+/* Label reads above the bold value: "Top speed" / "70 mph". */
+.metricRow-requirements .metric strong {
+  order: 2;
+}
+
+.metricRow-requirements .metric span {
+  order: 1;
+  margin-top: 0;
+  margin-bottom: 0.5cqw;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+}
+
 .metricRow-requirements .metric.isEmphasized {
   border-color: rgba(67, 87, 166, 0.42);
   background: #e8eaf1;
@@ -542,57 +556,56 @@ button {
   text-align: center;
 }
 
+/* Spec list on the left; right half reserved for the drone photo. */
 .slideCanvas.slide-drone .slideBlocks {
-  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
-  grid-template-rows: auto auto;
-  gap: 0.65cqw;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-content: center;
 }
 
-.slideCanvas.slide-drone .imageBlock,
 .slideCanvas.slide-drone .bulletBlock {
-  grid-column: 2;
-}
-
-.slideCanvas.slide-drone .imageBlock {
-  width: 100%;
-  justify-self: end;
-}
-
-.slideCanvas.slide-drone .imageBlock img {
-  max-height: 16.5cqw;
-}
-
-.slideCanvas.slide-drone .imageBlock figcaption {
-  text-align: right;
-}
-
-.slideCanvas.slide-drone .bulletBlock {
-  gap: 0.38cqw;
-  padding: 0.75cqw 0.9cqw;
+  grid-column: 1;
+  align-self: center;
+  gap: 0.7cqw;
+  padding: 1.15cqw 1.35cqw;
   border: 1px solid rgba(29, 37, 40, 0.12);
-  border-radius: 8px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.74);
 }
 
 .slideCanvas.slide-drone .bulletList {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.34cqw 0.8cqw;
+  gap: 0.55cqw;
+}
+
+/* Label / value as aligned columns so every value starts at the same x. */
+.slideCanvas.slide-drone .bulletMark {
+  display: none;
 }
 
 .slideCanvas.slide-drone .bulletItem {
-  grid-template-columns: 0.42cqw minmax(0, 1fr);
-  gap: 0.42cqw;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
 }
 
-.slideCanvas.slide-drone .bulletMark {
-  width: 0.4cqw;
-  height: 0.4cqw;
-  margin-top: 0.28cqw;
+.slideCanvas.slide-drone .bulletItem > div {
+  display: grid;
+  grid-template-columns: 7.5cqw minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 0.6cqw;
 }
 
 .slideCanvas.slide-drone .bulletItem strong {
-  font-size: 0.95cqw;
+  color: #5f6f73;
+  font-weight: 700;
+}
+
+.slideCanvas.slide-drone .bulletItem strong::after {
+  content: ":";
+}
+
+.slideCanvas.slide-drone .bulletItem p {
+  margin: 0;
+  color: #1d2528;
+  font-size: var(--type-medium) !important;
 }
 
 .slide-baseline-failure .calloutBlock {
@@ -631,19 +644,21 @@ button {
 }
 
 .rendered-diagnostic-method--order .timelineItem {
-  min-height: 9.8cqw;
+  min-height: 11.5cqw;
+  padding: 1.2cqw;
 }
 
 .rendered-diagnostic-method--order .timelineItem span {
-  font-size: 1.3cqw;
+  margin-bottom: 0.85cqw;
+  font-size: 2.1cqw !important;
 }
 
 .rendered-diagnostic-method--order .timelineItem strong {
-  font-size: 1.35cqw;
+  font-size: 1.7cqw !important;
 }
 
 .rendered-diagnostic-method--order .timelineItem p {
-  font-size: 1.04cqw;
+  font-size: 1.25cqw !important;
 }
 
 .slideCanvas.slide-jello-mechanism .slideTitle h1 {
@@ -673,19 +688,20 @@ button {
   grid-column: 2;
 }
 
+/* Left column: mechanism over assumptions. Right column: the two equations. */
 .slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(3) {
   grid-column: 1;
   grid-row: 2;
 }
 
 .slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(4) {
-  grid-column: 2;
-  grid-row: 2;
+  grid-column: 1;
+  grid-row: 3;
 }
 
 .slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(5) {
-  grid-column: 1;
-  grid-row: 3;
+  grid-column: 2;
+  grid-row: 2;
 }
 
 .slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(6) {
@@ -703,35 +719,55 @@ button {
 }
 
 .slideCanvas.slide-jello-mechanism .bulletList {
-  gap: 0.28cqw;
+  gap: 0.32cqw;
 }
 
-.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(4) .bulletList {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.2cqw 0.6cqw;
+.slideCanvas.slide-jello-mechanism .bulletItem strong {
+  font-size: 1cqw !important;
 }
 
-.slideCanvas.slide-jello-mechanism .bulletItem strong,
-.slideCanvas.slide-jello-mechanism .equationText,
+/* The frequency math is the point of the slide — keep it large and readable. */
+.slideCanvas.slide-jello-mechanism .equationText {
+  font-size: 1.35cqw !important;
+}
+
 .slideCanvas.slide-jello-mechanism .equationDetail {
-  font-size: 0.92cqw !important;
+  font-size: 1.15cqw !important;
 }
 
 .slideCanvas.slide-mechanical-change-result .imageBlock {
   grid-column: 2;
   grid-row: 1 / span 3;
-  max-width: 39cqw;
-  justify-self: end;
+  width: 100%;
+  max-width: 44cqw;
+  justify-self: center;
+  align-self: center;
 }
 
 .slideCanvas.slide-mechanical-change-result .bulletBlock {
   grid-column: 1;
   grid-row: 1 / span 3;
   align-self: center;
+  padding: 1.1cqw 1.3cqw;
+  border: 1px solid rgba(29, 37, 40, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+/* Larger heading with room for descenders (the "g" in "Changes"). */
+.slideCanvas.slide-mechanical-change-result .bulletBlock h2 {
+  font-size: 1.95cqw;
+  line-height: 1.3;
+  padding-bottom: 0.1cqw;
 }
 
 .slideCanvas.slide-mechanical-change-result .bulletItem strong {
   font-size: 1.58cqw;
+}
+
+/* Equalize row heights so the right column lines up with the left. */
+.slide-mechanical-candidates .columnItem {
+  min-height: 6cqw;
 }
 
 .timelineBlock {
@@ -967,7 +1003,7 @@ button {
 }
 
 .progressTopic {
-  min-height: 2.1cqw;
+  min-height: 2.6cqw;
 }
 
 .progressNumber,
@@ -1229,6 +1265,13 @@ button {
   line-height: 1.08;
 }
 
+.checkpointItem p {
+  margin: 0.5cqw 0 0;
+  color: #5f6f73;
+  font-size: var(--type-support);
+  line-height: 1.25;
+}
+
 .checkpointItem.is-complete {
   border-top-color: #2f855a;
   background: #e7f1e9;
@@ -1309,6 +1352,8 @@ button {
 
 .composition-mediaAnalysis :is(.bulletBlock, .calloutBlock) {
   grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: center;
   padding: 0.85cqw;
 }
 

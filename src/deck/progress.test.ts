@@ -10,10 +10,10 @@ describe("presentation progress", () => {
 
     expect(sections.map((section) => section.shortTitle)).toEqual([
       "Objective",
-      "Baseline Failure",
-      "Mechanical",
-      "Filtering / ESC",
-      "PID Tracking",
+      "Problems",
+      "Plant",
+      "Sensor",
+      "Controller",
       "Final Validation",
     ]);
   });

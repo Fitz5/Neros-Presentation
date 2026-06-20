@@ -146,6 +146,7 @@ const checkpointBlockSchema = z.object({
       z.object({
         id: idSchema,
         text: z.string().min(1),
+        detail: z.string().optional(),
         state: z.enum(["complete", "current", "pending"]),
         ...buildable,
       }),
