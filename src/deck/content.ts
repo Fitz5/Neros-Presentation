@@ -42,7 +42,7 @@ export const deck = {
       id: "objective",
       sectionId: "objective",
       title: "Objective",
-      subtitle: "Build a drone that can carry an action camera without compromising image quality.",
+      subtitle: "Carry an action camera without sacrificing image quality.",
       layout: "title",
       estimatedMinutes: 2,
       blocks: [
@@ -61,8 +61,8 @@ export const deck = {
     {
       id: "success-criteria",
       sectionId: "objective",
-      title: "The aircraft had to be predictable, not merely flyable",
-      subtitle: "The output of the system was usable footage with low pilot workload.",
+      title: "Predictable, Not Just Flyable",
+      subtitle: "Usable footage, low pilot workload — that's the deliverable.",
       layout: "content",
       estimatedMinutes: 1,
       blocks: [
@@ -78,7 +78,7 @@ export const deck = {
         {
           type: "callout",
           label: "Pilot-level requirement",
-          text: "The aircraft should demand fewer corrective inputs during a chase line.",
+          text: "Fewer corrective inputs during a chase line.",
           tone: "success",
         },
       ],
@@ -89,8 +89,8 @@ export const deck = {
     {
       id: "baseline-failure",
       sectionId: "baseline",
-      title: "Three failures blocked the cinematic mission",
-      subtitle: "They appeared related, but they did not belong to the same layer of the system.",
+      title: "Three Failures, One Investigation",
+      subtitle: "The symptoms looked related — the causes weren't.",
       layout: "content",
       estimatedMinutes: 1.5,
       blocks: [
@@ -105,7 +105,7 @@ export const deck = {
         {
           type: "callout",
           label: "Diagnostic risk",
-          text: "A controller change could hide a symptom while leaving its physical cause untouched.",
+          text: "A tuning change can mask a symptom without fixing its cause.",
           tone: "warning",
         },
       ],
@@ -117,8 +117,8 @@ export const deck = {
     {
       id: "diagnostic-method",
       sectionId: "baseline",
-      title: "The investigation followed the signal path",
-      subtitle: "Fix the plant before interpreting the controller around it.",
+      title: "Diagnostic Order: Plant → Signal → Controller",
+      subtitle: "Fix the plant before judging the controller.",
       layout: "timeline",
       estimatedMinutes: 1.5,
       blocks: [
@@ -133,9 +133,10 @@ export const deck = {
           ],
         },
         {
-          type: "quote",
-          quote: "I did not tune around a bad airframe.",
-          attribution: "Diagnostic rule for the investigation",
+          type: "callout",
+          label: "Rule",
+          text: "Don't tune around a bad airframe.",
+          tone: "warning",
         },
       ],
       notes: [
@@ -145,7 +146,7 @@ export const deck = {
     {
       id: "mechanical-checkpoint",
       sectionId: "mechanical",
-      title: "Checkpoint: isolate the physical vibration path",
+      title: "Checkpoint: Isolate the Vibration Path",
       layout: "content",
       estimatedMinutes: 0.5,
       blocks: [
@@ -174,8 +175,8 @@ export const deck = {
     {
       id: "jello-mechanism",
       sectionId: "mechanical",
-      title: "Jello is vibration made visible by rolling shutter",
-      subtitle: "The camera exposes the mission failure even when the flight controller remains stable.",
+      title: "How Rolling Shutter Turns Vibration Into Jello",
+      subtitle: "The camera can still fail the shot even with a stable flight controller.",
       layout: "comparison",
       estimatedMinutes: 1.5,
       blocks: [
@@ -212,7 +213,7 @@ export const deck = {
     {
       id: "spectral-evidence",
       sectionId: "mechanical",
-      title: "Power Spectral Density 200Hz Resonance",
+      title: "Power Spectral Density: 200 Hz Resonance",
       layout: "comparison",
       estimatedMinutes: 2,
       blocks: [
@@ -234,22 +235,22 @@ export const deck = {
             },
             {
               id: "spectral-pitch-transition",
-              text: "Pitch reaches -5 dB at 189 Hz",
+              text: "Pitch reaches −5 dB at 189 Hz",
             },
           ],
         },
         {
           type: "bullets",
-          title: "Frequency Bandwidth > (-20dB)",
+          title: "Frequency Bandwidth Above −20 dB",
           tone: "warning",
           items: [
             {
               id: "spectral-roll-bandwidth",
-              text: "Roll: 134 Hz to 224 Hz - 90 Hz bandwidth",
+              text: "Roll: 134 Hz to 224 Hz — 90 Hz bandwidth",
             },
             {
               id: "spectral-pitch-bandwidth",
-              text: "Pitch: 147 Hz to 219 Hz - 72 Hz bandwidth",
+              text: "Pitch: 147 Hz to 219 Hz — 72 Hz bandwidth",
             },
           ],
         },
@@ -262,7 +263,7 @@ export const deck = {
     {
       id: "frame-resonance-expectation",
       sectionId: "mechanical",
-      title: "200 Hz Frame Resonance Was Expected by Design",
+      title: "200 Hz Resonance Was Expected by Design",
       layout: "comparison",
       estimatedMinutes: 2,
       blocks: [
@@ -270,7 +271,7 @@ export const deck = {
           type: "image",
           src: deckImage("chris-rosser-aos-ul7-labeled.png"),
           alt: "Chris Rosser reference screenshot discussing frame resonance and mechanical vibration.",
-          caption: "Chirs Rosser Youtube video screenshot: https://www.youtube.com/watch?v=YJYtmcCaSn4&t=11s",
+          caption: "Chris Rosser YouTube video screenshot: https://www.youtube.com/watch?v=YJYtmcCaSn4&t=11s",
           aspectRatio: 1.7549,
         },
         {
@@ -280,7 +281,7 @@ export const deck = {
           items: [
             {
               id: "frame-resonance-expected",
-              text: "Screenshot from Chis Rosser's video (designer) showing frame resonance at 200 Hz",
+              text: "Screenshot from Chris Rosser's video (designer) showing frame resonance at 200 Hz",
             },
           ],
         },
@@ -302,7 +303,7 @@ export const deck = {
           items: [
             {
               id: "frame-resonance-magnitude",
-              text: "His frame resonance is lower amplitude than the motor harmonics",
+              text: "His frame mode is lower in amplitude than the motor harmonics",
             },
           ],
         },
@@ -315,8 +316,8 @@ export const deck = {
     {
       id: "mechanical-candidates",
       sectionId: "mechanical",
-      title: "The likely mechanism was relative motion, not frame frequency alone",
-      subtitle: "A known mode becomes a problem when a large or flexible component excites it strongly.",
+      title: "Suspect: Relative Motion, Not Frame Frequency",
+      subtitle: "A known mode becomes a problem when something large or flexible excites it.",
       layout: "content",
       estimatedMinutes: 1.5,
       blocks: [
@@ -349,8 +350,8 @@ export const deck = {
     {
       id: "mechanical-change-result",
       sectionId: "mechanical",
-      title: "Constraint changes came before filter changes",
-      subtitle: "The second battery strap was the highest-leverage mechanical intervention reported.",
+      title: "Mechanical Fixes Before Filter Changes",
+      subtitle: "The second battery strap was the highest-leverage fix.",
       layout: "content",
       estimatedMinutes: 1.5,
       blocks: [
@@ -366,19 +367,19 @@ export const deck = {
               ],
             },
             {
-              title: "Evidence required for final deck",
+              title: "Evidence Status",
               items: [
-                { id: "hardware-before-after", text: "[INSERT] Hardware before / after", detail: "Battery and antenna mounting photographs." },
-                { id: "jello-before-after", text: "[INSERT] Video still before / after", detail: "Same camera mode and comparable flight condition." },
-                { id: "spectrum-before-after", text: "[INSERT] Spectrum before / after", detail: "Verify the dominant peak was reduced, not merely filtered." },
+                { id: "hardware-before-after", text: "□ Hardware before / after", detail: "OPEN — battery and antenna mounting photographs." },
+                { id: "jello-before-after", text: "□ Video still before / after", detail: "OPEN — same camera mode and comparable flight condition." },
+                { id: "spectrum-before-after", text: "□ Spectrum before / after", detail: "OPEN — verify the dominant peak was reduced, not merely filtered." },
               ],
             },
           ],
         },
         {
           type: "callout",
-          label: "Current conclusion",
-          text: "Treat the mechanical fix as supported by the presenter’s diagnosis; replace placeholders before asserting measured improvement.",
+          label: "Measurement Pending",
+          text: "Mechanical diagnosis supports the fix; before/after measurement remains open.",
           tone: "warning",
         },
       ],
@@ -389,7 +390,7 @@ export const deck = {
     {
       id: "filtering-checkpoint",
       sectionId: "filtering",
-      title: "Checkpoint: clean the signal without making it late",
+      title: "Checkpoint: Clean the Signal Without Making It Late",
       layout: "content",
       estimatedMinutes: 0.5,
       blocks: [
@@ -418,7 +419,7 @@ export const deck = {
     {
       id: "filtering-tradeoff",
       sectionId: "filtering",
-      title: "Filtering is a bandwidth trade, not a cleanliness contest",
+      title: "Filtering Is a Bandwidth Trade-off",
       subtitle: "Every filter must justify its attenuation against the delay it adds.",
       layout: "content",
       estimatedMinutes: 1.5,
@@ -445,7 +446,7 @@ export const deck = {
         {
           type: "callout",
           label: "Decision rule",
-          text: "Use the minimum filtering that makes the control signal and motor behavior credible.",
+          text: "Use the minimum filtering that controls noise and motor heat without sacrificing useful response.",
           tone: "accent",
         },
       ],
@@ -454,7 +455,7 @@ export const deck = {
     {
       id: "rpm-filter-diagnosis",
       sectionId: "filtering",
-      title: "A missing RPM harmonic forced dynamic notches onto motor noise",
+      title: "Missing RPM Coverage Pushed Notches Onto Motor Noise",
       subtitle: "The filters were working, but they were working in the wrong place.",
       layout: "comparison",
       estimatedMinutes: 2.25,
@@ -493,7 +494,7 @@ export const deck = {
     {
       id: "low-pass-strategy",
       sectionId: "filtering",
-      title: "Broad low-pass filtering was reduced only where the spectrum allowed it",
+      title: "Low-Pass Filtering Cut Only Where the Spectrum Allowed",
       subtitle: "Large props and low-KV motors move useful and unwanted content lower than on a typical five-inch quad.",
       layout: "comparison",
       estimatedMinutes: 1.75,
@@ -512,7 +513,7 @@ export const deck = {
           items: [
             { id: "gyro-lpf", text: "Remove redundant gyro LPF1 only after checking the noise floor", detail: "Preserve bandwidth where another filter already covers the risk." },
             { id: "dterm-pt1", text: "Use two PT1 D-term filters as a conservative baseline", detail: "Then move sliders only with post-filter and motor-temperature evidence." },
-            { id: "low-motor-band", text: "Set RPM coverage for the lower motor band", detail: "The discussion identified an 80 Hz minimum for this large, low-KV system." },
+            { id: "low-motor-band", text: "Set RPM coverage for the lower motor band", detail: "Testing settled on an 80 Hz minimum for this large, low-KV setup." },
           ],
         },
         {
@@ -529,7 +530,7 @@ export const deck = {
     {
       id: "esc-actuator-bandwidth",
       sectionId: "filtering",
-      title: "ESC settings changed the actuator-side noise and heat trade",
+      title: "ESC Settings Shift the Noise/Heat Trade-off",
       subtitle: "Commands above useful motor bandwidth can become current ripple and heat instead of thrust.",
       layout: "comparison",
       estimatedMinutes: 1.75,
@@ -553,8 +554,8 @@ export const deck = {
         },
         {
           type: "callout",
-          label: "VERIFY BEFORE FINAL",
-          text: "Insert measured motor temperatures and the selected fixed/variable PWM setting.",
+          label: "Measurement Pending",
+          text: "Motor temperatures and the final fixed/variable PWM comparison remain open.",
           tone: "warning",
         },
       ],
@@ -565,7 +566,7 @@ export const deck = {
     {
       id: "filtering-result",
       sectionId: "filtering",
-      title: "The revised filters separated motor noise from structural content",
+      title: "Revised Filters Separated Motor Noise From Structural Content",
       subtitle: "That made motor behavior safer to evaluate and the next controller tests more meaningful.",
       layout: "comparison",
       estimatedMinutes: 1.5,
@@ -583,13 +584,13 @@ export const deck = {
           tone: "success",
           items: [
             { id: "motor-filter-owned", text: "RPM filtering owned motor-synchronous harmonics", detail: "Dynamic notches were available for non-motor resonances." },
-            { id: "response-ready", text: "Remaining response error could be treated as a control problem", detail: "The investigation could now move from frequency domain to time domain." },
+            { id: "response-ready", text: "Remaining response error became a control problem to solve", detail: "The investigation shifted from frequency domain to time domain." },
           ],
         },
         {
           type: "callout",
           label: "Transition",
-          text: "Once the signal path was credible, PID tuning became evidence instead of compensation.",
+          text: "Once the signal path held up, PID tuning became evidence instead of compensation.",
           tone: "accent",
         },
       ],
@@ -600,7 +601,7 @@ export const deck = {
     {
       id: "pid-checkpoint",
       sectionId: "pid",
-      title: "Checkpoint: tune the response after the plant and signal are credible",
+      title: "Checkpoint: Tune the Response Once the Signal Is Trusted",
       layout: "content",
       estimatedMinutes: 0.5,
       blocks: [
@@ -629,7 +630,7 @@ export const deck = {
     {
       id: "pid-test-method",
       sectionId: "pid",
-      title: "Repeatable excitation replaced subjective stick feel",
+      title: "Repeatable Excitation Replaced Subjective Stick Feel",
       subtitle: "Method-B wobble inputs made gain changes comparable across flights.",
       layout: "comparison",
       estimatedMinutes: 1.75,
@@ -659,7 +660,7 @@ export const deck = {
     {
       id: "initial-pid-configuration",
       sectionId: "pid",
-      title: "The controller was simplified before gains were increased",
+      title: "Simplify First, Then Raise Gains",
       subtitle: "Reducing interacting variables made each response change interpretable.",
       layout: "timeline",
       estimatedMinutes: 1.5,
@@ -682,7 +683,7 @@ export const deck = {
     {
       id: "pd-balance",
       sectionId: "pid",
-      title: "P/D balance was selected from response shape",
+      title: "Choosing P/D Balance From Response Shape",
       subtitle: "The target was fast response with low overshoot and low rebound—not the largest gain value.",
       layout: "comparison",
       estimatedMinutes: 2.25,
@@ -706,8 +707,8 @@ export const deck = {
         },
         {
           type: "callout",
-          label: "Language discipline",
-          text: "Describe the selected response as low-overshoot or near critically damped unless damping ratio is calculated.",
+          label: "Caution",
+          text: "Call this low-overshoot, not critically damped — damping ratio wasn't calculated.",
           tone: "warning",
         },
       ],
@@ -718,7 +719,7 @@ export const deck = {
     {
       id: "latency-result",
       sectionId: "pid",
-      title: "Latency became a measured tuning target",
+      title: "Latency as a Measured Tuning Target",
       subtitle: "The final roll/pitch comparison was evaluated in milliseconds, not adjectives.",
       layout: "comparison",
       estimatedMinutes: 1.75,
@@ -742,8 +743,8 @@ export const deck = {
         },
         {
           type: "callout",
-          label: "VERIFY: reported pitch improvement ≈ 12 ms",
-          text: "Replace this placeholder with exact before/after values read from the selected comparable traces.",
+          label: "Measurement Pending",
+          text: "Confirm the reported ≈12 ms pitch improvement against comparable traces.",
           tone: "warning",
         },
       ],
@@ -754,7 +755,7 @@ export const deck = {
     {
       id: "restore-i-feedforward",
       sectionId: "pid",
-      title: "I-term and feedforward returned only after damping was credible",
+      title: "Restoring I-Term and Feedforward After Damping Held",
       subtitle: "Feedback stabilized the plant first; feedforward then improved command tracking.",
       layout: "comparison",
       estimatedMinutes: 1.75,
@@ -778,8 +779,8 @@ export const deck = {
         },
         {
           type: "callout",
-          label: "INSERT: final setpoint vs gyro trace",
-          text: "Use the verified final log here rather than treating a tuning iteration as the final result.",
+          label: "Final Trace Pending",
+          text: "The final setpoint-versus-gyro trace remains to be verified and inserted.",
           tone: "warning",
         },
       ],
@@ -790,8 +791,8 @@ export const deck = {
     {
       id: "final-validation",
       sectionId: "validation",
-      title: "Validation must close every original failure",
-      subtitle: "Logs establish mechanism; footage, temperature, and pilot workload establish mission success.",
+      title: "Closing the Loop on All Three Failures",
+      subtitle: "Logs explain the mechanism. Footage, temperature, and pilot feel confirm the result.",
       layout: "content",
       estimatedMinutes: 2.25,
       blocks: [
@@ -808,21 +809,21 @@ export const deck = {
               ],
             },
             {
-              title: "Final state — verify with evidence",
+              title: "Evidence Status",
               items: [
-                { id: "final-jello", text: "[INSERT] Jello before / after", detail: "Same camera mode and comparable flight condition." },
-                { id: "final-motor", text: "[INSERT] Motor temperatures", detail: "Ambient, flight duration, and test configuration recorded." },
-                { id: "final-response", text: "[INSERT] Final latency / tracking values", detail: "Exact roll and pitch comparison from final logs." },
-                { id: "final-workload", text: "[INSERT] Pilot and footage outcome", detail: "Document disturbance recovery and corrective-input reduction." },
+                { id: "final-jello", text: "□ Jello before / after", detail: "OPEN — same camera mode and comparable flight condition." },
+                { id: "final-motor", text: "□ Motor temperatures", detail: "OPEN — record ambient, flight duration, and test configuration." },
+                { id: "final-response", text: "□ Final latency / tracking values", detail: "OPEN — confirm exact roll and pitch values from final logs." },
+                { id: "final-workload", text: "□ Pilot and footage outcome", detail: "OPEN — document recovery and corrective-input reduction." },
               ],
             },
           ],
         },
         {
           type: "callout",
-          label: "Final checkpoint",
-          text: "✓ Mechanical path  ·  ✓ Signal path  ·  ✓ Control response — once the replacement evidence is inserted.",
-          tone: "success",
+          label: "Validation Status",
+          text: "▶ CURRENT — close the mechanical, signal, and control results with final evidence.",
+          tone: "warning",
         },
       ],
       notes: [
@@ -832,7 +833,7 @@ export const deck = {
     {
       id: "engineering-takeaways",
       sectionId: "validation",
-      title: "The diagnostic order mattered more than the final values",
+      title: "Takeaway: Order Mattered More Than the Numbers",
       layout: "content",
       estimatedMinutes: 1.75,
       blocks: [
@@ -842,14 +843,9 @@ export const deck = {
             { id: "takeaway-mechanical", label: "01", title: "Fix real motion", description: "Do not hide physical looseness with filtering." },
             { id: "takeaway-logs", label: "02", title: "Separate the signals", description: "Use logs to distinguish vibration, motor noise, and response error." },
             { id: "takeaway-delay", label: "03", title: "Trade attenuation for delay", description: "A useful filter removes noise without erasing control bandwidth." },
-            { id: "takeaway-tune", label: "04", title: "Tune last", description: "PID evidence is meaningful only after the plant and signal path are credible." },
-            { id: "takeaway-validate", label: "05", title: "Close the mission loop", description: "Validate data, motor behavior, footage, and pilot workload." },
+            { id: "takeaway-tune", label: "04", title: "Tune last", description: "PID evidence is meaningful only after the plant and signal path are validated." },
+            { id: "takeaway-validate", label: "05", title: "Close the loop", description: "Validate data, motor behavior, footage, and pilot workload." },
           ],
-        },
-        {
-          type: "quote",
-          quote: "Mechanical → Filtering → Control Loop",
-          attribution: "The reusable debugging sequence",
         },
       ],
       notes: ["End on the method the audience can reuse, not on a Betaflight screenshot."],
@@ -857,7 +853,7 @@ export const deck = {
     {
       id: "qa",
       sectionId: "validation",
-      title: "Thank you",
+      title: "Thank You",
       subtitle: "Happy to walk through any logs, settings, or assumptions in detail.",
       layout: "closing",
       estimatedMinutes: 0.25,
@@ -873,7 +869,7 @@ export const deck = {
     {
       id: "appendix-divider",
       sectionId: "validation",
-      title: "Technical appendix",
+      title: "Technical Appendix",
       subtitle: "Supporting calculations, raw evidence, and preserved source slides",
       layout: "title",
       blocks: [
@@ -881,7 +877,7 @@ export const deck = {
           type: "headline",
           eyebrow: "For technical Q&A",
           text: "Evidence behind the decisions",
-          subtext: "Use these slides selectively; they are not part of the timed main narrative.",
+          subtext: "These are reference slides — not part of the timed talk.",
         },
       ],
       notes: ["Appendix divider."],
@@ -889,7 +885,7 @@ export const deck = {
     {
       id: "appendix-raw-filtering",
       sectionId: "validation",
-      title: "Raw filtering evidence: the initial noise changed with throttle",
+      title: "Raw Evidence: Noise Changed With Throttle",
       layout: "comparison",
       blocks: [
         {
@@ -914,7 +910,7 @@ export const deck = {
     {
       id: "appendix-db-math",
       sectionId: "validation",
-      title: "dB interpretation depends on the plotted quantity",
+      title: "dB Interpretation Depends on the Plotted Quantity",
       layout: "content",
       blocks: [
         {
@@ -948,7 +944,7 @@ export const deck = {
     {
       id: "appendix-lp1-math",
       sectionId: "validation",
-      title: "A first-order low-pass trades attenuation for phase",
+      title: "First-Order Low-Pass Trades Attenuation for Phase",
       layout: "content",
       blocks: [
         {
@@ -973,7 +969,7 @@ export const deck = {
     {
       id: "appendix-notch-q",
       sectionId: "validation",
-      title: "Notch Q controls how narrowly a resonance is attenuated",
+      title: "Notch Q Controls How Narrowly a Resonance Is Attenuated",
       layout: "content",
       blocks: [
         {
@@ -1008,7 +1004,7 @@ export const deck = {
     {
       id: "appendix-motor-physics",
       sectionId: "validation",
-      title: "Motor electrical dynamics limit useful command bandwidth",
+      title: "Motor Electrical Dynamics Limit Useful Command Bandwidth",
       layout: "comparison",
       blocks: [
         {
@@ -1034,7 +1030,7 @@ export const deck = {
     {
       id: "appendix-pid-sweep",
       sectionId: "validation",
-      title: "The P/D sweep exposed the usable response range",
+      title: "P/D Sweep Exposed the Usable Response Range",
       layout: "comparison",
       blocks: [
         {
@@ -1076,7 +1072,7 @@ export const deck = {
     {
       id: "camera-jello",
       sectionId: "validation",
-      title: "Jello in the camera footage",
+      title: "Jello in the Camera Footage",
       layout: "content",
       estimatedMinutes: 1,
       blocks: [],
@@ -1087,7 +1083,7 @@ export const deck = {
     {
       id: "spectral-evidence-rpm",
       sectionId: "validation",
-      title: "Power Spectral Density 200Hz Resonance",
+      title: "Power Spectral Density: 200 Hz Resonance (With RPM Overlay)",
       layout: "comparison",
       estimatedMinutes: 2,
       blocks: [
@@ -1109,22 +1105,22 @@ export const deck = {
             },
             {
               id: "spectral-rpm-pitch-amplitude",
-              text: "Pitch reaches -5 dB at 189 Hz",
+              text: "Pitch reaches −5 dB at 189 Hz",
             },
           ],
         },
         {
           type: "bullets",
-          title: "Frequency Bandwidth > (-20dB)",
+          title: "Frequency Bandwidth Above −20 dB",
           tone: "warning",
           items: [
             {
               id: "spectral-rpm-roll-bandwidth",
-              text: "Roll: 134 Hz to 224 Hz - 90 Hz bandwidth",
+              text: "Roll: 134 Hz to 224 Hz — 90 Hz bandwidth",
             },
             {
               id: "spectral-rpm-pitch-bandwidth",
-              text: "Pitch: 147 Hz to 219 Hz - 72 Hz bandwidth",
+              text: "Pitch: 147 Hz to 219 Hz — 72 Hz bandwidth",
             },
           ],
         },
@@ -1148,7 +1144,7 @@ export const deck = {
     {
       id: "rolling-shutter-jello",
       sectionId: "validation",
-      title: "Why this is a problem",
+      title: "Why This Is a Problem",
       subtitle:
         "Assume 4K/60: Tframe = 16.67 ms · Tscan ≈ 16 ms · exposure = 1 ms · measured peak fvib = 200 Hz at 0 dB.",
       layout: "comparison",
@@ -1214,7 +1210,7 @@ export const deck = {
     {
       id: "solution-path",
       sectionId: "validation",
-      title: "Solution path",
+      title: "Solution Path",
       subtitle: "Treat the artifact as a coupled mechanical, control, and camera-sampling problem.",
       layout: "timeline",
       estimatedMinutes: 3,

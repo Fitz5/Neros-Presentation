@@ -17,30 +17,30 @@ Status: implemented content pass
 | --- | --- | --- | ---: |
 | 1 | Diagnosing and Tuning a 7-Inch Chase Drone | Establish the real system-debugging case. | 0.5 |
 | 2 | Objective | Preserve the existing mission requirement slide. | 2.0 |
-| 3 | Predictable, not merely flyable | Define video, motor, response, and workload criteria. | 1.0 |
-| 4 | Three baseline failures | Introduce jello, warm/noisy motors, and tracking error. | 1.5 |
-| 5 | Follow the signal path | Frame physical → signal → controller → validation. | 1.5 |
-| 6 | Mechanical checkpoint | Mark jello/vibration as the active problem. | 0.5 |
-| 7 | Jello mechanism | Explain rolling shutter qualitatively; request a real still. | 1.5 |
-| 8 | 200 Hz spectral evidence | Preserve the existing measured-spectrum slide. | 2.0 |
-| 9 | Expected frame mode | Preserve the existing designer-reference slide. | 2.0 |
-| 10 | Mechanical candidates | Connect battery mass and flexible mounts to excitation. | 1.5 |
-| 11 | Mechanical change/result | Record the second strap and mount changes; request proof. | 1.5 |
-| 12 | Filtering checkpoint | Mark motor/D-term noise as the active problem. | 0.5 |
-| 13 | Bandwidth trade | Explain attenuation versus delay. | 1.5 |
-| 14 | RPM/dynamic-notch diagnosis | Show the disabled second harmonic and misplaced notches. | 2.25 |
-| 15 | Low-pass strategy | Connect PT1/gyro decisions to the measured noise floor. | 1.75 |
-| 16 | ESC/actuator bandwidth | Connect PWM, motor dynamics, temperature, and noise. | 1.75 |
-| 17 | Filtering result | Transition from frequency evidence to controller response. | 1.5 |
-| 18 | PID checkpoint | Mark response and tracking as the active problem. | 0.5 |
-| 19 | Repeatable Method-B test | Establish comparable wobble-script excitation. | 1.75 |
-| 20 | Simplified initial controller | Isolate P/D behavior before restoring helpers. | 1.5 |
-| 21 | P/D balance | Select damping from axis-specific response shape. | 2.25 |
-| 22 | Latency result | Use milliseconds, overshoot, and alignment as criteria. | 1.75 |
-| 23 | Restore I and feedforward | Improve command tracking after damping is credible. | 1.75 |
-| 24 | Final validation | Close every baseline failure with measured evidence. | 2.25 |
-| 25 | Engineering takeaways | Re-state the reusable diagnostic sequence. | 1.75 |
-| 26 | Q&A | Preserve discussion time and route to backup material. | 0.25 |
+| 3 | Predictable, Not Just Flyable | Define video, motor, response, and workload criteria. | 1.0 |
+| 4 | Three Failures, One Investigation | Introduce jello, warm/noisy motors, and tracking error. | 1.5 |
+| 5 | Diagnostic Order: Plant → Signal → Controller | Frame physical → signal → controller → validation. | 1.5 |
+| 6 | Checkpoint: Isolate the Vibration Path | Mark jello/vibration as the active problem. | 0.5 |
+| 7 | How Rolling Shutter Turns Vibration Into Jello | Explain rolling shutter qualitatively; request a real still. | 1.5 |
+| 8 | Power Spectral Density: 200 Hz Resonance | Preserve the existing measured-spectrum slide. | 2.0 |
+| 9 | 200 Hz Resonance Was Expected by Design | Preserve the existing designer-reference slide. | 2.0 |
+| 10 | Suspect: Relative Motion, Not Frame Frequency | Connect battery mass and flexible mounts to excitation. | 1.5 |
+| 11 | Mechanical Fixes Before Filter Changes | Record the second strap and mount changes; request proof. | 1.5 |
+| 12 | Checkpoint: Clean the Signal Without Making It Late | Mark motor/D-term noise as the active problem. | 0.5 |
+| 13 | Filtering Is a Bandwidth Trade-off | Explain attenuation versus delay. | 1.5 |
+| 14 | Missing RPM Coverage Pushed Notches Onto Motor Noise | Show the disabled second harmonic and misplaced notches. | 2.25 |
+| 15 | Low-Pass Filtering Cut Only Where the Spectrum Allowed | Connect PT1/gyro decisions to the measured noise floor. | 1.75 |
+| 16 | ESC Settings Shift the Noise/Heat Trade-off | Connect PWM, motor dynamics, temperature, and noise. | 1.75 |
+| 17 | Revised Filters Separated Motor Noise From Structural Content | Transition from frequency evidence to controller response. | 1.5 |
+| 18 | Checkpoint: Tune the Response Once the Signal Is Trusted | Mark response and tracking as the active problem. | 0.5 |
+| 19 | Repeatable Excitation Replaced Subjective Stick Feel | Establish comparable wobble-script excitation. | 1.75 |
+| 20 | Simplify First, Then Raise Gains | Isolate P/D behavior before restoring helpers. | 1.5 |
+| 21 | Choosing P/D Balance From Response Shape | Select damping from axis-specific response shape. | 2.25 |
+| 22 | Latency as a Measured Tuning Target | Use milliseconds, overshoot, and alignment as criteria. | 1.75 |
+| 23 | Restoring I-Term and Feedforward After Damping Held | Improve command tracking after damping is validated. | 1.75 |
+| 24 | Closing the Loop on All Three Failures | Close every baseline failure with measured evidence. | 2.25 |
+| 25 | Takeaway: Order Mattered More Than the Numbers | Re-state the reusable diagnostic sequence. | 1.75 |
+| 26 | Thank You | Preserve discussion time and route to backup material. | 0.25 |
 
 ## Appendix
 
