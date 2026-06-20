@@ -6,30 +6,50 @@ import {
   Minimize2,
   StickyNote,
 } from "lucide-react";
-import { type CSSProperties, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  type CSSProperties,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { deck } from "./deck/content";
 import { expandDeck, type RenderedSlide } from "./deck/expand";
-import { getProgressColor, getProgressMarker, getProgressState } from "./deck/progress";
+import {
+  getProgressColor,
+  getProgressMarker,
+  getProgressState,
+} from "./deck/progress";
 import { validateDeck, type Block, type Section } from "./deck/schema";
-import { toneColor } from "./deck/theme";
+import { theme, toneColor, typographyCqw } from "./deck/theme";
 
 const validatedDeck = validateDeck(deck);
 const renderedSlides = expandDeck(validatedDeck);
 
 export function App() {
-  const [slideIndex, setSlideIndex] = useState(() => getInitialSlideIndex(renderedSlides.length));
+  const [slideIndex, setSlideIndex] = useState(() =>
+    getInitialSlideIndex(renderedSlides.length),
+  );
   const [notesOpen, setNotesOpen] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
 
   const slide = renderedSlides[slideIndex];
-  const activeSection = validatedDeck.sections.find((section) => section.id === slide.sectionId);
+  const activeSection = validatedDeck.sections.find(
+    (section) => section.id === slide.sectionId,
+  );
 
   const goToSlide = useCallback((index: number) => {
     setSlideIndex(clamp(index, 0, renderedSlides.length - 1));
   }, []);
 
-  const next = useCallback(() => goToSlide(slideIndex + 1), [goToSlide, slideIndex]);
-  const previous = useCallback(() => goToSlide(slideIndex - 1), [goToSlide, slideIndex]);
+  const next = useCallback(
+    () => goToSlide(slideIndex + 1),
+    [goToSlide, slideIndex],
+  );
+  const previous = useCallback(
+    () => goToSlide(slideIndex - 1),
+    [goToSlide, slideIndex],
+  );
 
   useEffect(() => {
     window.history.replaceState(null, "", `#slide-${slideIndex + 1}`);
@@ -37,7 +57,11 @@ export function App() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+      if (
+        event.key === "ArrowRight" ||
+        event.key === "PageDown" ||
+        event.key === " "
+      ) {
         event.preventDefault();
         goToSlide(slideIndex + 1);
       }
@@ -63,9 +87,11 @@ export function App() {
   }, [goToSlide, slideIndex]);
 
   useEffect(() => {
-    const onFullscreenChange = () => setFullscreen(Boolean(document.fullscreenElement));
+    const onFullscreenChange = () =>
+      setFullscreen(Boolean(document.fullscreenElement));
     document.addEventListener("fullscreenchange", onFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
   const toggleFullscreen = async () => {
@@ -89,7 +115,10 @@ export function App() {
         />
       </main>
 
-      <aside className={`presenterRail ${notesOpen ? "isOpen" : ""}`} aria-label="Presenter controls">
+      <aside
+        className={`presenterRail ${notesOpen ? "isOpen" : ""}`}
+        aria-label="Presenter controls"
+      >
         <div className="railControls">
           <button
             aria-label="First slide"
@@ -172,50 +201,45 @@ function SlideCanvas({
   sections: Section[];
   slide: RenderedSlide;
 }) {
-  const compactComparison =
-    slide.layout === "comparison" &&
-    ["spectral-evidence-rpm", "frame-resonance-expectation"].includes(slide.id) &&
-    slide.blocks[0]?.type === "image";
-
   return (
     <section
-      className={`slideCanvas layout-${slide.layout} slide-${slide.id}`}
+      className={`slideCanvas layout-${slide.layout} composition-${slide.composition} slide-${slide.sourceSlideId} rendered-${slide.id}`}
+      style={typographyVariables}
       aria-label={`Slide ${slide.sequenceNumber}`}
     >
       <ProgressHeader activeSectionId={activeSectionId} sections={sections} />
 
       <div className="slideTitle">
-        <p className="slideKicker">{slide.step?.label ?? "Neros Technical Interview"}</p>
+        {slide.step?.label ? <p className="slideKicker">{slide.step.label}</p> : null}
         <h1>{slide.title}</h1>
-        {slide.subtitle ? <p className="slideSubtitle">{slide.subtitle}</p> : null}
+        {slide.subtitle ? (
+          <p className="slideSubtitle">{slide.subtitle}</p>
+        ) : null}
       </div>
 
       <div className="slideBlocks">
-        {compactComparison ? (
-          <>
-            <BlockView block={slide.blocks[0]} />
-            <div className="comparisonRight">
-              {slide.blocks.slice(1).map((block, index) => (
-                <BlockView block={block} key={`${block.type}-${index + 1}`} />
-              ))}
-            </div>
-          </>
-        ) : (
-          slide.blocks.map((block, index) => (
-            <BlockView block={block} key={`${block.type}-${index}`} />
-          ))
-        )}
+        {slide.blocks.map((block, index) => (
+          <BlockView block={block} key={`${block.type}-${index}`} />
+        ))}
       </div>
 
       <footer className="slideFooter">
-        <span>{validatedDeck.meta.durationMinutes} min technical interview</span>
+        <span>
+          {validatedDeck.meta.durationMinutes} min technical interview
+        </span>
         <span>{`${slide.sequenceNumber}/${slide.totalSlides}`}</span>
       </footer>
     </section>
   );
 }
 
-function ProgressHeader({ activeSectionId, sections }: { activeSectionId: string; sections: Section[] }) {
+function ProgressHeader({
+  activeSectionId,
+  sections,
+}: {
+  activeSectionId: string;
+  sections: Section[];
+}) {
   return (
     <div className="progressHeader" aria-label="Talk progress">
       {sections.map((section, index) => {
@@ -228,7 +252,9 @@ function ProgressHeader({ activeSectionId, sections }: { activeSectionId: string
             key={section.id}
             style={{ "--section-color": color } as CSSProperties}
           >
-            <span className="progressNumber">{getProgressMarker(index, state)}</span>
+            <span className="progressNumber">
+              {getProgressMarker(index, state)}
+            </span>
             <span className="progressLabel">{section.shortTitle}</span>
           </div>
         );
@@ -238,10 +264,12 @@ function ProgressHeader({ activeSectionId, sections }: { activeSectionId: string
 }
 
 function BlockView({ block }: { block: Block }) {
+  const sizeClass = `text-${block.textSize ?? "medium"}`;
+
   switch (block.type) {
     case "headline":
       return (
-        <div className="headlineBlock">
+        <div className={`headlineBlock ${sizeClass}`}>
           {block.eyebrow ? <p>{block.eyebrow}</p> : null}
           <h2>{block.text}</h2>
           {block.subtext ? <span>{block.subtext}</span> : null}
@@ -249,11 +277,17 @@ function BlockView({ block }: { block: Block }) {
       );
     case "bullets":
       return (
-        <div className="bulletBlock" style={{ "--tone-color": toneColor(block.tone) } as CSSProperties}>
+        <div
+          className={`bulletBlock ${sizeClass}`}
+          style={{ "--tone-color": toneColor(block.tone) } as CSSProperties}
+        >
           {block.title ? <h2>{block.title}</h2> : null}
           <div className="bulletList">
             {block.items.map((item) => (
-              <div className={`bulletItem${item.equation ? " equationItem" : ""}`} key={item.id}>
+              <div
+                className={`bulletItem${item.equation ? " equationItem" : ""}`}
+                key={item.id}
+              >
                 {item.equation ? null : <span className="bulletMark" />}
                 <div>
                   {item.equation ? (
@@ -294,7 +328,7 @@ function BlockView({ block }: { block: Block }) {
       );
     case "twoColumn":
       return (
-        <div className="twoColumnBlock">
+        <div className={`twoColumnBlock ${sizeClass}`}>
           {block.columns.map((column) => (
             <div className="columnPanel" key={column.title}>
               <h2>{column.title}</h2>
@@ -310,15 +344,17 @@ function BlockView({ block }: { block: Block }) {
       );
     case "metricRow":
       return (
-        <div className="metricRow">
+        <div className={`metricRow metricRow-${block.variant ?? "default"} ${sizeClass}`}>
           {block.metrics.map((metric) => (
             <div
-              className="metric"
+              className={`metric${metric.emphasis ? " isEmphasized" : ""}`}
               key={metric.id}
-              style={{ "--tone-color": toneColor(metric.tone) } as CSSProperties}
+              style={
+                { "--tone-color": toneColor(metric.tone) } as CSSProperties
+              }
             >
               <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
+              {metric.label ? <span>{metric.label}</span> : null}
               {metric.note ? <p>{metric.note}</p> : null}
             </div>
           ))}
@@ -326,7 +362,7 @@ function BlockView({ block }: { block: Block }) {
       );
     case "timeline":
       return (
-        <div className="timelineBlock">
+        <div className={`timelineBlock ${sizeClass}`}>
           {block.title ? <h2>{block.title}</h2> : null}
           <div className="timelineItems">
             {block.items.map((item) => (
@@ -343,21 +379,24 @@ function BlockView({ block }: { block: Block }) {
       );
     case "callout":
       return (
-        <div className="calloutBlock" style={{ "--tone-color": toneColor(block.tone) } as CSSProperties}>
+        <div
+          className={`calloutBlock ${sizeClass}`}
+          style={{ "--tone-color": toneColor(block.tone) } as CSSProperties}
+        >
           <span>{block.label}</span>
           <p>{block.text}</p>
         </div>
       );
     case "quote":
       return (
-        <blockquote className="quoteBlock">
+        <blockquote className={`quoteBlock ${sizeClass}`}>
           <p>{block.quote}</p>
           {block.attribution ? <cite>{block.attribution}</cite> : null}
         </blockquote>
       );
     case "image":
       return (
-        <figure className="imageBlock">
+        <figure className={`imageBlock ${sizeClass}`}>
           {block.title ? <h2>{block.title}</h2> : null}
           {block.labels ? (
             <div className="imagePanelLabels">
@@ -369,13 +408,44 @@ function BlockView({ block }: { block: Block }) {
           <img
             alt={block.alt}
             src={block.src}
-            style={{ "--image-aspect": block.aspectRatio ?? 16 / 9 } as CSSProperties}
+            style={
+              { "--image-aspect": block.aspectRatio ?? 16 / 9 } as CSSProperties
+            }
           />
           {block.caption ? <figcaption>{block.caption}</figcaption> : null}
         </figure>
       );
+    case "checkpoint":
+      return (
+        <div className={`checkpointBlock ${sizeClass}`}>
+          {block.title ? <h2>{block.title}</h2> : null}
+          <div className="checkpointItems">
+            {block.items.map((item) => (
+              <div className={`checkpointItem is-${item.state}`} key={item.id}>
+                <span>
+                  {item.state === "complete"
+                    ? "Complete"
+                    : item.state === "current"
+                      ? "Current"
+                      : "Pending"}
+                </span>
+                <strong>{item.text}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
   }
 }
+
+const typographyVariables = {
+  "--type-display": typographyCqw(theme.typography.display),
+  "--type-title": typographyCqw(theme.typography.title),
+  "--type-large": typographyCqw(theme.typography.large),
+  "--type-medium": typographyCqw(theme.typography.medium),
+  "--type-support": typographyCqw(theme.typography.support),
+  "--type-chrome": typographyCqw(theme.typography.chrome),
+} as CSSProperties;
 
 function getInitialSlideIndex(totalSlides: number) {
   const match = window.location.hash.match(/slide-(\d+)/);

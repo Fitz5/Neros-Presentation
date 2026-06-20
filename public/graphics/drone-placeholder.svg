@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Drone photograph placeholder</title>
+  <desc id="description">A replaceable placeholder for an AOS UL7 drone photograph.</desc>
+  <rect width="1600" height="900" fill="#eef1ed"/>
+  <rect x="42" y="42" width="1516" height="816" rx="24" fill="none" stroke="#9aa6a5" stroke-width="8" stroke-dasharray="28 22"/>
+  <path d="M530 335l270 115 270-115M530 565l270-115 270 115" fill="none" stroke="#4357a6" stroke-width="28" stroke-linecap="round"/>
+  <rect x="704" y="338" width="192" height="224" rx="42" fill="#f8f6f0" stroke="#1d2528" stroke-width="20"/>
+  <circle cx="500" cy="320" r="82" fill="none" stroke="#0e7c7b" stroke-width="18"/>
+  <circle cx="1100" cy="320" r="82" fill="none" stroke="#0e7c7b" stroke-width="18"/>
+  <circle cx="500" cy="580" r="82" fill="none" stroke="#0e7c7b" stroke-width="18"/>
+  <circle cx="1100" cy="580" r="82" fill="none" stroke="#0e7c7b" stroke-width="18"/>
+  <text x="800" y="716" fill="#1d2528" font-family="Aptos, Segoe UI, sans-serif" font-size="54" font-weight="700" text-anchor="middle">AOS UL7 PHOTO</text>
+  <text x="800" y="775" fill="#5f6f73" font-family="Aptos, Segoe UI, sans-serif" font-size="30" text-anchor="middle">Replace this asset without changing the slide layout</text>
+</svg>

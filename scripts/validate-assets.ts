@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { deck } from "../src/deck/content";
+import { validateDeck } from "../src/deck/schema";
 
 const archiveRoot = path.resolve("sources", "discord-convo");
 const manifestPath = path.join(archiveRoot, "notes", "asset_manifest.csv");
@@ -7,6 +9,7 @@ const manifestText = await fs.readFile(manifestPath, "utf8");
 const rows = parseCsv(manifestText);
 const errors: string[] = [];
 const listedPaths = new Set<string>();
+const deckAssetPaths = new Set<string>();
 
 for (const [index, row] of rows.entries()) {
   const line = index + 2;
@@ -24,26 +27,35 @@ for (const [index, row] of rows.entries()) {
   }
   listedPaths.add(finalPath);
 
-  const expectedPrefix = type === "image" ? "images/renamed/" : type === "log" ? "logs/" : undefined;
+  const expectedPrefix =
+    type === "image" ? "images/renamed/" : type === "log" ? "logs/" : undefined;
   if (!expectedPrefix) {
     errors.push(`Manifest line ${line} has unsupported type "${type}".`);
   } else if (!finalPath.startsWith(expectedPrefix)) {
-    errors.push(`Manifest line ${line} should place ${type} assets under ${expectedPrefix}.`);
+    errors.push(
+      `Manifest line ${line} should place ${type} assets under ${expectedPrefix}.`,
+    );
   }
 
   const absolutePath = path.resolve(archiveRoot, finalPath);
   if (!isInside(archiveRoot, absolutePath)) {
-    errors.push(`Manifest line ${line} points outside the archive: ${finalPath}.`);
+    errors.push(
+      `Manifest line ${line} points outside the archive: ${finalPath}.`,
+    );
     continue;
   }
 
   try {
     const stat = await fs.stat(absolutePath);
     if (!stat.isFile()) {
-      errors.push(`Manifest line ${line} does not point to a file: ${finalPath}.`);
+      errors.push(
+        `Manifest line ${line} does not point to a file: ${finalPath}.`,
+      );
     }
   } catch {
-    errors.push(`Manifest line ${line} points to a missing file: ${finalPath}.`);
+    errors.push(
+      `Manifest line ${line} points to a missing file: ${finalPath}.`,
+    );
   }
 }
 
@@ -55,8 +67,40 @@ for (const relativeDir of ["images/renamed", "logs"]) {
     if (entry.isFile() && entry.name !== ".gitkeep") {
       const relativePath = `${relativeDir}/${entry.name}`;
       if (!listedPaths.has(relativePath)) {
-        errors.push(`Archived asset is missing from the manifest: ${relativePath}.`);
+        errors.push(
+          `Archived asset is missing from the manifest: ${relativePath}.`,
+        );
       }
+    }
+  }
+}
+
+const validatedDeck = validateDeck(deck);
+for (const slide of validatedDeck.slides) {
+  for (const block of slide.blocks) {
+    if (block.type !== "image") continue;
+
+    const publicPath = block.src.startsWith("/")
+      ? block.src.slice(1)
+      : block.src;
+    const absolutePath = path.resolve("public", publicPath);
+    if (!isInside(path.resolve("public"), absolutePath)) {
+      errors.push(
+        `Slide "${slide.id}" references an asset outside public/: ${block.src}.`,
+      );
+      continue;
+    }
+
+    deckAssetPaths.add(publicPath);
+    try {
+      const stat = await fs.stat(absolutePath);
+      if (!stat.isFile()) {
+        errors.push(`Slide "${slide.id}" asset is not a file: ${block.src}.`);
+      }
+    } catch {
+      errors.push(
+        `Slide "${slide.id}" references a missing asset: ${block.src}.`,
+      );
     }
   }
 }
@@ -67,11 +111,20 @@ if (errors.length > 0) {
 
 const imageCount = rows.filter((row) => row.Type === "image").length;
 const logCount = rows.filter((row) => row.Type === "log").length;
-console.log(`Asset archive is valid: ${imageCount} renamed images, ${logCount} logs.`);
+console.log(
+  `Asset archive is valid: ${imageCount} renamed images, ${logCount} logs.`,
+);
+console.log(
+  `Deck assets are valid: ${deckAssetPaths.size} referenced public files.`,
+);
 
 function isInside(parent: string, child: string) {
   const relative = path.relative(parent, child);
-  return relative.length > 0 && !relative.startsWith("..") && !path.isAbsolute(relative);
+  return (
+    relative.length > 0 &&
+    !relative.startsWith("..") &&
+    !path.isAbsolute(relative)
+  );
 }
 
 function parseCsv(input: string) {
@@ -127,6 +180,8 @@ function parseCsv(input: string) {
   return data
     .filter((values) => values.some((value) => value.length > 0))
     .map((values) =>
-      Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""])),
+      Object.fromEntries(
+        headers.map((header, index) => [header, values[index] ?? ""]),
+      ),
     );
 }

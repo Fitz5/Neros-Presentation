@@ -32,8 +32,7 @@ button {
   padding: 1rem;
   background:
     linear-gradient(90deg, rgba(14, 124, 123, 0.08), transparent 28%),
-    linear-gradient(180deg, rgba(184, 135, 43, 0.08), transparent 35%),
-    #e8ece8;
+    linear-gradient(180deg, rgba(184, 135, 43, 0.08), transparent 35%), #e8ece8;
 }
 
 .previewPane {
@@ -161,7 +160,15 @@ button {
 .slide-deck-title {
   grid-template-rows: minmax(0, 1fr) auto;
   padding: 5.2cqw 6.2cqw 4.5cqw;
-  background: #f8f6f0 url("/graphics/neros-title-background.png") center / cover no-repeat;
+}
+
+.slide-cover {
+  background: #f8f6f0 url("/graphics/neros-title-background.png") center / cover
+    no-repeat;
+}
+
+.slide-deck-title {
+  background: #f8f6f0;
 }
 
 .slide-cover::before,
@@ -194,10 +201,21 @@ button {
 
 .slide-cover .slideTitle h1,
 .slide-deck-title .slideTitle h1 {
-  max-width: 12ch;
   font-size: 5.4cqw;
   line-height: 0.94;
   letter-spacing: -0.025em;
+}
+
+.slide-cover .slideTitle h1 {
+  max-width: 12ch;
+}
+
+.slide-deck-title .slideTitle {
+  max-width: 78%;
+}
+
+.slide-deck-title .slideTitle h1 {
+  max-width: 16ch;
 }
 
 .slide-cover .slideSubtitle,
@@ -217,14 +235,14 @@ button {
 .slide-deck-title .headlineBlock h2 {
   margin: 0 0 0.28cqw;
   font-family: Aptos, "Segoe UI", sans-serif;
-  font-size: 1.25cqw;
+  font-size: 1.8cqw;
   line-height: 1.1;
 }
 
 .slide-cover .headlineBlock span,
 .slide-deck-title .headlineBlock span {
   color: #5f6f73;
-  font-size: 1.05cqw;
+  font-size: 1.45cqw;
 }
 
 .layout-closing .slideBlocks {
@@ -251,7 +269,7 @@ button {
 }
 
 .slide-frame-resonance-expectation .slideBlocks {
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   column-gap: 0.85cqw;
 }
 
@@ -259,6 +277,10 @@ button {
   border: 0;
   border-radius: 0;
   background: transparent;
+}
+
+.slide-frame-resonance-expectation .comparisonRight .bulletItem strong {
+  font-size: 1.15cqw;
 }
 
 .layout-comparison .bulletBlock,
@@ -503,6 +525,275 @@ button {
   line-height: 1.15;
 }
 
+.metricRow-requirements {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metricRow-requirements .metric {
+  display: grid;
+  align-content: center;
+  min-height: 14cqw;
+  padding: 1.25cqw;
+  border-color: rgba(29, 37, 40, 0.14);
+}
+
+.metricRow-requirements .metric strong {
+  color: #1d2528;
+  font-size: 2.25cqw;
+  line-height: 1.02;
+  text-align: center;
+}
+
+.metricRow-requirements .metric span {
+  color: #5f6f73;
+  font-size: 1.05cqw;
+  text-align: center;
+}
+
+.metricRow-requirements .metric.isEmphasized {
+  border-color: rgba(67, 87, 166, 0.42);
+  background: #e8eaf1;
+}
+
+.metricRow-failures {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.metricRow-failures .metric {
+  display: grid;
+  place-items: center;
+  min-height: 12cqw;
+  border-color: rgba(217, 95, 67, 0.36);
+  background: #f8e8e3;
+}
+
+.metricRow-failures .metric strong {
+  color: #9f3325;
+  font-size: 2.15cqw;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.slide-drone .slideBlocks {
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  grid-template-rows: auto auto;
+  gap: 0.65cqw;
+  align-content: center;
+}
+
+.slide-drone .imageBlock,
+.slide-drone .bulletBlock {
+  grid-column: 2;
+}
+
+.slide-drone .imageBlock {
+  width: 100%;
+  justify-self: end;
+}
+
+.slide-drone .imageBlock img {
+  max-height: 16.5cqw;
+}
+
+.slide-drone .imageBlock figcaption {
+  text-align: right;
+}
+
+.slide-drone .bulletBlock {
+  gap: 0.38cqw;
+  padding: 0.75cqw 0.9cqw;
+  border: 1px solid rgba(29, 37, 40, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.slide-drone .bulletList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.34cqw 0.8cqw;
+}
+
+.slide-drone .bulletItem {
+  grid-template-columns: 0.42cqw minmax(0, 1fr);
+  gap: 0.42cqw;
+}
+
+.slide-drone .bulletMark {
+  width: 0.4cqw;
+  height: 0.4cqw;
+  margin-top: 0.28cqw;
+}
+
+.slide-drone .bulletItem strong {
+  font-size: 0.95cqw;
+}
+
+.slide-baseline-failure .calloutBlock {
+  justify-self: center;
+  width: min(100%, 72cqw);
+}
+
+.slide-diagnostic-method .slideBlocks {
+  align-content: center;
+}
+
+.slide-diagnostic-method .imageBlock {
+  width: min(100%, 68cqw);
+  justify-self: center;
+}
+
+.slide-diagnostic-method .imageBlock img {
+  border: 0;
+  background: transparent;
+}
+
+.rendered-diagnostic-method--order .slideBlocks {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 1cqw;
+  align-content: center;
+}
+
+.rendered-diagnostic-method--order .imageBlock {
+  width: min(42cqw, 52%);
+  justify-self: end;
+}
+
+.rendered-diagnostic-method--order .timelineItems {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rendered-diagnostic-method--order .timelineItem {
+  min-height: 9.8cqw;
+}
+
+.rendered-diagnostic-method--order .timelineItem span {
+  font-size: 1.3cqw;
+}
+
+.rendered-diagnostic-method--order .timelineItem strong {
+  font-size: 1.35cqw;
+}
+
+.rendered-diagnostic-method--order .timelineItem p {
+  font-size: 1.04cqw;
+}
+
+.slide-mechanical-checkpoint .slideBlocks,
+.slide-filtering-checkpoint .slideBlocks {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-content: center;
+}
+
+.slide-mechanical-checkpoint .bulletBlock,
+.slide-filtering-checkpoint .bulletBlock {
+  grid-column: 2;
+  min-height: 23cqw;
+  align-content: center;
+  gap: 1.3cqw;
+  padding: 2cqw 2.4cqw;
+  border-radius: 12px;
+  background: #e9ebe5;
+}
+
+.slide-mechanical-checkpoint .bulletBlock h2,
+.slide-filtering-checkpoint .bulletBlock h2 {
+  font-size: 1.8cqw;
+}
+
+.slide-mechanical-checkpoint .bulletList,
+.slide-filtering-checkpoint .bulletList {
+  gap: 1.35cqw;
+}
+
+.slide-mechanical-checkpoint .bulletItem strong,
+.slide-filtering-checkpoint .bulletItem strong {
+  font-size: 1.8cqw;
+}
+
+.slide-jello-mechanism .slideTitle h1 {
+  font-size: 2.55cqw;
+}
+
+.slide-jello-mechanism .slideBlocks {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-rows: auto auto auto;
+  gap: 0.5cqw 0.8cqw;
+  align-content: center;
+  padding-top: 0.45cqw;
+}
+
+.slide-jello-mechanism .imageBlock {
+  width: 100%;
+}
+
+.slide-jello-mechanism .imageBlock:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0.45cqw 0.6cqw;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(2) .bulletList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.18cqw 0.55cqw;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(2) .bulletItem strong {
+  font-size: 0.78cqw;
+}
+
+.slide-jello-mechanism .imageBlock:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(4) {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(5) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(n + 4) {
+  gap: 0.32cqw;
+  padding: 0.55cqw 0.7cqw;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .bulletList {
+  gap: 0.26cqw;
+}
+
+.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .bulletItem strong,
+.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .equationText,
+.slide-jello-mechanism .bulletBlock:nth-child(n + 4) .equationDetail {
+  font-size: 0.92cqw !important;
+}
+
+.slide-mechanical-change-result .imageBlock {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  max-width: 39cqw;
+  justify-self: end;
+}
+
+.slide-mechanical-change-result .bulletBlock {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: center;
+}
+
+.slide-mechanical-change-result .bulletItem strong {
+  font-size: 1.58cqw;
+}
+
 .timelineBlock {
   display: grid;
   gap: 1cqw;
@@ -721,4 +1012,431 @@ button {
     grid-column: 1 / -1;
     max-height: 8rem;
   }
+}
+
+/* Semantic presentation system with practical presentation-scale roles. */
+.slideCanvas {
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  padding: 1.7cqw 3cqw 1.25cqw;
+}
+
+.slide-cover,
+.slide-deck-title {
+  grid-template-rows: minmax(0, 1fr) auto;
+  padding: 5.2cqw 6.2cqw 4.5cqw;
+}
+
+.progressTopic {
+  min-height: 2.1cqw;
+}
+
+.progressNumber,
+.progressLabel,
+.slideFooter {
+  font-size: var(--type-chrome);
+}
+
+.slideTitle {
+  max-width: 96%;
+  padding-top: 0.8cqw;
+}
+
+.slideTitle h1 {
+  font-size: var(--type-title);
+  line-height: 1.02;
+}
+
+.slideKicker,
+.slideSubtitle {
+  font-size: var(--type-support);
+  line-height: 1.22;
+}
+
+.slideKicker {
+  margin-bottom: 0.25cqw;
+}
+
+.slideSubtitle {
+  max-width: 88ch;
+  margin-top: 0.42cqw;
+}
+
+.slideBlocks {
+  gap: 1.05cqw;
+  padding-top: 0.7cqw;
+}
+
+.text-support :is(h2, strong, p, span, cite, figcaption),
+.imageBlock :is(h2, figcaption) {
+  font-size: var(--type-support);
+}
+
+.text-medium :is(h2, strong),
+.bulletBlock h2,
+.timelineBlock h2,
+.columnPanel h2,
+.calloutBlock p {
+  font-size: var(--type-medium);
+}
+
+.text-medium :is(p, span, cite),
+.bulletItem p,
+.columnItem p,
+.timelineItem p,
+.metric p,
+.equationDetail,
+.imageBlock figcaption {
+  font-size: var(--type-support) !important;
+}
+
+.text-large :is(h2, strong),
+.headlineBlock h2 {
+  font-size: var(--type-large);
+}
+
+.text-large :is(p, span, cite) {
+  font-size: var(--type-medium);
+}
+
+.bulletItem strong,
+.columnItem strong,
+.timelineItem strong,
+.equationText {
+  font-size: var(--type-medium) !important;
+  line-height: 1.15;
+}
+
+.bulletBlock,
+.columnPanel,
+.calloutBlock,
+.timelineItem {
+  border-radius: 10px;
+}
+
+.bulletBlock {
+  gap: 0.55cqw;
+}
+
+.bulletList {
+  gap: 0.65cqw;
+}
+
+.bulletItem {
+  grid-template-columns: 0.55cqw minmax(0, 1fr);
+  gap: 0.62cqw;
+}
+
+.bulletMark {
+  width: 0.5cqw;
+  height: 0.5cqw;
+  margin-top: 0.78cqw;
+}
+
+.columnPanel {
+  gap: 0.65cqw;
+  min-height: 0;
+  padding: 1.05cqw;
+}
+
+.columnItem {
+  padding-top: 0.55cqw;
+}
+
+.imageBlock {
+  gap: 0.45cqw;
+}
+
+.imageBlock figcaption {
+  max-width: 100%;
+  overflow: hidden;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metricRow-requirements .metric strong,
+.metricRow-failures .metric strong,
+.metric strong {
+  font-size: var(--type-large);
+}
+
+.metricRow-requirements .metric span,
+.metric span {
+  font-size: var(--type-support);
+}
+
+.metricRow-requirements .metric {
+  min-height: 12.5cqw;
+}
+
+.composition-metricGrid .slideBlocks {
+  align-content: center;
+}
+
+.composition-mediaStackRight .slideBlocks {
+  grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+}
+
+.composition-mediaStackRight .imageBlock,
+.composition-mediaStackRight .bulletBlock {
+  grid-column: 2;
+  width: 100%;
+}
+
+.composition-mediaStackRight .imageBlock img {
+  max-height: 17cqw;
+}
+
+.composition-mediaStackRight .bulletBlock {
+  padding: 0.85cqw 1cqw;
+  border: 1px solid rgba(29, 37, 40, 0.12);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.composition-mediaStackRight .bulletList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45cqw 0.9cqw;
+}
+
+.composition-mediaStackRight .bulletItem strong {
+  font-size: var(--type-support) !important;
+}
+
+.composition-diagram .slideBlocks {
+  place-items: center;
+}
+
+.composition-diagram .imageBlock {
+  width: min(100%, 72cqw);
+}
+
+.composition-diagram .imageBlock img,
+.composition-diagramCards .imageBlock img {
+  border: 0;
+  background: transparent;
+}
+
+.composition-diagramCards .slideBlocks {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: 1.2cqw;
+}
+
+.composition-diagramCards .imageBlock {
+  width: min(100%, 58cqw);
+  justify-self: center;
+}
+
+.composition-diagramCards .timelineItems {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.composition-diagramCards .timelineItem {
+  min-height: 12.5cqw;
+  padding: 1cqw;
+}
+
+.composition-checkpoint .slideBlocks {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+}
+
+.checkpointBlock {
+  display: grid;
+  gap: 1.1cqw;
+  width: 100%;
+  padding: 1.4cqw;
+  border-radius: 12px;
+  background: #e9ebe5;
+}
+
+.checkpointBlock h2 {
+  margin: 0;
+  font-size: var(--type-medium);
+}
+
+.checkpointItems {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1cqw;
+}
+
+.checkpointItem {
+  display: grid;
+  align-content: center;
+  min-height: 14cqw;
+  padding: 1.2cqw;
+  border: 1px solid #cfd5d1;
+  border-top: 0.38cqw solid #9aa6a5;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.checkpointItem span {
+  color: #5f6f73;
+  font-size: var(--type-support);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.checkpointItem strong {
+  margin-top: 0.7cqw;
+  color: #1d2528;
+  font-size: var(--type-large);
+  line-height: 1.08;
+}
+
+.checkpointItem.is-complete {
+  border-top-color: #2f855a;
+  background: #e7f1e9;
+}
+
+.checkpointItem.is-current {
+  border-top-color: #ed5718;
+  background: #f8e9df;
+}
+
+.composition-dualMedia .slideBlocks {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: 0.9cqw 1.1cqw;
+}
+
+.composition-dualMedia .imageBlock {
+  grid-row: 1;
+  width: 100%;
+}
+
+.composition-dualMedia .imageBlock:nth-child(1) {
+  grid-column: 1;
+}
+
+.composition-dualMedia .imageBlock:nth-child(2) {
+  grid-column: 2;
+}
+
+.composition-dualMedia .bulletBlock {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  padding: 0.9cqw 1.1cqw;
+  border: 1px solid rgba(29, 37, 40, 0.12);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.composition-dualMedia .bulletList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.composition-equationGrid .slideBlocks {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  align-content: center;
+}
+
+.composition-equationGrid .metricRow {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.composition-equationGrid .metric {
+  min-height: 8.5cqw;
+}
+
+.composition-equationGrid .bulletBlock {
+  grid-row: 2;
+  padding: 1.2cqw;
+  border: 1px solid rgba(29, 37, 40, 0.12);
+  background: #ffffff;
+}
+
+.composition-mediaAnalysis .slideBlocks {
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 0.4fr);
+  grid-template-rows: repeat(4, auto);
+  align-content: center;
+  gap: 0.8cqw 1.15cqw;
+}
+
+.composition-mediaAnalysis .imageBlock {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  align-self: center;
+  width: 100%;
+}
+
+.composition-mediaAnalysis :is(.bulletBlock, .calloutBlock) {
+  grid-column: 2;
+  padding: 0.85cqw;
+}
+
+.composition-mediaRight .slideBlocks {
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+  align-content: center;
+}
+
+.composition-mediaRight .imageBlock {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+}
+
+.composition-mediaRight .bulletBlock {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+.composition-twoColumn .slideBlocks,
+.composition-default .slideBlocks {
+  align-content: center;
+}
+
+.composition-timeline .timelineItems,
+.timelineItems {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.composition-timeline .timelineItem,
+.timelineItem {
+  min-height: 11.5cqw;
+}
+
+.composition-cover .slideTitle h1,
+.slide-cover .slideTitle h1,
+.slide-deck-title .slideTitle h1 {
+  font-size: var(--type-display);
+}
+
+.composition-cover .slideSubtitle,
+.slide-cover .slideSubtitle,
+.slide-deck-title .slideSubtitle {
+  font-size: 1.5cqw;
+}
+
+.composition-cover .headlineBlock h2,
+.slide-cover .headlineBlock h2,
+.slide-deck-title .headlineBlock h2 {
+  font-size: 1.8cqw;
+}
+
+.composition-cover .headlineBlock span,
+.slide-cover .headlineBlock span,
+.slide-deck-title .headlineBlock span {
+  font-size: 1.45cqw;
+}
+
+.composition-cover .imageBlock :is(h2, figcaption) {
+  font-size: var(--type-support);
+}
+
+/* Retire opening-slide-specific positioning in favor of compositions. */
+.slide-frame-resonance-expectation .slideBlocks,
+.slide-drone .slideBlocks,
+.slide-jello-mechanism .slideBlocks,
+.slide-mechanical-checkpoint .slideBlocks,
+.slide-filtering-checkpoint .slideBlocks {
+  column-gap: inherit;
 }

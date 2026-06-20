@@ -29,9 +29,22 @@ export const theme = {
     width: 13.333,
     height: 7.5,
   },
+  typography: {
+    display: 52,
+    title: 29,
+    large: 22,
+    medium: 13,
+    support: 10,
+    chrome: 8.5,
+  },
 } as const;
 
 export type Tone = "neutral" | "accent" | "success" | "warning" | "danger";
+export type TextSize = "support" | "medium" | "large";
+
+export function typographyCqw(points: number) {
+  return `${points / 9.6}cqw`;
+}
 
 export function toneColor(tone: Tone = "neutral") {
   switch (tone) {
