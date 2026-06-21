@@ -1825,3 +1825,41 @@ button {
   font-size: var(--type-support);
 }
 
+/* Print mode (?print): stack every slide as its own fixed 16:9 page so headless
+   Chrome's print-to-pdf renders a faithful, one-slide-per-page copy of the deck. */
+.printDeck {
+  display: flex;
+  flex-direction: column;
+}
+
+.printDeck .slideCanvas {
+  width: 13.333in;
+  height: 7.5in;
+  max-width: none;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  break-after: page;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.printDeck .slideCanvas:last-child {
+  break-after: auto;
+}
+
+@page {
+  size: 13.333in 7.5in;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body,
+  #root {
+    margin: 0;
+    background: #f8f6f0;
+  }
+}
+

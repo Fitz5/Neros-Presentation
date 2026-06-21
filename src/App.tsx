@@ -32,7 +32,36 @@ const appendixStartIndex = renderedSlides.findIndex(
   (renderedSlide) => renderedSlide.sourceSlideId === "appendix-divider",
 );
 
+// Print mode (?print): every slide is rendered as its own fixed 16:9 page so a
+// headless-Chrome "print to PDF" pass produces a faithful copy of the deck.
+const isPrintMode =
+  typeof window !== "undefined" &&
+  new URLSearchParams(window.location.search).has("print");
+
 export function App() {
+  if (isPrintMode) {
+    return <PrintDeck />;
+  }
+
+  return <Presentation />;
+}
+
+function PrintDeck() {
+  return (
+    <div className="printDeck">
+      {renderedSlides.map((renderedSlide) => (
+        <SlideCanvas
+          activeSectionId={renderedSlide.sectionId}
+          sections={validatedDeck.sections}
+          slide={renderedSlide}
+          key={renderedSlide.id}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Presentation() {
   const [slideIndex, setSlideIndex] = useState(() =>
     getInitialSlideIndex(renderedSlides.length),
   );
