@@ -111,6 +111,12 @@ export const deck = {
             { id: "capacitor", text: "Capacitor", detail: "1×680 µF" },
           ],
         },
+        {
+          type: "image",
+          src: deckImage("aos-ul7.png"),
+          alt: "AOS UL7 chase drone.",
+          aspectRatio: 1.5,
+        },
       ],
       notes: [
         "Translate the engineering measurements back to the job: stable footage, predictable response, and less pilot correction.",
@@ -260,7 +266,7 @@ export const deck = {
             },
             {
               id: "harmonic-sync",
-              text: "Shutter speed and image capture sync with frame harmonics to produce visible waves called jello",
+              text: "Scans top to bottom.",
             },
           ],
         },
@@ -289,7 +295,7 @@ export const deck = {
                 { text: "scan", script: "sub" },
                 { text: " × f" },
                 { text: "vib", script: "sub" },
-                { text: " = (0.016 s)(200 Hz) = 3.2 waves/frame" },
+                { text: " = 0.016(200) = 3.2 waves/frame" },
               ],
             },
           ],
@@ -304,7 +310,7 @@ export const deck = {
               text: "200 Hz / 60 fps = 3⅓ cycles/frame → ⅓ cycle × 360° = 120°/frame",
               equation: [
                 {
-                  text: "200 Hz / 60 fps = 3⅓ cycles/frame → ⅓ cycle × 360° = 120°/frame",
+                  text: "200/60 = 3⅓ cycles/frame → ⅓(360°) = 120°/frame",
                 },
               ],
             },
@@ -890,7 +896,7 @@ export const deck = {
     {
       id: "initial-setpoint",
       sectionId: "pid",
-      title: "Initial Setpoint",
+      title: "What is poor tracking?",
       layout: "comparison",
       estimatedMinutes: 1,
       blocks: [
@@ -915,6 +921,23 @@ export const deck = {
               text: "Visible gyro noise",
               detail:
                 "The motor noise is lessened after the plant and sensor fixes.",
+            },
+          ],
+        },
+        {
+          type: "bullets",
+          title: "Filter delay",
+          tone: "accent",
+          items: [
+            {
+              id: "delay-pre",
+              text: "Pre-filter tuning",
+              detail: "Gyro 2.26 ms · D-term 2.625 ms",
+            },
+            {
+              id: "delay-post",
+              text: "Post-filter tuning",
+              detail: "Gyro 2.25 ms · D-term 1.625 ms",
             },
           ],
         },
@@ -1138,6 +1161,12 @@ export const deck = {
           aspectRatio: 1.5494,
         },
         {
+          type: "image",
+          src: deckImage("pitch-tracking-post-tune.png"),
+          alt: "Pitch tracking trace after the final tune.",
+          aspectRatio: 2.6068,
+        },
+        {
           type: "bullets",
           title: "Result",
           tone: "success",
@@ -1236,7 +1265,7 @@ export const deck = {
     {
       id: "appendix-raw-filtering",
       sectionId: "validation",
-      title: "Raw Evidence: Noise Changed With Throttle",
+      title: "RPM vs Noise",
       layout: "comparison",
       blocks: [
         {
@@ -1248,7 +1277,6 @@ export const deck = {
         },
         {
           type: "bullets",
-          title: "Use in Q&A",
           tone: "accent",
           items: [
             {
@@ -1420,87 +1448,89 @@ export const deck = {
     {
       id: "appendix-motor-physics",
       sectionId: "validation",
-      title: "Motor Electrical Dynamics Limit Useful Command Bandwidth",
-      layout: "comparison",
-      blocks: [
-        {
-          type: "image",
-          src: deckImage("am32-esc-settings.png"),
-          alt: "AM32 ESC settings used during actuator configuration review.",
-          caption:
-            "AM32 actuator configuration reviewed during the investigation",
-          aspectRatio: 1.7843,
-        },
-        {
-          type: "bullets",
-          title: "Simplified model",
-          tone: "accent",
-          items: [
-            {
-              id: "motor-voltage",
-              text: "V = Ri + L di/dt + back-EMF",
-              detail: "Inductance resists rapid current change.",
-            },
-            {
-              id: "motor-torque",
-              text: "Torque ≈ Kt · current",
-              detail:
-                "If current cannot follow the command, useful torque cannot follow it either.",
-            },
-            {
-              id: "motor-heat-detail",
-              text: "High-frequency effort can become ripple and heat",
-              detail:
-                "This is a qualitative mechanism, not a complete motor model.",
-            },
-          ],
-        },
-      ],
-      notes: [
-        "Avoid claiming all high-frequency command energy becomes heat; the model is intentionally simplified.",
-      ],
-    },
-    {
-      id: "appendix-pid-sweep",
-      sectionId: "validation",
-      title: "P/D Sweep Exposed the Usable Response Range",
+      title: "AM32 Settings",
       layout: "comparison",
       blocks: [
         {
           type: "image",
           src: deckImage("motor-output-limit.png"),
-          alt: "AM32 motor output and KV matching configuration used during system setup.",
-          caption: "Actuator matching and output-limit context",
+          alt: "Updated AM32 ESC settings with motor KV, timing, pole count, and ramp rate configured.",
+          caption: "Updated AM32 motor configuration",
           aspectRatio: 1.2658,
         },
         {
           type: "bullets",
-          title: "Additional configuration context",
+          title: "Configuration changes",
           tone: "accent",
           items: [
             {
-              id: "kv-match",
-              text: "Motor output limits were reviewed for KV matching",
-              detail:
-                "Controller conclusions depend on comparable actuator authority.",
+              id: "firmware-version",
+              text: "Update AM32 to the newest version",
             },
             {
-              id: "sweep-order",
-              text: "P/D balance preceded master-multiplier selection",
-              detail: "Shape the response before scaling overall authority.",
+              id: "motor-kv",
+              text: "Set motor KV to 1300",
+              detail:
+                "If the exact KV is unavailable, select the next-lowest value.",
             },
             {
-              id: "ff-order",
-              text: "Feedforward comparison came last",
-              detail:
-                "Command tracking should not mask incorrect feedback damping.",
+              id: "timing-advance",
+              text: "Leave timing advance at 15°",
+            },
+            {
+              id: "motor-poles",
+              text: "Set motor poles to 14",
+            },
+            {
+              id: "ramp-rate",
+              text: "Set ramp rate to 8% duty cycle per ms",
             },
           ],
         },
       ],
       notes: [
-        "Supporting configuration context for detailed tuning questions.",
+        "Update AM32 to the newest version before applying these values. If 1300 KV cannot be selected exactly, use the next-lowest available value.",
       ],
+    },
+    {
+      id: "betaflight-sequence",
+      sectionId: "validation",
+      title: "Betaflight Tuning Sequence",
+      layout: "content",
+      composition: "default",
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("betaflight-sequence.jpg"),
+          alt: "Betaflight tuning sequence reference.",
+          aspectRatio: 1.4145,
+        },
+      ],
+      notes: ["Betaflight tuning sequence reference."],
+    },
+    {
+      id: "appendix-rpm-q",
+      sectionId: "validation",
+      title: "Dynamic Notch Q: 500 vs 800",
+      layout: "content",
+      composition: "dualMedia",
+      blocks: [
+        {
+          type: "image",
+          title: "Q = 500",
+          src: deckImage("rpm-q-500.png"),
+          alt: "Spectrum with dynamic-notch Q set to 500.",
+          aspectRatio: 3.1198,
+        },
+        {
+          type: "image",
+          title: "Q = 800",
+          src: deckImage("rpm-q-800.png"),
+          alt: "Spectrum with dynamic-notch Q set to 800.",
+          aspectRatio: 3.1405,
+        },
+      ],
+      notes: ["Comparison of dynamic-notch Q factor 500 vs 800."],
     },
     {
       id: "camera-jello",

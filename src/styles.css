@@ -302,6 +302,16 @@ button {
   width: min(100%, 72cqw);
 }
 
+/* Betaflight sequence: a single centered reference image (tall, so cap width). */
+.slideCanvas.slide-betaflight-sequence .slideBlocks {
+  justify-items: center;
+  align-content: center;
+}
+
+.slideCanvas.slide-betaflight-sequence .imageBlock {
+  width: min(100%, 56cqw);
+}
+
 /* ESC slide: the plot is tall, so cap its width to keep it clear of the text,
    and center the two note boxes as a group on the slide. */
 .slideCanvas.slide-esc-actuator-bandwidth .slideBlocks {
@@ -313,7 +323,7 @@ button {
   grid-row: 1 / span 2;
   align-self: center;
   justify-self: center;
-  width: min(100%, 47cqw);
+  width: min(100%, 50cqw);
 }
 
 .slideCanvas.slide-esc-actuator-bandwidth .bulletBlock:nth-of-type(1) {
@@ -321,6 +331,40 @@ button {
 }
 
 .slideCanvas.slide-esc-actuator-bandwidth .bulletBlock:nth-of-type(2) {
+  align-self: start;
+}
+
+/* Give the annotated filter-settings image slightly more emphasis. */
+.slideCanvas.slide-filter-changes-made .slideBlocks {
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+}
+
+/* Final Tune: main setpoint plot on the left (centered), the post-tune pitch
+   plot top-right, and the result box below it (same pattern as slides 16/17). */
+.slideCanvas.slide-final-tune .slideBlocks {
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: 0.9cqw 1.1cqw;
+}
+
+.slideCanvas.slide-final-tune .slideBlocks > .imageBlock:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 100%;
+}
+
+.slideCanvas.slide-final-tune .slideBlocks > .imageBlock:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  width: 100%;
+}
+
+.slideCanvas.slide-final-tune .slideBlocks > .bulletBlock {
+  grid-column: 2;
+  grid-row: 2;
   align-self: start;
 }
 
@@ -647,6 +691,19 @@ button {
   background: rgba(255, 255, 255, 0.74);
 }
 
+.slideCanvas.slide-drone .imageBlock {
+  grid-column: 2;
+  align-self: center;
+  width: 100%;
+}
+
+/* Transparent PNG — drop the card border/fill so it sits on the page. */
+.slideCanvas.slide-drone .imageBlock img {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
 .slideCanvas.slide-drone .bulletList {
   gap: 0.55cqw;
 }
@@ -738,7 +795,7 @@ button {
 
 /* Two reference images across the top, mechanism + math in the rows below. */
 .slideCanvas.slide-jello-mechanism .slideBlocks {
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   grid-template-rows: auto auto auto;
   gap: 0.6cqw 0.9cqw;
   align-content: center;
@@ -749,7 +806,7 @@ button {
   grid-row: 1;
   width: min(100%, 30cqw);
   justify-self: center;
-  transform: scale(1.15);
+  transform: scale(1.3);
   transform-origin: center bottom;
 }
 
@@ -782,28 +839,59 @@ button {
   grid-row: 3;
 }
 
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(5),
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(6) {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.slideCanvas.slide-jello-mechanism
+  .slideBlocks
+  > .bulletBlock:nth-child(5)
+  .bulletList,
+.slideCanvas.slide-jello-mechanism
+  .slideBlocks
+  > .bulletBlock:nth-child(6)
+  .bulletList {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+}
+
 /* Compact every text box so all four fit cleanly under the images. */
 .slideCanvas.slide-jello-mechanism .bulletBlock {
-  gap: 0.3cqw;
-  padding: 0.55cqw 0.7cqw;
+  gap: 0.4cqw;
+  padding: 0.8cqw 0.95cqw;
   border: 1px solid rgba(29, 37, 40, 0.12);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.72);
 }
 
 .slideCanvas.slide-jello-mechanism .bulletList {
-  gap: 0.32cqw;
+  gap: 0.4cqw;
+}
+
+.slideCanvas.slide-jello-mechanism .bulletBlock h2 {
+  font-size: 1.45cqw;
+  line-height: 1.25;
 }
 
 .slideCanvas.slide-jello-mechanism .bulletItem strong {
-  font-size: 1cqw !important;
+  font-size: 1.2cqw !important;
 }
 
 /* The frequency math is the point of the slide — keep it large and readable. */
 .slideCanvas.slide-jello-mechanism .bulletItem .equationText {
-  font-size: 1.5cqw !important;
-  letter-spacing: -0.01em;
+  display: block;
+  font-size: 2.05cqw !important;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
   white-space: nowrap;
+}
+
+/* Keep equation runs at one consistent size; the generic text-size rule also
+   targets spans and would otherwise shrink the non-subscript text. */
+.slideCanvas.slide-jello-mechanism .equationText > span {
+  font-size: inherit !important;
 }
 
 .slideCanvas.slide-jello-mechanism .equationDetail {
@@ -814,7 +902,7 @@ button {
   grid-column: 2;
   grid-row: 1 / span 3;
   width: 100%;
-  max-width: 47cqw;
+  max-width: 50cqw;
   justify-self: center;
   align-self: center;
 }
