@@ -563,15 +563,9 @@ export const deck = {
         {
           type: "image",
           src: deckImage("gyro-dterm-pre-filtering.png"),
-          alt: "Gyro and D-term traces before filtering, showing amplified high-frequency noise.",
-          caption: "Gyro vs. D-term, pre-filtering",
+          alt: "Gyro and D-term traces before and after filtering, showing the reduction in high-frequency noise.",
+          caption: "Gyro vs. D-term, pre vs. post filtering",
           aspectRatio: 1.8838,
-        },
-        {
-          type: "callout",
-          label: "D-term",
-          text: "Any noise that isn't filtered gets amplified by the D-term — and shows up as motor heat.",
-          tone: "warning",
         },
       ],
       notes: [
@@ -891,6 +885,42 @@ export const deck = {
       ],
       notes: [
         "The tuning section begins only after the earlier layers have been addressed.",
+      ],
+    },
+    {
+      id: "initial-setpoint",
+      sectionId: "pid",
+      title: "Initial Setpoint",
+      layout: "comparison",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("initial-setpoint-tune.png"),
+          alt: "Initial setpoint-versus-gyro trace before tuning, showing motor noise.",
+          caption: "Initial setpoint vs. gyro",
+          aspectRatio: 1.5717,
+        },
+        {
+          type: "bullets",
+          tone: "warning",
+          items: [
+            {
+              id: "initial-tracking",
+              text: "Poor setpoint tracking",
+              detail: "Visible shaking and movement away from setpoint.",
+            },
+            {
+              id: "initial-gyro-noise",
+              text: "Visible gyro noise",
+              detail:
+                "The motor noise is lessened after the plant and sensor fixes.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "Baseline before controller tuning: poor setpoint tracking and gyro noise, though motor noise is already reduced by the plant and sensor work.",
       ],
     },
     {
@@ -1470,41 +1500,6 @@ export const deck = {
       ],
       notes: [
         "Supporting configuration context for detailed tuning questions.",
-      ],
-    },
-    {
-      id: "appendix-initial-setpoint",
-      sectionId: "validation",
-      title: "Initial Setpoint Tune",
-      layout: "comparison",
-      blocks: [
-        {
-          type: "image",
-          src: deckImage("initial-setpoint-tune.png"),
-          alt: "Initial setpoint-versus-gyro trace before tuning, showing motor noise.",
-          caption: "Initial setpoint vs. gyro — note the motor noise",
-          aspectRatio: 1.5717,
-        },
-        {
-          type: "bullets",
-          title: "Before tuning",
-          tone: "warning",
-          items: [
-            {
-              id: "initial-noise",
-              text: "Visible motor noise on the gyro trace",
-              detail: "Baseline for comparison against the final tune.",
-            },
-            {
-              id: "initial-tracking",
-              text: "Looser setpoint tracking",
-              detail: "Response error before P/D, master-multiplier, and feedforward work.",
-            },
-          ],
-        },
-      ],
-      notes: [
-        "Baseline reference: the initial setpoint trace shows the motor noise that later changes removed.",
       ],
     },
     {

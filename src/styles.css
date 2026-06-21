@@ -1,4 +1,5 @@
 :root {
+  --neros-orange: #ed5718;
   color: #1d2528;
   background: #e8ece8;
   font-family: Aptos, "Segoe UI", Inter, Arial, sans-serif;
@@ -301,6 +302,28 @@ button {
   width: min(100%, 72cqw);
 }
 
+/* ESC slide: the plot is tall, so cap its width to keep it clear of the text,
+   and center the two note boxes as a group on the slide. */
+.slideCanvas.slide-esc-actuator-bandwidth .slideBlocks {
+  grid-template-rows: auto auto;
+  align-content: center;
+}
+
+.slideCanvas.slide-esc-actuator-bandwidth .imageBlock {
+  grid-row: 1 / span 2;
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 47cqw);
+}
+
+.slideCanvas.slide-esc-actuator-bandwidth .bulletBlock:nth-of-type(1) {
+  align-self: end;
+}
+
+.slideCanvas.slide-esc-actuator-bandwidth .bulletBlock:nth-of-type(2) {
+  align-self: start;
+}
+
 .layout-comparison .slideBlocks {
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   grid-template-rows: repeat(3, auto);
@@ -434,7 +457,7 @@ button {
   height: 0.62cqw;
   margin-top: 0.42cqw;
   border-radius: 999px;
-  background: var(--tone-color);
+  background: var(--neros-orange);
 }
 
 .bulletItem strong,
@@ -822,7 +845,7 @@ button {
   min-height: 6cqw;
 }
 
-/* Why motors get hot: centered figure with a single-line callout below. */
+/* Why motors get hot: a single large, centered comparison plot. */
 .slideCanvas.slide-motors-hot .slideBlocks {
   grid-template-columns: minmax(0, 1fr);
   justify-items: center;
@@ -830,12 +853,7 @@ button {
 }
 
 .slideCanvas.slide-motors-hot .imageBlock {
-  width: min(100%, 52cqw);
-}
-
-.slideCanvas.slide-motors-hot .calloutBlock {
-  max-width: 60cqw;
-  text-align: center;
+  width: min(100%, 72cqw);
 }
 
 /* Filter-type slides (low-pass / notch): main response plot on the left
@@ -1250,6 +1268,10 @@ button {
 .slideSubtitle {
   font-size: var(--type-support);
   line-height: 1.22;
+}
+
+.slideSubtitle {
+  font-size: 1.2cqw;
 }
 
 .slideKicker {

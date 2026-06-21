@@ -1054,7 +1054,7 @@ function drawBullets(
   w: number,
 ) {
   let cursorY = y;
-  const color = toneColor(block.tone);
+  const bulletColor = theme.colors.nerosOrange;
   const primarySize = fontSizeFor(block, "medium");
   const detailSize = block.textSize === "large" ? theme.typography.medium : theme.typography.support;
 
@@ -1080,8 +1080,8 @@ function drawBullets(
         y: cursorY + 0.14,
         w: 0.11,
         h: 0.11,
-        fill: { color: pptColor(color) },
-        line: { color: pptColor(color) },
+        fill: { color: pptColor(bulletColor) },
+        line: { color: pptColor(bulletColor) },
       });
     }
 
