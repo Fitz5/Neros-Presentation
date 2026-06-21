@@ -1003,23 +1003,53 @@ export const deck = {
       ],
     },
     {
-      id: "pitch-tuning",
+      id: "pitch-tuning-balance",
       sectionId: "pid",
-      title: "Pitch Tuning",
+      title: "Pitch Tuning — P/D Balance",
       subtitle: "Pitch gets its own balance — higher inertia needs higher gains.",
-      layout: "comparison",
-      estimatedMinutes: 1.75,
+      layout: "content",
+      composition: "default",
+      estimatedMinutes: 1,
       blocks: [
         {
           type: "image",
-          title: "P / D balance",
           src: deckImage("pitch-pt-pd-balance.png"),
           alt: "Pitch P/D balance step-response comparison.",
           aspectRatio: 2.3255,
         },
         {
+          type: "bullets",
+          title: "Goal",
+          tone: "accent",
+          items: [
+            {
+              id: "balance-latency",
+              text: "Match pitch latency to roll",
+              detail: "Comparable response feel across both axes.",
+            },
+            {
+              id: "balance-inertia",
+              text: "Higher moment of inertia on pitch",
+              detail: "Pitch needs higher gains to keep up with roll.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "Match pitch latency to roll; higher pitch inertia needs higher gains.",
+      ],
+    },
+    {
+      id: "pitch-tuning-gain",
+      sectionId: "pid",
+      title: "Pitch Tuning — P/D Gain",
+      subtitle: "Pitch gets its own balance — higher inertia needs higher gains.",
+      layout: "content",
+      composition: "default",
+      estimatedMinutes: 1,
+      blocks: [
+        {
           type: "image",
-          title: "P / D gain",
           src: deckImage("pitch-pd-coef.png"),
           alt: "Pitch P/D gain coefficient comparison.",
           aspectRatio: 2.5008,
@@ -1030,12 +1060,12 @@ export const deck = {
           tone: "accent",
           items: [
             {
-              id: "pitch-latency",
+              id: "gain-latency",
               text: "Match pitch latency to roll",
               detail: "Comparable response feel across both axes.",
             },
             {
-              id: "pitch-inertia",
+              id: "gain-inertia",
               text: "Higher moment of inertia on pitch",
               detail: "Pitch needs higher gains to keep up with roll.",
             },

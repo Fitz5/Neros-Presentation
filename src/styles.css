@@ -255,9 +255,12 @@ button {
 }
 
 .slideCanvas.slide-qa .slideBlocks {
-  align-content: center;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-content: stretch;
   justify-items: center;
-  gap: 1cqw;
+  gap: 0;
+  padding-top: 0;
 }
 
 .slideCanvas.slide-qa .headlineBlock {
@@ -272,6 +275,16 @@ button {
 
 .slideCanvas.slide-qa .headlineBlock:first-child h2 {
   font-size: 4.6cqw;
+}
+
+.slideCanvas.slide-qa .headlineBlock:first-child {
+  grid-row: 2;
+}
+
+.slideCanvas.slide-qa .headlineBlock:last-child {
+  grid-row: 3;
+  align-self: start;
+  margin-top: 1cqw;
 }
 
 .slideCanvas.slide-qa .headlineBlock:last-child h2 {
@@ -927,19 +940,34 @@ button {
 
 /* PID 21.2 — wobble test: the source image is nearly square, so cap its width. */
 .slideCanvas.slide-wobble-tuning .imageBlock {
-  width: min(100%, 31cqw);
+  width: min(100%, 36cqw);
   justify-self: center;
 }
 
-/* PID 21.3 / 21.5 — large stacked traces on the left with each plot's label to
-   its right (clear of the notes column); reading notes on the right. */
-.slideCanvas.slide-pitch-tuning .slideBlocks {
-  grid-template-columns: minmax(0, 0.6fr) minmax(0, 0.4fr);
-  grid-template-rows: auto auto;
+/* PID 21.3 — pitch tuning split into two seamless slides: one plot on the left
+   with the goal notes on the right (same positions so advancing swaps the image). */
+.slideCanvas.slide-pitch-tuning-balance .slideBlocks,
+.slideCanvas.slide-pitch-tuning-gain .slideBlocks {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
   align-content: center;
-  gap: 0.6cqw 1cqw;
+  gap: 1.2cqw;
 }
 
+.slideCanvas.slide-pitch-tuning-balance .imageBlock,
+.slideCanvas.slide-pitch-tuning-gain .imageBlock {
+  grid-column: 1;
+  align-self: center;
+  width: 100%;
+}
+
+.slideCanvas.slide-pitch-tuning-balance .bulletBlock,
+.slideCanvas.slide-pitch-tuning-gain .bulletBlock {
+  grid-column: 2;
+  align-self: center;
+}
+
+/* PID 21.5 — feedforward: stacked traces on the left with each plot's label to
+   its right (clear of the notes column); reading notes on the right. */
 .slideCanvas.slide-feedforward-tuning .slideBlocks {
   grid-template-columns: minmax(0, 0.6fr) minmax(0, 0.4fr);
   grid-template-rows: auto auto auto;
@@ -947,7 +975,6 @@ button {
   gap: 0 1cqw;
 }
 
-.slideCanvas.slide-pitch-tuning .imageBlock,
 .slideCanvas.slide-feedforward-tuning .imageBlock {
   grid-column: 1;
   display: grid;
@@ -958,27 +985,15 @@ button {
   justify-self: start;
 }
 
-.slideCanvas.slide-pitch-tuning .imageBlock > img,
 .slideCanvas.slide-feedforward-tuning .imageBlock > img {
   grid-column: 1;
 }
 
-.slideCanvas.slide-pitch-tuning .imageBlock > h2,
 .slideCanvas.slide-feedforward-tuning .imageBlock > h2 {
   grid-column: 2;
   margin: 0;
   font-size: 1.25cqw;
   white-space: nowrap;
-}
-
-.slideCanvas.slide-pitch-tuning .imageBlock:nth-child(1) {
-  grid-row: 1;
-  align-self: end;
-}
-
-.slideCanvas.slide-pitch-tuning .imageBlock:nth-child(2) {
-  grid-row: 2;
-  align-self: start;
 }
 
 .slideCanvas.slide-feedforward-tuning .imageBlock:nth-child(1) {
@@ -991,12 +1006,6 @@ button {
 
 .slideCanvas.slide-feedforward-tuning .imageBlock:nth-child(3) {
   grid-row: 3;
-}
-
-.slideCanvas.slide-pitch-tuning .slideBlocks > .bulletBlock {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: center;
 }
 
 .slideCanvas.slide-feedforward-tuning .slideBlocks > .bulletBlock {
