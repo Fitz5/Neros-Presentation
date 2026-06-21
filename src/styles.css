@@ -249,6 +249,50 @@ button {
   align-content: center;
 }
 
+/* Closing slide: large centered "Thank you!" over "Questions?" + appendix note. */
+.slideCanvas.slide-qa .slideTitle {
+  display: none;
+}
+
+.slideCanvas.slide-qa .slideBlocks {
+  align-content: center;
+  justify-items: center;
+  gap: 1cqw;
+}
+
+.slideCanvas.slide-qa .headlineBlock {
+  max-width: 92%;
+  text-align: center;
+}
+
+.slideCanvas.slide-qa .headlineBlock h2 {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.slideCanvas.slide-qa .headlineBlock:first-child h2 {
+  font-size: 4.6cqw;
+}
+
+.slideCanvas.slide-qa .headlineBlock:last-child h2 {
+  margin-bottom: 0.5cqw;
+  font-size: 2.4cqw;
+}
+
+.slideCanvas.slide-qa .headlineBlock span {
+  font-size: 1.3cqw;
+}
+
+/* Camera-jello footage: a single large centered frame. */
+.slideCanvas.slide-camera-jello .slideBlocks {
+  justify-items: center;
+  align-content: center;
+}
+
+.slideCanvas.slide-camera-jello .imageBlock {
+  width: min(100%, 72cqw);
+}
+
 .layout-comparison .slideBlocks {
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   grid-template-rows: repeat(3, auto);
@@ -661,13 +705,9 @@ button {
   font-size: 1.25cqw !important;
 }
 
-.slideCanvas.slide-jello-mechanism .slideTitle h1 {
-  font-size: 2.55cqw;
-}
-
 /* Two reference images across the top, mechanism + math in the rows below. */
 .slideCanvas.slide-jello-mechanism .slideBlocks {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   grid-template-rows: auto auto auto;
   gap: 0.6cqw 0.9cqw;
   align-content: center;
@@ -678,6 +718,8 @@ button {
   grid-row: 1;
   width: min(100%, 30cqw);
   justify-self: center;
+  transform: scale(1.15);
+  transform-origin: center bottom;
 }
 
 .slideCanvas.slide-jello-mechanism .slideBlocks > .imageBlock:nth-child(1) {
@@ -727,8 +769,10 @@ button {
 }
 
 /* The frequency math is the point of the slide — keep it large and readable. */
-.slideCanvas.slide-jello-mechanism .equationText {
-  font-size: 1.35cqw !important;
+.slideCanvas.slide-jello-mechanism .bulletItem .equationText {
+  font-size: 1.5cqw !important;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .slideCanvas.slide-jello-mechanism .equationDetail {
@@ -739,7 +783,7 @@ button {
   grid-column: 2;
   grid-row: 1 / span 3;
   width: 100%;
-  max-width: 44cqw;
+  max-width: 47cqw;
   justify-self: center;
   align-self: center;
 }
@@ -768,6 +812,197 @@ button {
 /* Equalize row heights so the right column lines up with the left. */
 .slide-mechanical-candidates .columnItem {
   min-height: 6cqw;
+}
+
+/* Why motors get hot: centered figure with a single-line callout below. */
+.slideCanvas.slide-motors-hot .slideBlocks {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 1.1cqw;
+}
+
+.slideCanvas.slide-motors-hot .imageBlock {
+  width: min(100%, 52cqw);
+}
+
+.slideCanvas.slide-motors-hot .calloutBlock {
+  max-width: 60cqw;
+  text-align: center;
+}
+
+/* Filter-type slides (low-pass / notch): main response plot on the left
+   (vertically centered on the slide), the noise-effect plot top-right, and the
+   behavior box below it on the right. Sized identically so 16 -> 17 is a
+   seamless swap. */
+.slideCanvas.slide-lowpass-filters .slideBlocks,
+.slideCanvas.slide-notch-filters .slideBlocks {
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: 0.9cqw 1.1cqw;
+}
+
+.slideCanvas.slide-lowpass-filters .slideBlocks > .imageBlock:nth-child(1),
+.slideCanvas.slide-notch-filters .slideBlocks > .imageBlock:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 100%;
+}
+
+.slideCanvas.slide-lowpass-filters .slideBlocks > .imageBlock:nth-child(2),
+.slideCanvas.slide-notch-filters .slideBlocks > .imageBlock:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  width: 100%;
+}
+
+.slideCanvas.slide-lowpass-filters .slideBlocks > .bulletBlock,
+.slideCanvas.slide-notch-filters .slideBlocks > .bulletBlock {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+}
+
+/* Knobs reference: a single centered figure. */
+.slideCanvas.slide-filter-knobs .slideBlocks {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-content: center;
+}
+
+.slideCanvas.slide-filter-knobs .imageBlock {
+  width: min(100%, 40cqw);
+}
+
+/* PID 21.1 — tuning method: figure left, vertical step flow with arrows right. */
+.slideCanvas.slide-pid-tuning-method .slideBlocks {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-content: center;
+  gap: 1.2cqw;
+}
+
+.slideCanvas.slide-pid-tuning-method .imageBlock {
+  grid-column: 1;
+  align-self: center;
+  width: 100%;
+}
+
+.slideCanvas.slide-pid-tuning-method .timelineBlock {
+  grid-column: 2;
+  align-self: center;
+}
+
+.slideCanvas.slide-pid-tuning-method .timelineItems {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.7cqw;
+}
+
+.slideCanvas.slide-pid-tuning-method .timelineItem {
+  position: relative;
+  min-height: 0;
+  padding: 0.75cqw 1cqw;
+  border-top: 0;
+  border-left: 0.32cqw solid #2f855a;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.slideCanvas.slide-pid-tuning-method .timelineItem:not(:last-child)::after {
+  content: "↓";
+  position: absolute;
+  left: 50%;
+  bottom: -2.4cqw;
+  transform: translateX(-50%);
+  color: #2f855a;
+  font-size: 2.5cqw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.slideCanvas.slide-pid-tuning-method .timelineItem span {
+  margin-bottom: 0.2cqw;
+}
+
+/* PID 21.2 — wobble test: the source image is nearly square, so cap its width. */
+.slideCanvas.slide-wobble-tuning .imageBlock {
+  width: min(100%, 31cqw);
+  justify-self: center;
+}
+
+/* PID 21.3 / 21.5 — large stacked traces on the left with each plot's label to
+   its right (clear of the notes column); reading notes on the right. */
+.slideCanvas.slide-pitch-tuning .slideBlocks {
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 0.4fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: 0.6cqw 1cqw;
+}
+
+.slideCanvas.slide-feedforward-tuning .slideBlocks {
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 0.4fr);
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  gap: 0 1cqw;
+}
+
+.slideCanvas.slide-pitch-tuning .imageBlock,
+.slideCanvas.slide-feedforward-tuning .imageBlock {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 1cqw;
+  width: min(100%, 52cqw);
+  justify-self: start;
+}
+
+.slideCanvas.slide-pitch-tuning .imageBlock > img,
+.slideCanvas.slide-feedforward-tuning .imageBlock > img {
+  grid-column: 1;
+}
+
+.slideCanvas.slide-pitch-tuning .imageBlock > h2,
+.slideCanvas.slide-feedforward-tuning .imageBlock > h2 {
+  grid-column: 2;
+  margin: 0;
+  font-size: 1.25cqw;
+  white-space: nowrap;
+}
+
+.slideCanvas.slide-pitch-tuning .imageBlock:nth-child(1) {
+  grid-row: 1;
+  align-self: end;
+}
+
+.slideCanvas.slide-pitch-tuning .imageBlock:nth-child(2) {
+  grid-row: 2;
+  align-self: start;
+}
+
+.slideCanvas.slide-feedforward-tuning .imageBlock:nth-child(1) {
+  grid-row: 1;
+}
+
+.slideCanvas.slide-feedforward-tuning .imageBlock:nth-child(2) {
+  grid-row: 2;
+}
+
+.slideCanvas.slide-feedforward-tuning .imageBlock:nth-child(3) {
+  grid-row: 3;
+}
+
+.slideCanvas.slide-pitch-tuning .slideBlocks > .bulletBlock {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+.slideCanvas.slide-feedforward-tuning .slideBlocks > .bulletBlock {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
 }
 
 .timelineBlock {
@@ -885,10 +1120,11 @@ button {
 }
 
 .imageBlock figcaption {
+  padding-bottom: 0.12em;
   color: #5f6f73;
   font-size: 0.82cqw;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.4;
 }
 
 .slideFooter {
@@ -1124,10 +1360,9 @@ button {
 
 .imageBlock figcaption {
   max-width: 100%;
-  overflow: hidden;
-  line-height: 1.1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  line-height: 1.4;
+  white-space: normal;
 }
 
 .metricRow-requirements .metric strong,
@@ -1352,9 +1587,13 @@ button {
 
 .composition-mediaAnalysis :is(.bulletBlock, .calloutBlock) {
   grid-column: 2;
+  padding: 0.85cqw;
+}
+
+/* A lone analysis block centers beside the plot; multiple blocks auto-stack. */
+.composition-mediaAnalysis .bulletBlock:only-of-type {
   grid-row: 1 / -1;
   align-self: center;
-  padding: 0.85cqw;
 }
 
 .composition-mediaRight .slideBlocks {

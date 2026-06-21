@@ -281,7 +281,7 @@ export const deck = {
           items: [
             {
               id: "jm-waves-equation",
-              text: "waves per frame",
+              text: "n waves = T scan × f vib = (0.016 s)(200 Hz) = 3.2 waves/frame",
               equation: [
                 { text: "n" },
                 { text: "waves", script: "sub" },
@@ -289,9 +289,8 @@ export const deck = {
                 { text: "scan", script: "sub" },
                 { text: " × f" },
                 { text: "vib", script: "sub" },
+                { text: " = (0.016 s)(200 Hz) = 3.2 waves/frame" },
               ],
-              detail: "(0.016 s)(200 Hz) = 3.2 waves / frame",
-              detailEquation: [{ text: "(0.016 s)(200 Hz) = 3.2 waves / frame" }],
             },
           ],
         },
@@ -302,10 +301,12 @@ export const deck = {
           items: [
             {
               id: "jm-alias-equation",
-              text: "200 Hz / 60 fps = 3⅓ cycles / frame",
-              equation: [{ text: "200 Hz / 60 fps = 3⅓ cycles / frame" }],
-              detail: "⅓ cycle × 360° = 120° / frame",
-              detailEquation: [{ text: "⅓ cycle × 360° = 120° / frame" }],
+              text: "200 Hz / 60 fps = 3⅓ cycles/frame → ⅓ cycle × 360° = 120°/frame",
+              equation: [
+                {
+                  text: "200 Hz / 60 fps = 3⅓ cycles/frame → ⅓ cycle × 360° = 120°/frame",
+                },
+              ],
             },
           ],
         },
@@ -464,13 +465,13 @@ export const deck = {
               items: [
                 {
                   id: "constraint",
-                  text: "1) Torque and bend frame components while checking for movement and flexure",
+                  text: "Torque and bend frame components while checking for movement and flexure",
                 },
                 {
                   id: "gyro-wires",
-                  text: "2) Check for wires touching the gyro",
+                  text: "Check for wires touching the gyro",
                 },
-                { id: "tighten", text: "3) Tighten motor and frame screws" },
+                { id: "tighten", text: "Tighten motor and frame screws" },
               ],
             },
           ],
@@ -516,8 +517,8 @@ export const deck = {
     {
       id: "filtering-checkpoint",
       sectionId: "filtering",
-      title: "Checkpoint: Adjusting Filtering",
-      subtitle: "Adjusting filtering without adding too much delay.",
+      title: "Adjusting Filtering",
+      subtitle: "Reduce noise without adding too much delay.",
       layout: "content",
       composition: "checkpoint",
       estimatedMinutes: 0.5,
@@ -526,9 +527,24 @@ export const deck = {
           type: "checkpoint",
           title: "Progress",
           items: [
-            { id: "filtering-done-jello", text: "Camera Jello", state: "complete" },
-            { id: "filtering-current-motors", text: "Hot Motors", state: "current" },
-            { id: "filtering-open-tracking", text: "Poor Tracking", state: "pending" },
+            {
+              id: "filtering-done-jello",
+              text: "Camera Jello",
+              detail: "Plant",
+              state: "complete",
+            },
+            {
+              id: "filtering-current-motors",
+              text: "Hot Motors",
+              detail: "Sensor",
+              state: "current",
+            },
+            {
+              id: "filtering-open-tracking",
+              text: "Poor Tracking",
+              detail: "Controller",
+              state: "pending",
+            },
           ],
         },
       ],
@@ -537,79 +553,150 @@ export const deck = {
       ],
     },
     {
-      id: "filtering-tradeoff",
+      id: "motors-hot",
       sectionId: "filtering",
-      title: "Balancing Filtering vs Delay",
-      subtitle:
-        "Every filter must justify its noise reduction against the delay it adds.",
+      title: "Why Do Motors Get Hot?",
       layout: "content",
-      composition: "twoColumn",
-      estimatedMinutes: 1.5,
+      composition: "default",
+      estimatedMinutes: 1,
       blocks: [
         {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "Too little filtering",
-              items: [
-                {
-                  id: "d-amplifies",
-                  text: "D-term amplifies high-frequency content",
-                  detail:
-                    "d(error)/dt amplifies high-frequency noise that gets through the filters.",
-                },
-                {
-                  id: "motor-heat",
-                  text: "Motors run rougher and hotter",
-                  detail:
-                    "Motors act as mechanical low-pass filters and cannot produce useful thrust from high-frequency commands; the energy becomes heat.",
-                },
-              ],
-            },
-            {
-              title: "Too much filtering",
-              items: [
-                {
-                  id: "phase-delay",
-                  text: "Phase delay increases",
-                  detail:
-                    "The controller reacts later to vehicle motion, reducing dynamic response such as propwash performance.",
-                },
-                {
-                  id: "instability",
-                  text: "Stability margin decreases",
-                  detail: "Higher delay reduces system stability.",
-                },
-              ],
-            },
-          ],
+          type: "image",
+          src: deckImage("gyro-dterm-pre-filtering.png"),
+          alt: "Gyro and D-term traces before filtering, showing amplified high-frequency noise.",
+          caption: "Gyro vs. D-term, pre-filtering",
+          aspectRatio: 1.8838,
         },
         {
           type: "callout",
-          label: "Strategy",
-          text: "Use the minimum filtering that controls noise without adding unnecessary delay.",
-          tone: "accent",
+          label: "D-term",
+          text: "Any noise that isn't filtered gets amplified by the D-term — and shows up as motor heat.",
+          tone: "warning",
         },
       ],
       notes: [
-        "The cleanest spectrum is not automatically the best flying aircraft.",
+        "The D-term differentiates error, so unfiltered high-frequency noise is amplified and ends up as motor heat.",
+      ],
+    },
+    {
+      id: "lowpass-filters",
+      sectionId: "filtering",
+      title: "Low-Pass Filters",
+      subtitle: "Attenuate everything above a cutoff frequency.",
+      layout: "comparison",
+      composition: "mediaAnalysis",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("low-pass-filters.png"),
+          alt: "Low-pass filter response curve attenuating frequencies above a cutoff.",
+          aspectRatio: 1.7211,
+        },
+        {
+          type: "image",
+          src: deckImage("low-pass-filters-noise-effect.png"),
+          alt: "Effect of a low-pass filter on the measured noise spectrum.",
+          aspectRatio: 3.1535,
+        },
+        {
+          type: "bullets",
+          title: "Behavior",
+          tone: "accent",
+          items: [
+            {
+              id: "lp-cutoff",
+              text: "Attenuate everything above a cutoff",
+              detail: "Broad noise reduction across the upper spectrum.",
+            },
+            {
+              id: "lp-delay",
+              text: "Add phase delay near the cutoff",
+              detail: "More attenuation costs more control delay.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "Low-pass filters reduce broadband noise but always add phase delay near and above the cutoff.",
+      ],
+    },
+    {
+      id: "notch-filters",
+      sectionId: "filtering",
+      title: "Notch Filters",
+      subtitle: "Attenuate a narrow band around a target frequency.",
+      layout: "comparison",
+      composition: "mediaAnalysis",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("notch-filters.png"),
+          alt: "Notch filter response removing a narrow band around a target frequency.",
+          aspectRatio: 1.7347,
+        },
+        {
+          type: "image",
+          src: deckImage("notch-filters-noise.png"),
+          alt: "Effect of a notch filter on the measured noise spectrum.",
+          aspectRatio: 3.0565,
+        },
+        {
+          type: "bullets",
+          title: "Behavior",
+          tone: "accent",
+          items: [
+            {
+              id: "notch-narrow",
+              text: "Target a narrow band",
+              detail: "Leaves nearby frequencies and bandwidth intact.",
+            },
+            {
+              id: "notch-tracking",
+              text: "RPM and dynamic notches track moving noise",
+              detail: "Center frequency follows motor speed instead of guessing.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "Notches remove a narrow band with less collateral delay, and can track moving motor noise.",
+      ],
+    },
+    {
+      id: "filter-knobs",
+      sectionId: "filtering",
+      title: "Knobs to Turn",
+      layout: "content",
+      composition: "default",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("betaflight-knobs.png"),
+          alt: "Overview of the Betaflight filter configuration knobs.",
+          caption: "Credit: Oscar Liang",
+          aspectRatio: 1.1915,
+        },
+      ],
+      notes: [
+        "Reference for the filter controls available in Betaflight.",
       ],
     },
     {
       id: "rpm-filter-diagnosis",
       sectionId: "filtering",
-      title: "Missing RPM Coverage Pushed Notches Onto Motor Noise",
-      subtitle:
-        "The filters were working, but they were working in the wrong place.",
+      title: "Dynamic Notch Incorrectly Acting on Motor RPM",
+      subtitle: "The dynamic notch was targeting left-over motor noise.",
       layout: "comparison",
-      estimatedMinutes: 2.25,
+      estimatedMinutes: 2,
       blocks: [
         {
           type: "image",
           src: deckImage("rpm-dynamic-notch.png"),
           alt: "PIDToolbox spectrum annotated with dynamic notch and motor harmonic locations.",
-          caption:
-            "Initial diagnosis: dynamic notches overlapping motor-synchronous harmonics",
+          caption: "Dynamic notches overlapping motor-synchronous harmonics",
           aspectRatio: 2.0758,
         },
         {
@@ -619,197 +706,180 @@ export const deck = {
           items: [
             {
               id: "rpm-weight",
-              text: "RPM weights were 100, 0, 80",
-              detail: "The second motor harmonic had no RPM-filter coverage.",
+              text: "Incorrect preset configuration",
+              detail:
+                "RPM weights were 100, 0, 80 — the second motor harmonic had no coverage.",
             },
             {
               id: "dn-min",
-              text: "Dynamic-notch minimum was 150 Hz",
+              text: "Dynamic-notch minimum set to 150 Hz",
               detail:
-                "Both dynamic notches were pulled toward motor-harmonic content.",
+                "Dynamic notch 1 was unable to go low enough to properly filter the harmonics.",
             },
           ],
         },
         {
           type: "bullets",
-          title: "Corrective direction",
+          title: "Correction",
           tone: "success",
           items: [
             {
-              id: "restore-rpm",
-              text: "Restore second-harmonic RPM coverage",
-              detail:
-                "Motor-synchronous noise belongs in the motor-tracking filter.",
-            },
-            {
-              id: "free-dn",
-              text: "Free dynamic notches for frame resonances",
-              detail:
-                "This separates known motor content from non-motor structural content.",
+              id: "rpm-correction",
+              text: "RPM weights set to 100, 60, 70",
+              detail: "Accounts for the second motor harmonic.",
             },
           ],
         },
       ],
       notes: [
-        "The initial expert recommendation was RPM weights 100,40,80 and a 100 Hz dynamic-notch minimum; later evidence supported tuning the exact weights for this aircraft.",
-        "Frame this as hypothesis, configuration inspection, and log validation—not as blindly applying a preset.",
-      ],
-    },
-    {
-      id: "low-pass-strategy",
-      sectionId: "filtering",
-      title: "Low-Pass Filtering Cut Only Where the Spectrum Allowed",
-      subtitle:
-        "Large props and low-KV motors move useful and unwanted content lower than on a typical five-inch quad.",
-      layout: "comparison",
-      estimatedMinutes: 1.75,
-      blocks: [
-        {
-          type: "image",
-          src: deckImage("pidtoolbox-filter-settings.png"),
-          alt: "Annotated PIDToolbox filter configuration used during the filtering investigation.",
-          caption:
-            "Filter configuration reviewed against the measured spectrum",
-          aspectRatio: 1.7587,
-        },
-        {
-          type: "bullets",
-          title: "Practical decisions",
-          tone: "accent",
-          items: [
-            {
-              id: "gyro-lpf",
-              text: "Remove redundant gyro LPF1 only after checking the noise floor",
-              detail:
-                "Preserve bandwidth where another filter already covers the risk.",
-            },
-            {
-              id: "dterm-pt1",
-              text: "Use two PT1 D-term filters as a conservative baseline",
-              detail:
-                "Then move sliders only with post-filter and motor-temperature evidence.",
-            },
-            {
-              id: "low-motor-band",
-              text: "Set RPM coverage for the lower motor band",
-              detail:
-                "Testing settled on an 80 Hz minimum for this large, low-KV setup.",
-            },
-          ],
-        },
-        {
-          type: "callout",
-          label: "Noise-floor rule",
-          text: "Treat approximately −30 dB as a practical plot-specific threshold, not a universal physical constant.",
-          tone: "warning",
-        },
-      ],
-      notes: [
-        "Do not claim a ten-times amplitude reduction for a ten-decibel change. The appendix distinguishes amplitude dB from power/PSD dB.",
+        "FLAG: confirm the final RPM weights. Log progression was 100,0,80 → 100,40,80 (Hillbilly) → 100,60,70 (Cedric).",
       ],
     },
     {
       id: "esc-actuator-bandwidth",
       sectionId: "filtering",
-      title: "ESC Settings Shift the Noise/Heat Trade-off",
+      title: "Effect of ESC Settings on Filtering",
       subtitle:
-        "Commands above useful motor bandwidth can become current ripple and heat instead of thrust.",
-      layout: "comparison",
-      estimatedMinutes: 1.75,
-      blocks: [
-        {
-          type: "image",
-          src: deckImage("fixed-24khz-spectrum.png"),
-          alt: "Frequency spectrum from the fixed 24 kilohertz ESC PWM test at master multiplier 1.2.",
-          caption:
-            "Fixed 24 kHz comparison flight; use comparable conditions when drawing the final conclusion",
-          aspectRatio: 1.8519,
-        },
-        {
-          type: "bullets",
-          title: "Why PWM belongs in the investigation",
-          tone: "accent",
-          items: [
-            {
-              id: "electrical-path",
-              text: "ESC switching shapes the electrical command path",
-              detail:
-                "Variable 24–48 kHz and fixed 24 kHz are actuator configurations, not cosmetic settings.",
-            },
-            {
-              id: "inductance",
-              text: "Motor inductance resists rapid current change",
-              detail:
-                "Torque cannot follow arbitrarily high-frequency controller commands.",
-            },
-            {
-              id: "compare-outcomes",
-              text: "Compare spectrum, temperature, and smoothness together",
-              detail: "No single plot establishes the best actuator setting.",
-            },
-          ],
-        },
-        {
-          type: "callout",
-          label: "Measurement Pending",
-          text: "Motor temperatures and the final fixed/variable PWM comparison remain open.",
-          tone: "warning",
-        },
-      ],
-      notes: [
-        "Keep the motor-as-low-pass analogy qualitative in the main deck. The electrical equation is in the appendix.",
-      ],
-    },
-    {
-      id: "filtering-result",
-      sectionId: "filtering",
-      title: "Revised Filters Separated Motor Noise From Structural Content",
-      subtitle:
-        "That made motor behavior safer to evaluate and the next controller tests more meaningful.",
+        "PWM frequency trades filtering cleanliness against drive efficiency.",
       layout: "comparison",
       estimatedMinutes: 1.5,
       blocks: [
         {
           type: "image",
-          src: deckImage("post-rpm-filter-spectrum.png"),
-          alt: "Post-change PIDToolbox spectrum after revising RPM and dynamic-notch filtering.",
-          caption: "Post RPM/dynamic-notch filter review",
-          aspectRatio: 1.7434,
+          src: deckImage("esc-filtering-effect.png"),
+          alt: "Comparison of ESC PWM settings and their effect on the filtered spectrum.",
+          caption: "ESC PWM setting vs. filtered spectrum",
+          aspectRatio: 1.3029,
         },
         {
           type: "bullets",
-          title: "What changed in the interpretation",
-          tone: "success",
+          title: "24 kHz fixed",
+          tone: "accent",
           items: [
             {
-              id: "motor-filter-owned",
-              text: "RPM filtering owned motor-synchronous harmonics",
-              detail:
-                "Dynamic notches were available for non-motor resonances.",
+              id: "fixed-clean",
+              text: "Slightly cleaner filtering",
+              detail: "The fixed-24 kHz plot shows marginally lower high-frequency content.",
             },
             {
-              id: "response-ready",
-              text: "Remaining response error became a control problem to solve",
-              detail:
-                "The investigation shifted from frequency domain to time domain.",
+              id: "fixed-tradeoff",
+              text: "Efficiency tradeoff",
+              detail: "A fixed low switching frequency costs some drive efficiency.",
             },
           ],
         },
         {
-          type: "callout",
-          label: "Transition",
-          text: "Once the signal path held up, PID tuning became evidence instead of compensation.",
-          tone: "accent",
+          type: "bullets",
+          title: "24–48 kHz variable",
+          tone: "success",
+          items: [
+            {
+              id: "var-efficiency",
+              text: "Higher efficiency",
+              detail:
+                "Switching frequency scales with RPM, cutting switching losses where they matter.",
+            },
+            {
+              id: "var-noise",
+              text: "Slightly more high-frequency content",
+              detail: "A small filtering cost in exchange for the efficiency gain.",
+            },
+          ],
         },
       ],
       notes: [
-        "Avoid declaring the motor-temperature issue fully solved until the final temperature values are inserted.",
+        "FLAG: confirm which PWM mode was kept. Fixed 24 kHz was the cleaner-filtering comparison flight.",
+      ],
+    },
+    {
+      id: "filter-changes-made",
+      sectionId: "filtering",
+      title: "Changes Made",
+      subtitle: "Filter setting adjustments.",
+      layout: "comparison",
+      composition: "mediaRight",
+      estimatedMinutes: 1.5,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("final-filter-settings-sketch.png"),
+          alt: "Annotated sketch of the final filter settings.",
+          caption: "Annotated final filter settings",
+          aspectRatio: 2.4853,
+        },
+        {
+          type: "bullets",
+          title: "What changed",
+          tone: "success",
+          items: [
+            {
+              id: "lp1-off",
+              text: "LPF1 off, LPF2 kept on",
+              detail: "LPF2 handles aliasing and sits below the noise floor; sliders adjusted.",
+            },
+            {
+              id: "rpm-lower",
+              text: "RPM filters allowed to go lower",
+              detail: "Ramp-up rate decreased so coverage reaches the lower motor band.",
+            },
+            {
+              id: "dn-lower",
+              text: "Dynamic notch lowered",
+              detail: "Freed to catch frame resonances instead of motor harmonics.",
+            },
+            {
+              id: "rpm-weights-down",
+              text: "RPM weights decreased",
+              detail: "Trimmed once motor-synchronous coverage was correct.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "FLAG: confirm exact slider values and the final RPM ramp-up / weight numbers from the logs.",
+      ],
+    },
+    {
+      id: "post-filter-changes",
+      sectionId: "filtering",
+      title: "Post Filter Changes",
+      layout: "comparison",
+      composition: "mediaRight",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("post-filter-changes.png"),
+          alt: "Post-change spectrum after revising RPM and dynamic-notch filtering.",
+          caption: "Spectrum after the filter changes",
+          aspectRatio: 1.6797,
+        },
+        {
+          type: "bullets",
+          title: "Result",
+          tone: "success",
+          items: [
+            {
+              id: "motor-owned",
+              text: "RPM filtering owns the motor harmonics",
+              detail: "Dynamic notches are free for frame resonances.",
+            },
+            {
+              id: "cleaner-dterm",
+              text: "Cleaner post-filter D-term",
+              detail: "Less unfiltered noise for the D-term to amplify into heat.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "Once the signal path held up, PID tuning became evidence instead of compensation.",
       ],
     },
     {
       id: "pid-checkpoint",
       sectionId: "pid",
-      title: "Checkpoint: Tune the Response Once the Signal Is Trusted",
+      title: "Checkpoint: Controller Tuning",
       layout: "content",
       composition: "checkpoint",
       estimatedMinutes: 0.5,
@@ -818,9 +888,24 @@ export const deck = {
           type: "checkpoint",
           title: "Progress",
           items: [
-            { id: "pid-done-jello", text: "Camera Jello", state: "complete" },
-            { id: "pid-done-motors", text: "Hot Motors", state: "complete" },
-            { id: "pid-current-tracking", text: "Poor Tracking", state: "current" },
+            {
+              id: "pid-done-jello",
+              text: "Camera Jello",
+              detail: "Plant",
+              state: "complete",
+            },
+            {
+              id: "pid-done-motors",
+              text: "Hot Motors",
+              detail: "Sensor",
+              state: "complete",
+            },
+            {
+              id: "pid-current-tracking",
+              text: "Poor Tracking",
+              detail: "Controller",
+              state: "current",
+            },
           ],
         },
       ],
@@ -829,408 +914,315 @@ export const deck = {
       ],
     },
     {
-      id: "pid-test-method",
+      id: "pid-tuning-method",
       sectionId: "pid",
-      title: "Repeatable Excitation Replaced Subjective Stick Feel",
-      subtitle:
-        "Method-B wobble inputs made gain changes comparable across flights.",
+      title: "Tuning Method",
+      subtitle: "A repeatable order so each change stays interpretable.",
       layout: "comparison",
-      estimatedMinutes: 1.75,
+      estimatedMinutes: 1.5,
       blocks: [
         {
           type: "image",
-          src: deckImage("method-b-overview.png"),
-          alt: "PIDToolbox Method-B overview showing frequency response and roll/pitch step-response results.",
-          caption:
-            "Consistent wobble-script input exposes both frequency and time-domain behavior",
-          aspectRatio: 1.6948,
+          src: deckImage("pid-tuning-method.png"),
+          alt: "PIDToolbox tuning-method overview.",
+          aspectRatio: 1.835,
         },
-        {
-          type: "bullets",
-          title: "Test discipline",
-          tone: "accent",
-          items: [
-            {
-              id: "consistent-input",
-              text: "Use the same scripted excitation",
-              detail:
-                "Changes in the trace should come from the tune, not the pilot input.",
-            },
-            {
-              id: "axis-specific",
-              text: "Evaluate roll and pitch separately",
-              detail:
-                "The seven-inch mass distribution does not create identical axis dynamics.",
-            },
-            {
-              id: "two-domains",
-              text: "Use spectrum and step response together",
-              detail:
-                "One reveals noise; the other reveals latency and damping.",
-            },
-          ],
-        },
-      ],
-      notes: [
-        "This is the measurement upgrade in the story: better excitation before more tuning.",
-      ],
-    },
-    {
-      id: "initial-pid-configuration",
-      sectionId: "pid",
-      title: "Simplify First, Then Raise Gains",
-      subtitle:
-        "Reducing interacting variables made each response change interpretable.",
-      layout: "timeline",
-      estimatedMinutes: 1.5,
-      blocks: [
         {
           type: "timeline",
           items: [
             {
-              id: "ff-off",
-              label: "01",
-              title: "Feedforward off",
-              description:
-                "Remove command-path assistance while measuring feedback behavior.",
+              id: "step-pd",
+              label: "1",
+              title: "P to D ratio",
+              description: "Step D 1.0 → 1.2 → 1.4 and read the response shape.",
             },
             {
-              id: "i-low",
-              label: "02",
-              title: "I-term nearly off",
-              description:
-                "Reduce slow-state interaction during the initial step tests.",
+              id: "step-balance",
+              label: "2",
+              title: "Pitch to roll balance",
+              description: "Match pitch latency to roll.",
             },
             {
-              id: "dmax-off",
-              label: "03",
-              title: "D-max off",
-              description: "Keep damping behavior tied to the tested D gain.",
+              id: "step-mm",
+              label: "3",
+              title: "Master multiplier",
+              description: "Scale overall authority once the shape is right.",
             },
             {
-              id: "pd-low",
-              label: "04",
-              title: "Lower P/D balance",
-              description: "Start near 0.6–0.8, then increase systematically.",
-            },
-            {
-              id: "sweep",
-              label: "05",
-              title: "Controlled sweep",
-              description:
-                "Test master multiplier and axis balance against response shape.",
+              id: "step-ff",
+              label: "4",
+              title: "Feedforward",
+              description: "Improve command tracking last.",
             },
           ],
         },
       ],
       notes: [
-        "This is an isolation strategy, not the final flight configuration.",
+        "The order isolates variables: shape the response first, then scale authority, then add feedforward.",
       ],
     },
     {
-      id: "pd-balance",
+      id: "wobble-tuning",
       sectionId: "pid",
-      title: "Choosing P/D Balance From Response Shape",
-      subtitle:
-        "The target was fast response with low overshoot and low rebound—not the largest gain value.",
+      title: "Wobble Tuning",
+      subtitle: "A consistent sinusoidal setpoint input for repeatable data.",
       layout: "comparison",
-      estimatedMinutes: 2.25,
+      estimatedMinutes: 1.5,
       blocks: [
         {
           type: "image",
-          src: deckImage("pd-balance-comparison.png"),
-          alt: "PIDToolbox P/D balance comparison for roll and pitch axes.",
-          caption: "Axis-specific P/D balance comparison",
-          aspectRatio: 1.8875,
+          src: deckImage("wobble-test.png"),
+          alt: "Wobble-test setpoint and gyro traces used to build step-response data.",
+          aspectRatio: 0.9564,
         },
         {
           type: "bullets",
-          title: "Interpretation",
+          title: "Method",
           tone: "accent",
           items: [
             {
-              id: "overshoot",
-              text: "Overshoot indicated insufficient damping",
-              detail: "Increase relative D or reduce proportional aggression.",
+              id: "wobble-freq",
+              text: "2.6 Hz sinusoidal setpoint input",
+              detail: "A custom radio script applies the same excitation each flight.",
             },
             {
-              id: "slow-rise",
-              text: "A slow, rounded response indicated excess damping",
-              detail: "Reduce relative D or reconsider overall gain.",
+              id: "wobble-noise",
+              text: "Low motor noise post-filtering",
+              detail: "A clean signal makes the response easy to read.",
             },
             {
-              id: "axis-balance",
-              text: "Pitch required its own balance decision",
-              detail:
-                "Higher pitch inertia made a copied roll value unreliable.",
+              id: "wobble-n",
+              text: "Builds N values for the step response",
+              detail: "Cycles are averaged into the step-response plot used for tuning.",
             },
           ],
         },
-        {
-          type: "callout",
-          label: "Caution",
-          text: "Call this low-overshoot, not critically damped — damping ratio wasn't calculated.",
-          tone: "warning",
-        },
       ],
       notes: [
-        "The archived discussion initially called a response critically damped, then expert review identified it as over-damped—use that as an example of why the trace matters more than the label.",
+        "Repeatable excitation replaced subjective stick feel, so gain changes are comparable across flights.",
       ],
     },
     {
-      id: "latency-result",
+      id: "pitch-tuning",
       sectionId: "pid",
-      title: "Latency as a Measured Tuning Target",
-      subtitle:
-        "The final roll/pitch comparison was evaluated in milliseconds, not adjectives.",
+      title: "Pitch Tuning",
+      subtitle: "Pitch gets its own balance — higher inertia needs higher gains.",
       layout: "comparison",
       estimatedMinutes: 1.75,
       blocks: [
         {
           type: "image",
-          src: deckImage("final-latency-step-response.png"),
-          alt: "Final PIDToolbox roll and pitch step-response comparison after latency tuning.",
-          caption: "Final roll-latency adjustment and pitch comparison",
-          aspectRatio: 2.7936,
+          title: "P / D balance",
+          src: deckImage("pitch-pt-pd-balance.png"),
+          alt: "Pitch P/D balance step-response comparison.",
+          aspectRatio: 2.3255,
+        },
+        {
+          type: "image",
+          title: "P / D gain",
+          src: deckImage("pitch-pd-coef.png"),
+          alt: "Pitch P/D gain coefficient comparison.",
+          aspectRatio: 2.5008,
         },
         {
           type: "bullets",
-          title: "What the trace was used to judge",
+          title: "Goal",
+          tone: "accent",
+          items: [
+            {
+              id: "pitch-latency",
+              text: "Match pitch latency to roll",
+              detail: "Comparable response feel across both axes.",
+            },
+            {
+              id: "pitch-inertia",
+              text: "Higher moment of inertia on pitch",
+              detail: "Pitch needs higher gains to keep up with roll.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "A copied roll value is unreliable on pitch because the seven-inch mass distribution differs between axes.",
+      ],
+    },
+    {
+      id: "master-multiplier-tuning",
+      sectionId: "pid",
+      title: "Master Multiplier",
+      subtitle: "Scale overall gain once the response shape is set.",
+      layout: "comparison",
+      estimatedMinutes: 1.25,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("master-multiplier-test.png"),
+          alt: "Master-multiplier step-test comparison.",
+          caption: "Master-multiplier step test",
+          aspectRatio: 2.4637,
+        },
+        {
+          type: "bullets",
+          title: "Effect",
+          tone: "accent",
+          items: [
+            {
+              id: "mm-damping",
+              text: "Raising MM slightly increases damping",
+              detail: "More authority brings more damping with it.",
+            },
+            {
+              id: "mm-nonlinear",
+              text: "The damping ratio changes non-linearly",
+              detail: "It is not directly proportional to the multiplier.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "Possible appendix slide: the math relating damping ratio to master multiplier (not directly proportional).",
+      ],
+    },
+    {
+      id: "feedforward-tuning",
+      sectionId: "pid",
+      title: "Feedforward Tuning",
+      subtitle: "Compare delay and overshoot across feedforward settings.",
+      layout: "comparison",
+      estimatedMinutes: 1.5,
+      blocks: [
+        {
+          type: "image",
+          title: "FF 0.6",
+          src: deckImage("ff-0p6-latency.png"),
+          alt: "Step response at feedforward 0.6.",
+          aspectRatio: 3.3021,
+        },
+        {
+          type: "image",
+          title: "FF 0.8",
+          src: deckImage("ff-0p8-latency.png"),
+          alt: "Step response at feedforward 0.8.",
+          aspectRatio: 3.5939,
+        },
+        {
+          type: "image",
+          title: "FF 1.0",
+          src: deckImage("ff-1p0-latency.png"),
+          alt: "Step response at feedforward 1.0.",
+          aspectRatio: 3.4053,
+        },
+        {
+          type: "bullets",
+          title: "Read",
+          tone: "accent",
+          items: [
+            {
+              id: "ff-08",
+              text: "0.8 has lower delay than 0.6",
+              detail: "Best latency of the three.",
+            },
+            {
+              id: "ff-10",
+              text: "1.0 shows overshoot",
+              detail: "Possibly slightly over-tuned.",
+            },
+          ],
+        },
+      ],
+      notes: [
+        "FLAG: confirm the final feedforward value. Tests favored 0.8 for latency.",
+      ],
+    },
+    {
+      id: "final-tune",
+      sectionId: "pid",
+      title: "Final Tune",
+      layout: "comparison",
+      estimatedMinutes: 1.5,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("final-tune-setpoint.png"),
+          alt: "Final setpoint versus gyro trace after tuning.",
+          caption: "Final setpoint vs. gyro",
+          aspectRatio: 1.5494,
+        },
+        {
+          type: "bullets",
+          title: "Result",
           tone: "success",
           items: [
             {
-              id: "rise-delay",
-              text: "Setpoint-to-gyro delay",
-              detail:
-                "How late the aircraft begins and completes the commanded response.",
+              id: "ft-gyro",
+              text: "Black gyro nearly invisible behind the red setpoint",
+              detail: "The gyro tracks the commanded setpoint closely.",
             },
             {
-              id: "alignment",
-              text: "Roll/pitch alignment",
-              detail: "Whether the two axes produce comparable pilot feel.",
-            },
-            {
-              id: "rebound",
-              text: "Overshoot and rebound",
-              detail: "Whether the faster response remains controlled.",
+              id: "ft-motors",
+              text: "Motors are much less noisy",
+              detail: "Cleaning the signal path before tuning paid off.",
             },
           ],
         },
-        {
-          type: "callout",
-          label: "Measurement Pending",
-          text: "Confirm the reported ≈12 ms pitch improvement against comparable traces.",
-          tone: "warning",
-        },
       ],
       notes: [
-        "Do not state the twelve-millisecond value as final until exact before/after trace values are confirmed.",
-      ],
-    },
-    {
-      id: "restore-i-feedforward",
-      sectionId: "pid",
-      title: "Restoring I-Term and Feedforward After Damping Held",
-      subtitle:
-        "Feedback stabilized the plant first; feedforward then improved command tracking.",
-      layout: "comparison",
-      estimatedMinutes: 1.75,
-      blocks: [
-        {
-          type: "image",
-          src: deckImage("feedforward-0p8-trace.png"),
-          alt: "Blackbox trace from the feedforward 0.8 comparison flight.",
-          caption: "Feedforward 0.8 comparison trace",
-          aspectRatio: 3.0924,
-        },
-        {
-          type: "bullets",
-          title: "Reintroduction sequence",
-          tone: "accent",
-          items: [
-            {
-              id: "restore-i",
-              text: "Restore I-term for persistent-error rejection",
-              detail:
-                "Return the controller toward the intended flight configuration.",
-            },
-            {
-              id: "test-ff",
-              text: "Compare feedforward settings against setpoint tracking",
-              detail: "The archive includes 0.8 and 1.0 test traces.",
-            },
-            {
-              id: "smooth-carefully",
-              text: "Add smoothing only when the input demands it",
-              detail:
-                "Smoothing can improve noise behavior while adding command delay.",
-            },
-          ],
-        },
-        {
-          type: "callout",
-          label: "Final Trace Pending",
-          text: "The final setpoint-versus-gyro trace remains to be verified and inserted.",
-          tone: "warning",
-        },
-      ],
-      notes: [
-        "The available 0.8 and 1.0 traces are evidence of the comparison process; label the true final trace only after confirming which log was flown with the final configuration.",
+        "I-term and feedforward were restored after damping held; this is the final setpoint-vs-gyro trace.",
       ],
     },
     {
       id: "final-validation",
       sectionId: "validation",
-      title: "Closing the Loop on All Three Failures",
-      subtitle:
-        "Logs explain the mechanism. Footage, temperature, and pilot feel confirm the result.",
+      title: "Closing the Loop",
       layout: "content",
-      composition: "twoColumn",
-      estimatedMinutes: 2.25,
+      composition: "checkpoint",
+      estimatedMinutes: 1.5,
       blocks: [
         {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "Mechanical + signal",
-              items: [
-                {
-                  id: "initial-jello",
-                  text: "Camera jello visible",
-                  detail: "Dominant spectral feature near 200 Hz.",
-                },
-                {
-                  id: "initial-motor",
-                  text: "Motors warming as ambient temperature rose",
-                  detail: "D-term retained visible post-filter noise.",
-                },
-              ],
-            },
-            {
-              title: "Response + workload",
-              items: [
-                {
-                  id: "initial-response",
-                  text: "Response delayed and over-damped",
-                  detail: "Bounceback and imperfect setpoint tracking remained.",
-                },
-                {
-                  id: "initial-workload",
-                  text: "Higher pilot correction workload",
-                  detail: "Aircraft was flyable but not yet a dependable chase platform.",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      notes: [
-        "This is the acceptance slide. Do not convert any placeholder to a checkmark without the corresponding evidence.",
-      ],
-    },
-    {
-      id: "validation-evidence",
-      sectionId: "validation",
-      title: "Final Evidence Checklist",
-      subtitle: "Close every result with comparable measurements and observable outcomes.",
-      layout: "content",
-      composition: "twoColumn",
-      estimatedMinutes: 1.25,
-      blocks: [
-        {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "Hardware + footage",
-              items: [
-                { id: "final-jello", text: "Jello before / after", detail: "Same camera mode and comparable flight condition." },
-                { id: "final-motor", text: "Motor temperatures", detail: "Record ambient, flight duration, and test configuration." },
-              ],
-            },
-            {
-              title: "Control + outcome",
-              items: [
-                { id: "final-response", text: "Final latency / tracking values", detail: "Confirm exact roll and pitch values from final logs." },
-                { id: "final-workload", text: "Pilot and footage outcome", detail: "Document recovery and corrective-input reduction." },
-              ],
-            },
-          ],
-        },
-        {
-          type: "callout",
-          label: "Validation status",
-          text: "Current: close the mechanical, signal, and control results with final evidence.",
-          tone: "warning",
-          textSize: "medium",
-        },
-      ],
-      notes: ["Do not convert any item to complete without the corresponding evidence."],
-    },
-    {
-      id: "engineering-takeaways",
-      sectionId: "validation",
-      title: "Takeaway: Order Mattered More Than the Numbers",
-      layout: "content",
-      estimatedMinutes: 1.75,
-      blocks: [
-        {
-          type: "timeline",
+          type: "checkpoint",
+          title: "Progress",
           items: [
             {
-              id: "takeaway-mechanical",
-              label: "01",
-              title: "Fix real motion",
-              description: "Do not hide physical looseness with filtering.",
+              id: "final-jello",
+              text: "Camera Jello",
+              detail: "Plant",
+              state: "complete",
             },
             {
-              id: "takeaway-logs",
-              label: "02",
-              title: "Separate the signals",
-              description:
-                "Use logs to distinguish vibration, motor noise, and response error.",
+              id: "final-motors",
+              text: "Hot Motors",
+              detail: "Sensor",
+              state: "complete",
             },
             {
-              id: "takeaway-delay",
-              label: "03",
-              title: "Trade attenuation for delay",
-              description:
-                "A useful filter removes noise without erasing control bandwidth.",
-            },
-            {
-              id: "takeaway-tune",
-              label: "04",
-              title: "Tune last",
-              description:
-                "PID evidence is meaningful only after the plant and signal path are validated.",
-            },
-            {
-              id: "takeaway-validate",
-              label: "05",
-              title: "Close the loop",
-              description:
-                "Validate data, motor behavior, footage, and pilot workload.",
+              id: "final-tracking",
+              text: "Poor Tracking",
+              detail: "Controller",
+              state: "complete",
             },
           ],
         },
       ],
       notes: [
-        "End on the method the audience can reuse, not on a Betaflight screenshot.",
+        "All three coupled failures are resolved: mechanical plant, signal path, and controller.",
       ],
     },
     {
       id: "qa",
       sectionId: "validation",
       title: "Thank You",
-      subtitle:
-        "Happy to walk through any logs, settings, or assumptions in detail.",
       layout: "closing",
       estimatedMinutes: 0.25,
       blocks: [
         {
           type: "headline",
+          text: "Thank you!",
+        },
+        {
+          type: "headline",
           text: "Questions?",
           subtext:
-            "Backup material follows for filtering, actuator physics, and PID response.",
+            "Appendix with additional calculations and data available.",
         },
       ],
       notes: [
@@ -1241,15 +1233,13 @@ export const deck = {
       id: "appendix-divider",
       sectionId: "validation",
       title: "Technical Appendix",
-      subtitle:
-        "Supporting calculations, raw evidence, and preserved source slides",
+      subtitle: "Supporting calculations, raw evidence, and source slides",
       layout: "title",
       blocks: [
         {
           type: "headline",
           eyebrow: "For technical Q&A",
           text: "Evidence behind the decisions",
-          subtext: "These are reference slides — not part of the timed talk.",
         },
       ],
       notes: ["Appendix divider."],
@@ -1524,77 +1514,58 @@ export const deck = {
       ],
     },
     {
-      id: "cover",
+      id: "appendix-initial-setpoint",
       sectionId: "validation",
-      title: "Engineering Stable Flight",
-      subtitle: "An algorithmic approach to drone performance",
-      layout: "title",
-      estimatedMinutes: 1,
+      title: "Initial Setpoint Tune",
+      layout: "comparison",
       blocks: [
         {
-          type: "headline",
-          text: "David Fitzgerald",
-          subtext: "June 24th",
+          type: "image",
+          src: deckImage("initial-setpoint-tune.png"),
+          alt: "Initial setpoint-versus-gyro trace before tuning, showing motor noise.",
+          caption: "Initial setpoint vs. gyro — note the motor noise",
+          aspectRatio: 1.5717,
+        },
+        {
+          type: "bullets",
+          title: "Before tuning",
+          tone: "warning",
+          items: [
+            {
+              id: "initial-noise",
+              text: "Visible motor noise on the gyro trace",
+              detail: "Baseline for comparison against the final tune.",
+            },
+            {
+              id: "initial-tracking",
+              text: "Looser setpoint tracking",
+              detail: "Response error before P/D, master-multiplier, and feedforward work.",
+            },
+          ],
         },
       ],
-      notes: ["Opening title slide."],
+      notes: [
+        "Baseline reference: the initial setpoint trace shows the motor noise that later changes removed.",
+      ],
     },
     {
       id: "camera-jello",
       sectionId: "validation",
       title: "Jello in the Camera Footage",
       layout: "content",
+      composition: "default",
       estimatedMinutes: 1,
-      blocks: [],
-      notes: [
-        "Intentionally blank for now. Add the representative camera frame or short video example in a later pass.",
-      ],
-    },
-    {
-      id: "solution-path",
-      sectionId: "validation",
-      title: "Solution Path",
-      subtitle:
-        "Treat the artifact as a coupled mechanical, control, and camera-sampling problem.",
-      layout: "timeline",
-      estimatedMinutes: 3,
       blocks: [
         {
-          type: "timeline",
-          items: [
-            {
-              id: "diagnose",
-              label: "01",
-              title: "Diagnose",
-              description:
-                "Locate the 200 Hz peak and identify when it appears in flight.",
-            },
-            {
-              id: "trace",
-              label: "02",
-              title: "Trace",
-              description:
-                "Separate the source, structural path, controller response, and camera artifact.",
-            },
-            {
-              id: "change",
-              label: "03",
-              title: "Change",
-              description:
-                "Modify the highest-leverage mechanical or control parameter.",
-            },
-            {
-              id: "verify",
-              label: "04",
-              title: "Verify",
-              description:
-                "Confirm the peak and the visible jello both decrease.",
-            },
-          ],
+          type: "image",
+          src: deckImage("jello-footage-demo.jpg"),
+          alt: "Representative action-camera frame showing jello distortion in the footage.",
+          caption: "Action-camera footage with visible jello",
+          aspectRatio: 2.0387,
         },
       ],
       notes: [
-        "Sketch slide: replace this process scaffold with the actual solution once the intervention sequence is finalized.",
+        "Representative still from the affected footage; replace with a short clip if available.",
       ],
     },
   ],
