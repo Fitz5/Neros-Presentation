@@ -4,7 +4,7 @@ const deckImage = (name: string) => `/screenshots/deck/${name}`;
 
 export const deck = {
   meta: {
-    title: "Nothing Works the First Time",
+    title: "Jeez I sure hope it flies",
     subtitle: "An algorithmic approach to drone performance",
     presenter: "David Fitzgerald",
     dateLabel: "June 24th",
@@ -34,7 +34,7 @@ export const deck = {
     {
       id: "deck-title",
       sectionId: "objective",
-      title: "Nothing Works the First Time",
+      title: "Jeez I sure hope it flies",
       subtitle: "An algorithmic approach to drone performance",
       layout: "title",
       composition: "cover",
@@ -851,6 +851,23 @@ export const deck = {
             },
           ],
         },
+        {
+          type: "bullets",
+          title: "Filter delay",
+          tone: "accent",
+          items: [
+            {
+              id: "delay-pre",
+              text: "Pre-filter tuning",
+              detail: "Gyro 2.26 ms · D-term 2.625 ms",
+            },
+            {
+              id: "delay-post",
+              text: "Post-filter tuning",
+              detail: "Gyro 2.25 ms · D-term 1.625 ms",
+            },
+          ],
+        },
       ],
       notes: [
         "Once the signal path held up, PID tuning became evidence instead of compensation.",
@@ -908,6 +925,12 @@ export const deck = {
           aspectRatio: 1.5717,
         },
         {
+          type: "image",
+          src: deckImage("poor-pitch-tracking.png"),
+          alt: "Pitch tracking trace before tuning, showing poor setpoint tracking.",
+          aspectRatio: 2.6648,
+        },
+        {
           type: "bullets",
           tone: "warning",
           items: [
@@ -921,23 +944,6 @@ export const deck = {
               text: "Visible gyro noise",
               detail:
                 "The motor noise is lessened after the plant and sensor fixes.",
-            },
-          ],
-        },
-        {
-          type: "bullets",
-          title: "Filter delay",
-          tone: "accent",
-          items: [
-            {
-              id: "delay-pre",
-              text: "Pre-filter tuning",
-              detail: "Gyro 2.26 ms · D-term 2.625 ms",
-            },
-            {
-              id: "delay-post",
-              text: "Post-filter tuning",
-              detail: "Gyro 2.25 ms · D-term 1.625 ms",
             },
           ],
         },
@@ -1036,6 +1042,25 @@ export const deck = {
       ],
     },
     {
+      id: "pd-balance-intro",
+      sectionId: "pid",
+      title: "P/D Balance",
+      layout: "content",
+      composition: "default",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("pd-balance-v2.png"),
+          alt: "Pitch P/D balance step-response comparison.",
+          aspectRatio: 2.359,
+        },
+      ],
+      notes: [
+        "Starting point for P/D balance: poor pitch tracking before the balance is tuned.",
+      ],
+    },
+    {
       id: "pitch-tuning-balance",
       sectionId: "pid",
       title: "Pitch Tuning — P/D Balance",
@@ -1066,9 +1091,9 @@ export const deck = {
       blocks: [
         {
           type: "image",
-          src: deckImage("pitch-pd-coef.png"),
+          src: deckImage("pd-gain.png"),
           alt: "Pitch P/D gain coefficient comparison.",
-          aspectRatio: 2.5008,
+          aspectRatio: 2.4270,
         },
       ],
       notes: [
@@ -1263,6 +1288,54 @@ export const deck = {
       notes: ["Appendix divider."],
     },
     {
+      id: "appendix-low-pass-delay",
+      sectionId: "validation",
+      title: "Low Pass Filtering and Delay",
+      layout: "content",
+      composition: "default",
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("low-pass-filtering-delay.png"),
+          alt: "Relationship between low-pass filter cutoff and added phase delay.",
+          aspectRatio: 1.5885,
+        },
+      ],
+      notes: ["Low-pass filtering and its delay tradeoff."],
+    },
+    {
+      id: "appendix-motor-heating",
+      sectionId: "validation",
+      title: "Motor Heating from Sine Wave",
+      layout: "content",
+      composition: "default",
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("motor-heating-sine-wave.png"),
+          alt: "Motor heating driven by sinusoidal noise excitation.",
+          aspectRatio: 1.7271,
+        },
+      ],
+      notes: ["Motor heating caused by sinusoidal noise."],
+    },
+    {
+      id: "appendix-hf-dterm",
+      sectionId: "validation",
+      title: "High Frequency Effect on D-term",
+      layout: "content",
+      composition: "default",
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("high-freq-dterm-effect.png"),
+          alt: "Effect of high-frequency noise amplified through the D-term.",
+          aspectRatio: 1.6373,
+        },
+      ],
+      notes: ["High-frequency noise amplified by the D-term."],
+    },
+    {
       id: "appendix-raw-filtering",
       sectionId: "validation",
       title: "RPM vs Noise",
@@ -1297,153 +1370,6 @@ export const deck = {
       notes: [
         "Raw evidence supporting the motor-synchronous versus structural distinction.",
       ],
-    },
-    {
-      id: "appendix-db-math",
-      sectionId: "validation",
-      title: "dB Interpretation Depends on the Plotted Quantity",
-      layout: "content",
-      blocks: [
-        {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "Amplitude ratio",
-              items: [
-                {
-                  id: "amplitude-equation",
-                  text: "dB = 20 log₁₀(A/Aref)",
-                  detail: "A 10 dB change is approximately 3.16× in amplitude.",
-                },
-                {
-                  id: "minus-thirty-amplitude",
-                  text: "−30 dB ≈ 3.16% amplitude",
-                  detail: "Relative to the plot reference.",
-                },
-              ],
-            },
-            {
-              title: "Power / PSD ratio",
-              items: [
-                {
-                  id: "power-equation",
-                  text: "dB = 10 log₁₀(P/Pref)",
-                  detail: "A 10 dB change is 10× in power.",
-                },
-                {
-                  id: "minus-thirty-power",
-                  text: "−30 dB = 0.1% power",
-                  detail: "Only when the plotted quantity is power or PSD.",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          type: "callout",
-          label: "Caution",
-          text: "Never translate −20 dB to −30 dB into a magnitude claim without confirming the plot convention.",
-          tone: "warning",
-        },
-      ],
-      notes: [
-        "The main deck deliberately avoids an unsupported ten-times magnitude claim.",
-      ],
-    },
-    {
-      id: "appendix-lp1-math",
-      sectionId: "validation",
-      title: "First-Order Low-Pass Trades Attenuation for Phase",
-      layout: "content",
-      blocks: [
-        {
-          type: "bullets",
-          title: "First-order model",
-          tone: "accent",
-          items: [
-            {
-              id: "lp-transfer",
-              text: "H(s) = 1 / (1 + s/ωc)",
-              detail: "ωc = 2πfc defines the cutoff.",
-            },
-            {
-              id: "lp-three-db",
-              text: "At fc: magnitude is −3 dB and phase is −45°",
-              detail: "The filter is already delaying content at its cutoff.",
-            },
-            {
-              id: "lp-stack",
-              text: "Cascaded filters add attenuation and phase lag",
-              detail:
-                "Redundant filters can cost response without removing meaningful additional noise.",
-            },
-          ],
-        },
-        {
-          type: "callout",
-          label: "Control implication",
-          text: "A filter that removes useful motion makes the measured plant look later than it is.",
-          tone: "warning",
-        },
-      ],
-      notes: [
-        "Use only if the audience asks for the low-pass delay mechanism.",
-      ],
-    },
-    {
-      id: "appendix-notch-q",
-      sectionId: "validation",
-      title: "Notch Q Controls How Narrowly a Resonance Is Attenuated",
-      layout: "content",
-      blocks: [
-        {
-          type: "twoColumn",
-          columns: [
-            {
-              title: "High Q",
-              items: [
-                {
-                  id: "high-q",
-                  text: "Narrow notch",
-                  detail:
-                    "Less collateral attenuation and phase effect, but easier to miss moving noise.",
-                },
-              ],
-            },
-            {
-              title: "Low Q",
-              items: [
-                {
-                  id: "low-q",
-                  text: "Wide notch",
-                  detail:
-                    "More robust coverage, but more useful bandwidth is disturbed.",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          type: "bullets",
-          title: "Relationship",
-          tone: "accent",
-          items: [
-            {
-              id: "q-equation",
-              text: "Q = f₀ / bandwidth",
-              detail:
-                "Bandwidth is conventionally measured between the −3 dB points.",
-            },
-            {
-              id: "q-purpose",
-              text: "RPM tracking reduces the need for a wide fixed notch",
-              detail:
-                "Center frequency follows motor speed instead of guessing one stationary frequency.",
-            },
-          ],
-        },
-      ],
-      notes: ["Connect Q back to the observed moving motor harmonics."],
     },
     {
       id: "appendix-motor-physics",
@@ -1495,7 +1421,7 @@ export const deck = {
     {
       id: "betaflight-sequence",
       sectionId: "validation",
-      title: "Betaflight Tuning Sequence",
+      title: "Betaflight Sequencing",
       layout: "content",
       composition: "default",
       blocks: [

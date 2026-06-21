@@ -312,6 +312,20 @@ button {
   width: min(100%, 56cqw);
 }
 
+/* New filtering appendix slides: single centered reference image, enlarged. */
+.slideCanvas.slide-appendix-low-pass-delay .slideBlocks,
+.slideCanvas.slide-appendix-motor-heating .slideBlocks,
+.slideCanvas.slide-appendix-hf-dterm .slideBlocks {
+  justify-items: center;
+  align-content: center;
+}
+
+.slideCanvas.slide-appendix-low-pass-delay .imageBlock,
+.slideCanvas.slide-appendix-motor-heating .imageBlock,
+.slideCanvas.slide-appendix-hf-dterm .imageBlock {
+  width: min(100%, 70cqw);
+}
+
 /* ESC slide: the plot is tall, so cap its width to keep it clear of the text,
    and center the two note boxes as a group on the slide. */
 .slideCanvas.slide-esc-actuator-bandwidth .slideBlocks {
@@ -363,6 +377,59 @@ button {
 }
 
 .slideCanvas.slide-final-tune .slideBlocks > .bulletBlock {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+}
+
+/* Post-filter result and delay summary stack to the left of the spectrum. */
+.slideCanvas.slide-post-filter-changes .slideBlocks {
+  grid-template-rows: auto auto;
+  gap: 0.9cqw 1.1cqw;
+}
+
+.slideCanvas.slide-post-filter-changes .imageBlock {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+.slideCanvas.slide-post-filter-changes .slideBlocks > .bulletBlock:nth-child(2) {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+}
+
+.slideCanvas.slide-post-filter-changes .slideBlocks > .bulletBlock:nth-child(3) {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+}
+
+/* Initial setpoint ("What is poor tracking?"): the setpoint trace spans the
+   left column, with the pitch trace and tracking notes stacked on the right. */
+.slideCanvas.slide-initial-setpoint .slideBlocks {
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: 0.9cqw 1.1cqw;
+}
+
+.slideCanvas.slide-initial-setpoint .slideBlocks > .imageBlock:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 100%;
+}
+
+.slideCanvas.slide-initial-setpoint .slideBlocks > .imageBlock:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  width: 100%;
+}
+
+.slideCanvas.slide-initial-setpoint .slideBlocks > .bulletBlock:nth-child(3) {
   grid-column: 2;
   grid-row: 2;
   align-self: start;
@@ -694,7 +761,9 @@ button {
 .slideCanvas.slide-drone .imageBlock {
   grid-column: 2;
   align-self: center;
-  width: 100%;
+  justify-self: center;
+  width: 106%;
+  transform: translateX(-1.2cqw);
 }
 
 /* Transparent PNG — drop the card border/fill so it sits on the page. */
@@ -1037,6 +1106,7 @@ button {
 /* PID 21.3 / 21.4 — pitch balance, pitch gain, and master multiplier are one
    seamless run: a single full-width plot centered identically on each, so
    advancing only swaps the image. */
+.slideCanvas.slide-pd-balance-intro .slideBlocks,
 .slideCanvas.slide-pitch-tuning-balance .slideBlocks,
 .slideCanvas.slide-pitch-tuning-gain .slideBlocks,
 .slideCanvas.slide-master-multiplier-tuning .slideBlocks {
@@ -1045,6 +1115,7 @@ button {
   align-content: center;
 }
 
+.slideCanvas.slide-pd-balance-intro .imageBlock,
 .slideCanvas.slide-pitch-tuning-balance .imageBlock,
 .slideCanvas.slide-pitch-tuning-gain .imageBlock,
 .slideCanvas.slide-master-multiplier-tuning .imageBlock {
