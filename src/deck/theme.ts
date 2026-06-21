@@ -32,10 +32,10 @@ export const theme = {
   typography: {
     display: 52,
     title: 29,
-    large: 22,
-    medium: 13,
-    support: 10,
-    chrome: 11,
+    large: 23,
+    medium: 15,
+    support: 12,
+    chrome: 12,
   },
 } as const;
 

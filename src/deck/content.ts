@@ -52,6 +52,33 @@ export const deck = {
       ],
     },
     {
+      id: "agenda",
+      sectionId: "objective",
+      title: "The Plan",
+      layout: "content",
+      composition: "default",
+      estimatedMinutes: 0.5,
+      blocks: [
+        {
+          type: "bullets",
+          tone: "accent",
+          items: [
+            { id: "agenda-goal", text: "Set the goal" },
+            { id: "agenda-problem", text: "Find what's broken" },
+            {
+              id: "agenda-diagnose",
+              text: "Diagnose in order",
+              detail: "Plant → sensor → controller",
+            },
+            { id: "agenda-validate", text: "Validate the fix" },
+          ],
+        },
+      ],
+      notes: [
+        "Roadmap slide — preview the arc so the audience can follow the diagnostic order.",
+      ],
+    },
+    {
       id: "objective",
       sectionId: "objective",
       title: "Objective",
@@ -141,8 +168,8 @@ export const deck = {
         },
         {
           type: "callout",
-          label: "The Challenge",
-          text: "Diagnose why a fresh build with frame-specific presets fails initial requirements.",
+          label: "The Problem",
+          text: "Unusable footage, unreliable motor temperatures that can crash the drone, and poor tracking to stick input all reduce pilot confidence and mission-critical performance.",
           tone: "accent",
         },
       ],
@@ -175,21 +202,18 @@ export const deck = {
           items: [
             {
               id: "vehicle",
-              label: "01",
+              label: "01 - Plant",
               title: "Mechanical",
-              description: "Plant",
             },
             {
               id: "filters",
-              label: "02",
+              label: "02 - Sensor",
               title: "Filtering / ESC",
-              description: "Sensor",
             },
             {
               id: "controller",
-              label: "03",
+              label: "03 - Controller",
               title: "PID / Feedforward",
-              description: "Controller",
             },
           ],
         },

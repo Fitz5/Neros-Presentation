@@ -550,16 +550,8 @@ function drawDiagnosticComposition(
       y,
       w: 3.85,
       h: 0.06,
-      fill: {
-        color: pptColor(
-          index === 1 ? theme.colors.accent : theme.colors.indigo,
-        ),
-      },
-      line: {
-        color: pptColor(
-          index === 1 ? theme.colors.accent : theme.colors.indigo,
-        ),
-      },
+      fill: { color: pptColor(theme.colors.nerosOrange) },
+      line: { color: pptColor(theme.colors.nerosOrange) },
     });
     slide.addText(item.label, {
       x: x + 0.22,
@@ -1354,16 +1346,8 @@ function drawTimeline(
       y: itemY,
       w: itemWidth,
       h: 0.04,
-      fill: {
-        color: pptColor(
-          index % 2 === 0 ? theme.colors.accent : theme.colors.coral,
-        ),
-      },
-      line: {
-        color: pptColor(
-          index % 2 === 0 ? theme.colors.accent : theme.colors.coral,
-        ),
-      },
+      fill: { color: pptColor(theme.colors.nerosOrange) },
+      line: { color: pptColor(theme.colors.nerosOrange) },
     });
 
     slide.addText(item.label, {

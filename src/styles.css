@@ -140,7 +140,7 @@ button {
   max-width: 72ch;
   margin: 0.75cqw 0 0;
   color: #5f6f73;
-  font-size: 1.2cqw;
+  font-size: 1.8cqw;
   line-height: 1.35;
 }
 
@@ -223,7 +223,7 @@ button {
 .slide-deck-title .slideSubtitle {
   margin-top: 1.15cqw;
   color: #435257;
-  font-size: 1.5cqw;
+  font-size: 1.8cqw;
 }
 
 .slide-cover .slideBlocks,
@@ -290,6 +290,66 @@ button {
 
 .slideCanvas.slide-qa .headlineBlock span {
   font-size: 1.75cqw;
+}
+
+/* Agenda ("The Plan"): four roadmap cards styled like the Objective
+   requirement cards on the next slide, staggered vertically around a shared
+   centerline (odds rise, evens drop) and wrapping if space is tight. */
+.slideCanvas.slide-agenda .slideBlocks {
+  align-content: center;
+}
+
+.slideCanvas.slide-agenda .bulletList {
+  grid-template-columns: repeat(auto-fit, minmax(16cqw, 1fr));
+  gap: 1.6cqw;
+  align-items: center;
+  counter-reset: agenda;
+}
+
+.slideCanvas.slide-agenda .bulletMark {
+  display: none;
+}
+
+.slideCanvas.slide-agenda .bulletItem {
+  counter-increment: agenda;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  gap: 0.55cqw;
+  min-height: 13cqw;
+  padding: 1.35cqw 1.2cqw;
+  border: 1px solid rgba(29, 37, 40, 0.14);
+  border-top: 0.32cqw solid var(--neros-orange);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.74);
+  text-align: center;
+}
+
+.slideCanvas.slide-agenda .bulletItem::before {
+  content: counter(agenda, decimal-leading-zero);
+  margin-top: -0.6cqw;
+  color: var(--neros-orange);
+  font-size: 1.85cqw;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.slideCanvas.slide-agenda .bulletItem strong {
+  font-size: var(--type-large) !important;
+  line-height: 1.15;
+}
+
+.slideCanvas.slide-agenda .bulletItem p {
+  margin-top: 0.3cqw;
+  font-size: 1.45cqw !important;
+}
+
+.slideCanvas.slide-agenda .bulletItem:nth-child(odd) {
+  transform: translateY(-2.6cqw);
+}
+
+.slideCanvas.slide-agenda .bulletItem:nth-child(even) {
+  transform: translateY(2.6cqw);
 }
 
 /* Camera-jello footage: a single large centered frame. */
@@ -762,7 +822,7 @@ button {
   grid-column: 2;
   align-self: center;
   justify-self: center;
-  width: 106%;
+  width: 117%;
   transform: translateX(-1.2cqw);
 }
 
@@ -847,6 +907,7 @@ button {
 .rendered-diagnostic-method--order .timelineItem {
   min-height: 11.5cqw;
   padding: 1.2cqw;
+  border-top-color: var(--neros-orange);
 }
 
 .rendered-diagnostic-method--order .timelineItem span {
@@ -945,6 +1006,27 @@ button {
 
 .slideCanvas.slide-jello-mechanism .bulletItem strong {
   font-size: 1.2cqw !important;
+}
+
+/* The left-column text boxes (mechanism + assumptions) read small next to the
+   equations, so enlarge only their titles and bullet text — the right-column
+   equation boxes (nth-child 5/6) keep their math sizing. */
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(3) h2,
+.slideCanvas.slide-jello-mechanism .slideBlocks > .bulletBlock:nth-child(4) h2 {
+  font-size: 1.7cqw;
+}
+
+.slideCanvas.slide-jello-mechanism
+  .slideBlocks
+  > .bulletBlock:nth-child(3)
+  .bulletItem
+  strong,
+.slideCanvas.slide-jello-mechanism
+  .slideBlocks
+  > .bulletBlock:nth-child(4)
+  .bulletItem
+  strong {
+  font-size: 1.5cqw !important;
 }
 
 /* The frequency math is the point of the slide — keep it large and readable. */
@@ -1076,7 +1158,7 @@ button {
   min-height: 0;
   padding: 0.75cqw 1cqw;
   border-top: 0;
-  border-left: 0.32cqw solid #2f855a;
+  border-left: 0.32cqw solid var(--neros-orange);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.74);
 }
@@ -1087,7 +1169,7 @@ button {
   left: 50%;
   bottom: -2.4cqw;
   transform: translateX(-50%);
-  color: #2f855a;
+  color: var(--neros-orange);
   font-size: 2.5cqw;
   font-weight: 900;
   line-height: 1;
@@ -1137,7 +1219,7 @@ button {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   column-gap: 1cqw;
-  width: min(100%, 52cqw);
+  width: min(100%, 44cqw);
   justify-self: start;
 }
 
@@ -1413,6 +1495,23 @@ button {
   font-size: var(--type-chrome);
 }
 
+/* Enlarge the top progress bar specifically (labels + number badges + row
+   height), separately from the footer which shares --type-chrome. */
+.progressTopic {
+  min-height: 3.1cqw;
+  padding: 0.45cqw 0.7cqw;
+}
+
+.progressLabel {
+  font-size: 1.45cqw;
+}
+
+.progressNumber {
+  width: 2.4cqw;
+  height: 2.4cqw;
+  font-size: 1.15cqw;
+}
+
 .slideTitle {
   max-width: 96%;
   padding-top: 0.8cqw;
@@ -1430,11 +1529,11 @@ button {
 }
 
 .slideSubtitle {
-  font-size: 1.2cqw;
+  font-size: 1.8cqw;
 }
 
 .slideKicker {
-  margin-bottom: 0.25cqw;
+  margin-bottom: 0.55cqw;
 }
 
 .slideSubtitle {
@@ -1754,6 +1853,13 @@ button {
   width: 100%;
 }
 
+/* Spectral-evidence pair (200 Hz resonance, with/without RPM overlay): the
+   stacked dual plots run tall, so cap them identically to clear the title. */
+.slideCanvas.slide-spectral-evidence .imageBlock,
+.slideCanvas.slide-spectral-evidence-rpm .imageBlock {
+  width: min(100%, 48cqw);
+}
+
 .composition-mediaAnalysis :is(.bulletBlock, .calloutBlock) {
   grid-column: 2;
   padding: 0.85cqw;
@@ -1806,7 +1912,7 @@ button {
 .composition-cover .slideSubtitle,
 .slide-cover .slideSubtitle,
 .slide-deck-title .slideSubtitle {
-  font-size: 1.5cqw;
+  font-size: 1.8cqw;
 }
 
 .composition-cover .headlineBlock h2,
