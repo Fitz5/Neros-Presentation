@@ -665,26 +665,6 @@ export const deck = {
       ],
     },
     {
-      id: "filter-knobs",
-      sectionId: "filtering",
-      title: "Knobs to Turn",
-      layout: "content",
-      composition: "default",
-      estimatedMinutes: 1,
-      blocks: [
-        {
-          type: "image",
-          src: deckImage("betaflight-knobs.png"),
-          alt: "Overview of the Betaflight filter configuration knobs.",
-          caption: "Credit: Oscar Liang",
-          aspectRatio: 1.1915,
-        },
-      ],
-      notes: [
-        "Reference for the filter controls available in Betaflight.",
-      ],
-    },
-    {
       id: "rpm-filter-diagnosis",
       sectionId: "filtering",
       title: "Dynamic Notch Incorrectly Acting on Motor RPM",
@@ -1006,7 +986,7 @@ export const deck = {
       id: "pitch-tuning-balance",
       sectionId: "pid",
       title: "Pitch Tuning — P/D Balance",
-      subtitle: "Pitch gets its own balance — higher inertia needs higher gains.",
+      subtitle: "Find critically damped pitch gain. Higher moment of inertia on pitch.",
       layout: "content",
       composition: "default",
       estimatedMinutes: 1,
@@ -1017,23 +997,6 @@ export const deck = {
           alt: "Pitch P/D balance step-response comparison.",
           aspectRatio: 2.3255,
         },
-        {
-          type: "bullets",
-          title: "Goal",
-          tone: "accent",
-          items: [
-            {
-              id: "balance-latency",
-              text: "Match pitch latency to roll",
-              detail: "Comparable response feel across both axes.",
-            },
-            {
-              id: "balance-inertia",
-              text: "Higher moment of inertia on pitch",
-              detail: "Pitch needs higher gains to keep up with roll.",
-            },
-          ],
-        },
       ],
       notes: [
         "Match pitch latency to roll; higher pitch inertia needs higher gains.",
@@ -1043,7 +1006,7 @@ export const deck = {
       id: "pitch-tuning-gain",
       sectionId: "pid",
       title: "Pitch Tuning — P/D Gain",
-      subtitle: "Pitch gets its own balance — higher inertia needs higher gains.",
+      subtitle: "Systematically decrease pitch latency.",
       layout: "content",
       composition: "default",
       estimatedMinutes: 1,
@@ -1054,23 +1017,6 @@ export const deck = {
           alt: "Pitch P/D gain coefficient comparison.",
           aspectRatio: 2.5008,
         },
-        {
-          type: "bullets",
-          title: "Goal",
-          tone: "accent",
-          items: [
-            {
-              id: "gain-latency",
-              text: "Match pitch latency to roll",
-              detail: "Comparable response feel across both axes.",
-            },
-            {
-              id: "gain-inertia",
-              text: "Higher moment of inertia on pitch",
-              detail: "Pitch needs higher gains to keep up with roll.",
-            },
-          ],
-        },
       ],
       notes: [
         "A copied roll value is unreliable on pitch because the seven-inch mass distribution differs between axes.",
@@ -1080,37 +1026,20 @@ export const deck = {
       id: "master-multiplier-tuning",
       sectionId: "pid",
       title: "Master Multiplier",
-      subtitle: "Scale overall gain once the response shape is set.",
-      layout: "comparison",
+      subtitle: "Raising the master multiplier to lower latency.",
+      layout: "content",
+      composition: "default",
       estimatedMinutes: 1.25,
       blocks: [
         {
           type: "image",
           src: deckImage("master-multiplier-test.png"),
           alt: "Master-multiplier step-test comparison.",
-          caption: "Master-multiplier step test",
           aspectRatio: 2.4637,
-        },
-        {
-          type: "bullets",
-          title: "Effect",
-          tone: "accent",
-          items: [
-            {
-              id: "mm-damping",
-              text: "Raising MM slightly increases damping",
-              detail: "More authority brings more damping with it.",
-            },
-            {
-              id: "mm-nonlinear",
-              text: "The damping ratio changes non-linearly",
-              detail: "It is not directly proportional to the multiplier.",
-            },
-          ],
         },
       ],
       notes: [
-        "Possible appendix slide: the math relating damping ratio to master multiplier (not directly proportional).",
+        "Raising the master multiplier slightly increases damping; the damping ratio changes non-linearly.",
       ],
     },
     {

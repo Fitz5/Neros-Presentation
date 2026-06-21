@@ -254,13 +254,18 @@ button {
   display: none;
 }
 
+/* The hidden title would otherwise let grid auto-placement pull the blocks up
+   into its row and float the footer into the 1fr row, so pin both explicitly. */
 .slideCanvas.slide-qa .slideBlocks {
+  grid-row: 3;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-content: stretch;
+  align-content: center;
   justify-items: center;
-  gap: 0;
-  padding-top: 0;
+  gap: 3cqw;
+}
+
+.slideCanvas.slide-qa .slideFooter {
+  grid-row: 4;
 }
 
 .slideCanvas.slide-qa .headlineBlock {
@@ -277,23 +282,13 @@ button {
   font-size: 4.6cqw;
 }
 
-.slideCanvas.slide-qa .headlineBlock:first-child {
-  grid-row: 2;
-}
-
-.slideCanvas.slide-qa .headlineBlock:last-child {
-  grid-row: 3;
-  align-self: start;
-  margin-top: 1cqw;
-}
-
 .slideCanvas.slide-qa .headlineBlock:last-child h2 {
-  margin-bottom: 0.5cqw;
+  margin-bottom: 1.2cqw;
   font-size: 2.4cqw;
 }
 
 .slideCanvas.slide-qa .headlineBlock span {
-  font-size: 1.3cqw;
+  font-size: 1.75cqw;
 }
 
 /* Camera-jello footage: a single large centered frame. */
@@ -878,17 +873,6 @@ button {
   align-self: start;
 }
 
-/* Knobs reference: a single centered figure. */
-.slideCanvas.slide-filter-knobs .slideBlocks {
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  align-content: center;
-}
-
-.slideCanvas.slide-filter-knobs .imageBlock {
-  width: min(100%, 40cqw);
-}
-
 /* PID 21.1 — tuning method: figure left, vertical step flow with arrows right. */
 .slideCanvas.slide-pid-tuning-method .slideBlocks {
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -944,26 +928,21 @@ button {
   justify-self: center;
 }
 
-/* PID 21.3 — pitch tuning split into two seamless slides: one plot on the left
-   with the goal notes on the right (same positions so advancing swaps the image). */
+/* PID 21.3 / 21.4 — pitch balance, pitch gain, and master multiplier are one
+   seamless run: a single full-width plot centered identically on each, so
+   advancing only swaps the image. */
 .slideCanvas.slide-pitch-tuning-balance .slideBlocks,
-.slideCanvas.slide-pitch-tuning-gain .slideBlocks {
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+.slideCanvas.slide-pitch-tuning-gain .slideBlocks,
+.slideCanvas.slide-master-multiplier-tuning .slideBlocks {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
   align-content: center;
-  gap: 1.2cqw;
 }
 
 .slideCanvas.slide-pitch-tuning-balance .imageBlock,
-.slideCanvas.slide-pitch-tuning-gain .imageBlock {
-  grid-column: 1;
-  align-self: center;
-  width: 100%;
-}
-
-.slideCanvas.slide-pitch-tuning-balance .bulletBlock,
-.slideCanvas.slide-pitch-tuning-gain .bulletBlock {
-  grid-column: 2;
-  align-self: center;
+.slideCanvas.slide-pitch-tuning-gain .imageBlock,
+.slideCanvas.slide-master-multiplier-tuning .imageBlock {
+  width: min(100%, 86cqw);
 }
 
 /* PID 21.5 — feedforward: stacked traces on the left with each plot's label to
