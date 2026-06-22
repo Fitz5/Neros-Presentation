@@ -54,7 +54,7 @@ export const deck = {
     {
       id: "agenda",
       sectionId: "objective",
-      title: "The Plan",
+      title: "The Presentation Plan",
       layout: "content",
       composition: "default",
       estimatedMinutes: 0.5,
@@ -169,7 +169,7 @@ export const deck = {
         {
           type: "callout",
           label: "The Problem",
-          text: "Unusable footage, unreliable motor temperatures that can crash the drone, and poor tracking to stick input all reduce pilot confidence and mission-critical performance.",
+          text: "Unusable footage, motors hot enough to fail mid-flight, sluggish stick response. Each erodes pilot confidence and mission performance.",
           tone: "accent",
         },
       ],
@@ -299,7 +299,6 @@ export const deck = {
           title: "Assumptions",
           items: [
             { id: "jm-assume-fps", text: "FPS = 60" },
-            { id: "jm-assume-frame", text: "Frame time = 16.67 ms" },
             { id: "jm-assume-tscan", text: "Tscan = 16 ms" },
             { id: "jm-assume-fvib", text: "fvib = 200 Hz" },
           ],
@@ -895,6 +894,23 @@ export const deck = {
       ],
       notes: [
         "Once the signal path held up, PID tuning became evidence instead of compensation.",
+      ],
+    },
+    {
+      id: "dyn-notch-separation",
+      sectionId: "filtering",
+      title: "Dyn. Notch 1 Seperation",
+      layout: "content",
+      composition: "default",
+      estimatedMinutes: 1,
+      blocks: [
+        {
+          type: "image",
+          src: deckImage("post-filtering-freq-vs-time.png"),
+          alt: "Post-filtering frequency versus time spectrogram showing dynamic notch 1 separation.",
+          caption: "Post-filtering frequency vs. time",
+          aspectRatio: 2.4991,
+        },
       ],
     },
     {
